@@ -79,6 +79,7 @@ jobs:
           RELEASE_VERSION: ${{ inputs.version }}
           CWS_REPLACE_PENDING: ${{ inputs.replace_pending || false }}
           CWS_SERVICE_ACCOUNT_JSON: ${{ secrets.CWS_SERVICE_ACCOUNT_JSON }}
+          # Public Chrome publisher identifier, not an access token (secret-scanning alert #1).
           CWS_PUBLISHER_ID: '1c6b83a4-2400-48e1-a6c4-dc1923710ec5'
           CWS_EXTENSION_ID: alopdmlliacajfcgnphmojmneanikbdg
         run: node scripts/publish-stores.mjs chrome

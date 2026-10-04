@@ -25,6 +25,15 @@ The Chrome identity is `maplescouter-store-publisher@tomerh-home-server.iam.gser
 
 The IDs are fixed in the workflow: Chrome publisher `1c6b83a4-2400-48e1-a6c4-dc1923710ec5`, Chrome item `alopdmlliacajfcgnphmojmneanikbdg`, and Firefox GUID `maplescouter-enhancements@tomerh2001.github.io` (AMO ID `3066766`).
 
+The Chrome publisher ID is a non-secret identifier used in API paths;
+authentication uses a separate OAuth bearer token generated from
+`CWS_SERVICE_ACCOUNT_JSON`. GitHub secret-scanning alert #1 matched the publisher
+ID to an OpenVSX token pattern. The flagged value exactly matches
+`CWS_PUBLISHER_ID`, so it is a false positive. See Google's
+[publisher ID and authentication documentation](https://developer.chrome.com/docs/webstore/using-api#obtain_your_publisher_id).
+Keep secret scanning enabled; do not revoke publishing credentials or rewrite
+Git history for this identifier.
+
 Retries first check the store. Published and pending versions are reused, source/notes can be completed after a partial Firefox submission, and a rejected version or a different pending Chrome version stops with an error. Mutating requests are not blindly retried after timeouts. To replace an older pending Chrome review with a newer verified release, run the manual workflow with `replace_pending: true`. It confirms cancellation before uploading. The default leaves other pending reviews untouched, and a newer pending version is never canceled.
 
 Normal releases update the packages, not the listing screenshots or privacy declarations. Update those in the dashboards when the product or its data handling changes. The manual instructions below remain useful for first-time setup and recovery.
