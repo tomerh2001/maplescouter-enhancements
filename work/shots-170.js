@@ -12,7 +12,7 @@ const puppeteer = require('puppeteer'); const path = require('path'); const fs =
 const OUT = process.env.OUT_DIR || path.join(__dirname, '..', 'extension', 'store-assets');
 const STUB = 'http://localhost:8080';
 const NEXON = 'https://www.nexon.com/api/maplestory/no-auth/ranking/v2/na?type=overall&id=weekly&reboot_index=0&page_index=1';
-const UA = 'Mozilla/5.0 (compatible; maplescouter-en-fix shots/1.7; +https://github.com/tomerh2001/maplescouter-en-fix)';
+const UA = 'Mozilla/5.0 (compatible; maplescouter-en-fix shots/1.7; +https://github.com/tomerh2001/maplescouter-enhancements)';
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
 // Demo characters: label, the site's class key (Korean), level, main stat, ranking job name used to pick a sprite.

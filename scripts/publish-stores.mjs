@@ -4,6 +4,10 @@ import { pathToFileURL } from 'node:url';
 
 const CHROME_API = 'https://chromewebstore.googleapis.com';
 const AMO_API = 'https://addons.mozilla.org/api/v5';
+export const FIREFOX_LISTING_LINKS = {
+  homepage: { 'en-US': 'https://github.com/tomerh2001/maplescouter-enhancements' },
+  support_url: { 'en-US': 'https://github.com/tomerh2001/maplescouter-enhancements/issues' },
+};
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const encode = value => Buffer.from(JSON.stringify(value)).toString('base64url');
 export const APPROVAL_NOTES = 'msfix-data.js is generated translation data, not minified or obfuscated code. The attached source includes data/, src/, build.js, build-extension.js, and BUILD.md. Run node build.js && node build-extension.js with Node.js 20 or newer and zip installed to reproduce both packages. This update preserves the preset region on load and fixes cloud error handling. Cloud uploads remain explicit.';
@@ -92,6 +96,14 @@ export async function publishFirefox({ version, addonId, key, secret, zip, sourc
   const detail = (await call(`${addon}/`)).body;
   if (detail.is_disabled) throw new Error('Firefox listing is disabled; resolve it in the dashboard');
   if (detail.current_version && compareVersions(detail.current_version.version, version) > 0) return { store: 'firefox', version, state: 'SUPERSEDED' };
+  // AMO keeps listing metadata separate from package manifests. PATCH merges only
+  // the supplied locales: https://mozilla.github.io/addons-server/topics/api/overview.html
+  const linksMatch = value => Object.entries(FIREFOX_LISTING_LINKS).every(([field, translations]) =>
+    Object.entries(translations).every(([locale, url]) => value[field]?.url?.[locale] === url));
+  if (!linksMatch(detail)) {
+    await call(`${addon}/`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(FIREFOX_LISTING_LINKS) });
+    if (!linksMatch((await call(`${addon}/`)).body)) throw new Error('Firefox listing links could not be verified');
+  }
   const existing = await call(`${addon}/versions/${version}/`, {}, [404]);
   let result;
   if (existing.status !== 404) {

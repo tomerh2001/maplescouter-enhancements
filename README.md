@@ -13,16 +13,16 @@ MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence
 **Tampermonkey:**
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/) (Chrome/Arc/Edge/Firefox/Safari).
-2. Click here: **[Install MapleScouter Enhancements](https://raw.githubusercontent.com/tomerh2001/maplescouter-en-fix/main/dist/maplescouter-en-fix.user.js)** — Tampermonkey will show an install prompt.
+2. Click here: **[Install MapleScouter Enhancements](https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js)** — Tampermonkey will show an install prompt.
 3. Open [maplescouter.com](https://maplescouter.com). Done.
 
-For development, download the matching ZIP from [GitHub Releases](https://github.com/tomerh2001/maplescouter-en-fix/releases/latest). Unzip the Chrome package and use **Load unpacked** in `chrome://extensions`. For Firefox, use **Load Temporary Add-on** in `about:debugging`; temporary installs are removed when Firefox closes.
+For development, download the matching ZIP from [GitHub Releases](https://github.com/tomerh2001/maplescouter-enhancements/releases/latest). Unzip the Chrome package and use **Load unpacked** in `chrome://extensions`. For Firefox, use **Load Temporary Add-on** in `about:debugging`; temporary installs are removed when Firefox closes.
 
 Tampermonkey checks for userscript updates automatically; you can also request a check from its dashboard. GitHub releases are available before marketplace reviews finish, so store versions may briefly lag behind.
 
 ## Releases and store publishing
 
-GitHub Actions handles both stores. Bump `@version` in the userscript, rebuild, and push the release changes to `main`. The Release workflow creates the GitHub release, then calls [Publish marketplaces](https://github.com/tomerh2001/maplescouter-en-fix/actions/workflows/publish-stores.yml).
+GitHub Actions handles both stores. Bump `@version` in the userscript, rebuild, and push the release changes to `main`. The Release workflow creates the GitHub release, then calls [Publish marketplaces](https://github.com/tomerh2001/maplescouter-enhancements/actions/workflows/publish-stores.yml).
 
 The publishing workflow checks the released ZIPs against a fresh build of the release tag, then submits Chrome and Firefox independently. Firefox receives the source archive, build instructions, reviewer notes, and release notes as part of the submission.
 

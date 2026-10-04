@@ -1,13 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { publishChrome, publishFirefox, checkVersion, compareVersions, amoJWT } from '../scripts/publish-stores.mjs';
+import { publishChrome, publishFirefox, checkVersion, compareVersions, amoJWT, FIREFOX_LISTING_LINKS } from '../scripts/publish-stores.mjs';
 
 const version = '1.7.1';
 const revision = (v, state) => ({ state, distributionChannels: [{ crxVersion: v, deployPercentage: 100 }] });
 const chrome = { version, publisherId: 'publisher-id', itemId: 'alopdmlliacajfcgnphmojmneanikbdg', token: 'test-token', zip: new Uint8Array([1]), sleep: async () => {}, attempts: 2 };
 const firefox = { version, addonId: 'example@test', key: 'test-key', secret: 'test-secret', zip: new Uint8Array([1]), source: new Uint8Array([2]), notes: 'Fix region loading.', sleep: async () => {}, attempts: 2 };
 const amoVersion = overrides => ({ id: 123, version, channel: 'listed', file: { status: 'unreviewed' }, source: 'https://addons.mozilla.org/source.zip', ...overrides });
+const amoDetail = { homepage: { url: FIREFOX_LISTING_LINKS.homepage }, support_url: { url: FIREFOX_LISTING_LINKS.support_url } };
 
 function mock(steps) {
   const calls = [];
@@ -89,7 +90,7 @@ test('mutation timeouts are not blindly retried', async () => {
 });
 test('Firefox submits listed package, source, reviewer notes and release notes', async () => {
   const m = mock([
-    { path: '/addons/addon/example%40test/', body: {} },
+    { path: '/addons/addon/example%40test/', body: amoDetail },
     { path: `/versions/${version}/`, status: 404, body: {} },
     { path: '/addons/upload/', method: 'POST', body: { uuid: 'upload-id', processed: false }, check: init => assert.equal(init.body.get('channel'), 'listed') },
     { path: '/addons/upload/upload-id/', body: { uuid: 'upload-id', processed: true, valid: true, version } },
@@ -102,7 +103,7 @@ test('Firefox submits listed package, source, reviewer notes and release notes',
 });
 test('Firefox retries repair missing source without creating another version', async () => {
   const m = mock([
-    { path: '/addons/addon/example%40test/', body: {} },
+    { path: '/addons/addon/example%40test/', body: amoDetail },
     { path: `/versions/${version}/`, body: amoVersion({ source: null }) },
     { path: '/versions/123/', method: 'PATCH', body: amoVersion(), check: init => assert.ok(init.body.get('source') instanceof Blob) },
     { path: '/versions/123/', method: 'PATCH', body: amoVersion() },
@@ -111,16 +112,33 @@ test('Firefox retries repair missing source without creating another version', a
   await publishFirefox({ ...firefox, fetchImpl: m.fetchImpl }); m.complete();
 });
 test('Firefox leaves an approved version untouched', async () => {
-  const m = mock([{ path: '/addons/addon/example%40test/', body: {} }, { path: `/versions/${version}/`, body: amoVersion({ file: { status: 'public' } }) }]);
+  const m = mock([{ path: '/addons/addon/example%40test/', body: amoDetail }, { path: `/versions/${version}/`, body: amoVersion({ file: { status: 'public' } }) }]);
   assert.equal((await publishFirefox({ ...firefox, fetchImpl: m.fetchImpl })).state, 'PUBLISHED'); m.complete();
 });
+test('Firefox repairs listing links without changing an approved package or historical notes', async () => {
+  const m = mock([
+    { path: '/addons/addon/example%40test/', body: { homepage: { url: { 'en-US': 'https://github.com/tomerh2001/previous-name', fr: 'https://example.org/fr' } } } },
+    { path: '/addons/addon/example%40test/', method: 'PATCH', body: amoDetail, check: init => assert.deepEqual(JSON.parse(init.body), FIREFOX_LISTING_LINKS) },
+    { path: '/addons/addon/example%40test/', body: amoDetail },
+    { path: `/versions/${version}/`, body: amoVersion({ file: { status: 'public' } }) },
+  ]);
+  assert.equal((await publishFirefox({ ...firefox, fetchImpl: m.fetchImpl })).state, 'PUBLISHED'); m.complete();
+});
+test('Firefox stops when saved listing links do not match the requested links', async () => {
+  const m = mock([
+    { path: '/addons/addon/example%40test/', body: {} },
+    { path: '/addons/addon/example%40test/', method: 'PATCH', body: amoDetail },
+    { path: '/addons/addon/example%40test/', body: {} },
+  ]);
+  await assert.rejects(publishFirefox({ ...firefox, fetchImpl: m.fetchImpl }), /listing links could not be verified/); m.complete();
+});
 for (const data of [{ channel: 'unlisted' }, { file: { status: 'disabled' } }, { is_disabled: true }]) test(`Firefox refuses incompatible existing state ${JSON.stringify(data)}`, async () => {
-  const m = mock([{ path: '/addons/addon/example%40test/', body: {} }, { path: `/versions/${version}/`, body: amoVersion(data) }]);
+  const m = mock([{ path: '/addons/addon/example%40test/', body: amoDetail }, { path: `/versions/${version}/`, body: amoVersion(data) }]);
   await assert.rejects(publishFirefox({ ...firefox, fetchImpl: m.fetchImpl })); m.complete();
 });
 test('Firefox validation errors never become a submitted version', async () => {
   const m = mock([
-    { path: '/addons/addon/example%40test/', body: {} },
+    { path: '/addons/addon/example%40test/', body: amoDetail },
     { path: `/versions/${version}/`, status: 404, body: {} },
     { path: '/addons/upload/', method: 'POST', body: { uuid: 'id', processed: true, valid: false, version } }
   ]);

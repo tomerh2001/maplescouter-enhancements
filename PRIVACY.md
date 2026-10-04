@@ -28,4 +28,4 @@ Apart from the cloud sync above, none. The extension performs all of its work lo
 The extension is not affiliated with maplescouter.com or Nexon. All MapleStory game data is © Nexon.
 
 ## Contact
-Questions or issues: https://github.com/tomerh2001/maplescouter-en-fix/issues
+Questions or issues: https://github.com/tomerh2001/maplescouter-enhancements/issues

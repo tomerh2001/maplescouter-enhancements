@@ -19,6 +19,19 @@ Outputs:
 - `dist/maplescouter-en-fix.user.js` and `dist/msfix-data.js` (Tampermonkey)
 
 ## What is generated
+
+If the host has no `zip` command and its operating system does not support
+installing packages, run the normal build inside a disposable container:
+
+```bash
+docker run --rm -v "$PWD:/work" -w /work \
+  -e BUILD_UID="$(id -u)" -e BUILD_GID="$(id -g)" node:20-alpine sh -c \
+  'apk add --no-cache zip su-exec >/dev/null && su-exec "$BUILD_UID:$BUILD_GID" sh -c "node build.js && node build-extension.js"'
+```
+
+The container installs its own dependencies and writes the build outputs as the
+checkout owner. It does not install packages on the host.
+
 - `scripts/translation-overrides.cjs` applies reviewed `data/overrides/*.json` entries after the original tables. This helper is included in the reviewer source archive.
 - `msfix-data.js` is `window.__MSFIX_DATA__ = {...}`: the JSON translation tables from `data/` (i18n patch, dictionary, regex rules, CSS fixes) assigned to one global. It is data, not transpiled or minified code.
 - `maplescouter-en-fix.js` inside the extension is `src/maplescouter-en-fix.user.js` with the `==UserScript==` header removed. Nothing else is transformed.

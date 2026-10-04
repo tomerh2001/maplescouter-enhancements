@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.4
+// @version      1.7.5
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -9,11 +9,12 @@
 // @match        https://www.maplescouter.com/*
 // @run-at       document-start
 // @grant        none
-// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-en-fix/main/dist/msfix-data.js?v=1.7.4
-// @updateURL    https://raw.githubusercontent.com/tomerh2001/maplescouter-en-fix/main/dist/maplescouter-en-fix.user.js
-// @downloadURL  https://raw.githubusercontent.com/tomerh2001/maplescouter-en-fix/main/dist/maplescouter-en-fix.user.js
-// @supportURL   https://github.com/tomerh2001/maplescouter-en-fix/issues
+// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.5
+// @updateURL    https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
+// @downloadURL  https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
+// @supportURL   https://github.com/tomerh2001/maplescouter-enhancements/issues
 // ==/UserScript==
+// The namespace identifies existing installs; navigational and update URLs use the renamed repository.
 
 /*
  * How it works (4 layers):
@@ -479,7 +480,7 @@
   // it just below the logo. It is a <span> (a nested <a> is invalid) with a click
   // handler opening the repo, and every size/weight is forced with !important so the
   // site's CSS cannot inflate it. Re-applied after React re-renders by fixLogo().
-  var CREDIT_URL = 'https://github.com/tomerh2001/maplescouter-en-fix';
+  var CREDIT_URL = 'https://github.com/tomerh2001/maplescouter-enhancements';
   function addCredit(link) {
     if (link.querySelector('.msfix-credit')) return;
     if (!link.offsetHeight || !link.offsetWidth) return; // not laid out yet; retry next tick

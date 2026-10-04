@@ -2,8 +2,29 @@
 
 The weekly Codex task runs on Thursday at 10:00 Asia/Jerusalem. Its scope includes site changes, translations, layout, compatibility, tests, GitHub releases, and submissions to both existing marketplace listings. Store approval remains Google's and Mozilla's decision. Both submissions request publication as soon as review allows it.
 
-Repository: `tomerh2001/maplescouter-en-fix`.
-Local checkout: `/Users/tomerh2001/Desktop/Projects/maplescouter-en-fix`.
+Repository: `tomerh2001/maplescouter-enhancements`.
+Scheduled Mac checkout: `/Users/tomerh2001/Desktop/Projects/maplescouter-en-fix`.
+The directory name is local and does not change when GitHub renames the repository.
+Server checkout: `/mnt/Pool/System/Home/tomerh2001/projects/tomerh2001/maplescouter-enhancements`.
+
+## Interrupted runs and repository renames
+
+The scheduled Codex task performs the audit; GitHub Actions only releases changes
+pushed to `main`. A successful release job does not prove the weekly task ran.
+Check the scheduled run's final status and its dated report separately.
+
+If a run stops during browser checks, preserve its uncommitted source, data,
+tests, and audit output. Record the completed checks and the remaining coverage
+before retrying. A failed or interrupted browser check is incomplete coverage,
+not evidence that no update is needed. On recovery, compare the work with the
+current remote branch and select a version newer than the latest release.
+
+After a repository rename, update checkout remotes and the saved task's GitHub
+reference. Change its working directory only after moving the actual checkout.
+Keep userscript namespaces and store extension IDs stable: they identify
+installed copies. Update navigational, download, update, and support links.
+Firefox's release job verifies the listing homepage and support links separately
+from the package manifest. Chrome listing links require its publisher dashboard.
 
 ## Audit
 
