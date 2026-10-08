@@ -114,3 +114,24 @@ html[data-msfix-route="ability"] main button[class*="h-[54px]"] > span {
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
+
+/* Soul simulator probability tables use five narrow fixed-width columns.
+   Wrap English headers and counts instead of painting over adjacent cells. */
+html[data-msfix-route="soul"] main table th,
+html[data-msfix-route="soul"] main table td {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.3;
+}
+html[data-msfix-route="soul"] main table th {
+  font-size: 11px;
+  padding: 6px 3px;
+}
+html[data-msfix-route="soul"] main table td button {
+  white-space: normal;
+}
+html[data-msfix-route="soul"] main button[class*="h-[54px]"] {
+  height: auto;
+  min-height: 54px;
+  white-space: normal;
+}

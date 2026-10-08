@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.5
+// @version      1.7.6
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -261,6 +261,10 @@
   // Inner Ability builds these labels outside i18next. Match complete, known
   // expressions before the older broad suffix rules, without changing game data.
   function abilityText(t, d) {
+    var constraint = t.match(/^지금 (레어|에픽|유니크|레전드리) 줄이라 (레어|에픽|유니크|레전드리) 목표를 채울 수 없습니다$/);
+    if (constraint) return 'This line is ' + d.dict[constraint[1]] + ', so it cannot reach a ' + d.dict[constraint[2]] + ' target.';
+    constraint = t.match(/^이 줄은 최대 (\d+(?:\.\d+)?)까지만 나옵니다$/);
+    if (constraint) return 'This line can roll ' + constraint[1] + ' at most.';
     var range = t.match(/^(레어|에픽|유니크|레전드리) (.+) : (\d+(?:\.\d+)?) ~ (\d+(?:\.\d+)?)$/);
     if (range && d.dict[range[2]]) return d.dict[range[1]] + ' ' + d.dict[range[2]] + ': ' + range[3] + ' to ' + range[4];
     var advancedIntro = '레전드리 전용. 명성치와 메소를 함께 쓰고 등급 상승은 없지만, 2·3번째 옵션도 레전드리가 나올 수 있습니다 (';
@@ -318,8 +322,42 @@
     return null;
   }
 
+  // The Soul simulator assembles these labels at runtime. Keep stage, count,
+  // rank and cost values intact instead of translating isolated Korean runs.
+  function soulText(t, d) {
+    var badge = t.match(/^무기 소울 잠재 증폭 ([1-4])단계$/);
+    if (badge) return 'Weapon Soul Potential amplification: Stage ' + badge[1];
+    var m = t.match(/^소울 증폭 \(([1-4])단계 도전\)$/);
+    if (m) return 'Amplify Soul (Stage ' + m[1] + ')';
+    m = t.match(/^소울 증폭 ([1-4])단계(?: · (레어|에픽|유니크|레전드리))?$/);
+    if (m) return 'Soul Amplification stage ' + m[1] + (m[2] ? ' · ' + d.dict[m[2]] : '');
+    m = t.match(/^천장까지 ([\d,]+)회$/);
+    if (m) return m[1] + ' attempts until guaranteed';
+    m = t.match(/^([1-4])단계 소울 에테르$/);
+    if (m) return 'Stage ' + m[1] + ' Soul Ether';
+    m = t.match(/^(.+) — 증폭 ([1-4])단계 · (레어|에픽|유니크|레전드리) 잠재를 불러왔습니다$/);
+    if (m) return (d.dict[m[1]] || m[1]) + ': Amplification stage ' + m[2] + ', ' + d.dict[m[3]] + ' Potential loaded.';
+    m = t.match(/^(.+) — 소울 증폭 전 상태로 시작합니다$/);
+    if (m) return (d.dict[m[1]] || m[1]) + ': starting without Soul Amplification.';
+    m = t.match(/^(.+) — 소울 잠재 옵션을 확률표에서 찾지 못해 (레어|에픽|유니크|레전드리) 등급으로 새로 굴렸습니다$/);
+    if (m) return (d.dict[m[1]] || m[1]) + ': Soul Potential did not match the probability table. Rerolled at ' + d.dict[m[2]] + ' rank.';
+    m = t.match(/^등급 상승 보장 진행도 · 상승 확률 ([\d.]+)%$/);
+    if (m) return 'Rank-up progress. Chance: ' + m[1] + '%';
+    return null;
+  }
+
+  function rankingSeason(t, pathname) {
+    if (!/^\/en\/battle-ranking\/?$/.test(pathname)) return null;
+    var season = t.match(/^(\d+)기$/);
+    return season ? 'Season ' + season[1] : null;
+  }
+
   // Built-in dynamic rules — run after dict/JSON rules miss.
   function builtinRules(t, d) {
+    // The ranking page replaces the literal " N기" after calling i18next.
+    // Preserve that token in the bundle, then translate its populated value.
+    var seasonNote = t.match(/^Based on (\d+)기 data from MapleStory's official Training Grounds\.$/);
+    if (seasonNote) return "Based on Season " + seasonNote[1] + " data from MapleStory's official Training Grounds.";
     var num = koreanNumberToEnglish(t);
     if (num != null) return num;
     // Result icons prepend "hexa-" to a complete skill/group name. Resolve the
@@ -412,6 +450,7 @@
       }
     }
     if (out == null) out = abilityText(trimmed, d);
+    if (out == null) out = soulText(trimmed, d);
     if (out == null && d.rules) {
       for (var i = 0; i < d.rules.length; i++) {
         var rule = d.rules[i]; // [regexSource, flags, template] — template uses $1..$9
@@ -1183,12 +1222,71 @@
     var v = node.nodeValue;
     if (!v || inOwnUi(node)) return;
     if (HANGUL.test(v) && isPlayerNameContext(node)) return;
+    if (translateRankingSeason(node)) return;
+    var season = rankingSeason(v, location.pathname);
+    if (season) { node.nodeValue = season; return; }
+    if (translateSoulMeasure(node)) return;
     var r = translateString(v);
     if (r != null && r !== v) node.nodeValue = r;
     var shown = (r != null ? r : v).trim();
     if (BADGE_TITLES[shown] && node.parentElement && !node.parentElement.title) {
       node.parentElement.title = BADGE_TITLES[shown];
     }
+  }
+
+  // React emits a number and its unit as separate Text nodes. Retain both nodes
+  // so later stage/count updates still work. Remember an emptied stage suffix
+  // so a subsequent numeric-only React update gets its English prefix again.
+  var rankingMeasures = new WeakSet();
+  function translateRankingSeason(node) {
+    if (!/^\/en\/battle-ranking\/?$/.test(location.pathname)) return false;
+    var p = node.parentElement;
+    if (!p || p.getAttribute('role') !== 'tab' || p.childNodes.length !== 2) return false;
+    var value = p.childNodes[0], suffix = p.childNodes[1];
+    if (value.nodeType !== 3 || suffix.nodeType !== 3 || !(suffix.nodeValue === '기' || rankingMeasures.has(value))) return false;
+    var m = value.nodeValue.match(/^(?:Season )?(\d+)$/);
+    if (!m) return false;
+    rankingMeasures.add(value);
+    value.nodeValue = 'Season ' + m[1];
+    suffix.nodeValue = '';
+    return true;
+  }
+
+  var soulMeasures = new WeakMap();
+  function translateSoulMeasure(node) {
+    if (!/^\/en\/simulator\/soul\/?$/.test(location.pathname)) return false;
+    var parent = node.parentElement;
+    if (!parent || !parent.closest('main')) return false;
+    var parts = parent.childNodes;
+    if (parts.length >= 3 && parts[0].nodeType === 3 && parts[1].nodeType === 3 && parts[2].nodeType === 3 && /^\d+$/.test(parts[1].nodeValue)) {
+      if (/^(소울 증폭 |Soul Amplification stage )$/.test(parts[0].nodeValue) && /^(단계|Stage|)$/.test(parts[2].nodeValue)) {
+        parts[0].nodeValue = 'Soul Amplification stage ';
+        parts[2].nodeValue = '';
+        return true;
+      }
+      if (/^(재설정 |Reroll |Reroll ×)$/.test(parts[0].nodeValue) && /^(회|time\(s\)|)$/.test(parts[2].nodeValue)) {
+        parts[0].nodeValue = 'Reroll ×';
+        parts[2].nodeValue = '';
+        return true;
+      }
+    }
+    var whole = node.nodeValue.match(/^(\d+(?:,\d{3})*(?:\.\d+)?)(단계|회|개)$/);
+    if (whole) {
+      node.nodeValue = whole[2] === '단계' ? 'Stage ' + whole[1] : whole[1] + (whole[2] === '회' ? (whole[1] === '1' ? ' attempt' : ' attempts') : (whole[1] === '1' ? ' item' : ' items'));
+      return true;
+    }
+    if (parent.childNodes.length !== 2) return false;
+    var value = parent.childNodes[0], suffix = parent.childNodes[1];
+    if (value.nodeType !== 3 || suffix.nodeType !== 3) return false;
+    var unit = soulMeasures.get(value) || suffix.nodeValue;
+    var m = value.nodeValue.match(/^(?:Stage )?(\d+(?:,\d{3})*(?:\.\d+)?)$/);
+    if (!m || !/^(단계|회|개)$/.test(unit)) return false;
+    soulMeasures.set(value, unit);
+    var left = unit === '단계' ? 'Stage ' + m[1] : m[1];
+    var right = unit === '단계' ? '' : unit === '회' ? (m[1] === '1' ? ' attempt' : ' attempts') : (m[1] === '1' ? ' item' : ' items');
+    if (value.nodeValue !== left) value.nodeValue = left;
+    if (suffix.nodeValue !== right) suffix.nodeValue = right;
+    return true;
   }
 
   // Second-chance matching for paragraphs whose text is split across several
@@ -1216,6 +1314,10 @@
 
   function tryElementTranslate(el, d) {
     if (inOwnUi(el)) return;
+    // This simulator replaces its unamplified card with a Potential card on
+    // success. Preserve React's child nodes; its messages are translated by
+    // the text-node layer and the stage/count handler above.
+    if (/^\/en\/simulator\/soul\/?$/.test(location.pathname)) return;
     var kids = el.children;
     if (kids.length > 8) return;
     for (var i = 0; i < kids.length; i++) if (!INLINE_TAGS[kids[i].tagName]) return;
@@ -1562,6 +1664,7 @@
     var on = isInputRoute();
     var routeName = on ? 'input' : (/^\/(ko|en|ja|ch)\/game\/spec-quiz(?:\/|$)/.test(location.pathname) ? 'spec-quiz' : '');
     if (/^\/en\/(?:simulator\/)?ability\/?$/.test(location.pathname)) routeName = 'ability';
+    if (/^\/en\/simulator\/soul\/?$/.test(location.pathname)) routeName = 'soul';
     var st = routeStyle();
     if (st && st.disabled !== !on) st.disabled = !on;
     try { if (document.documentElement.getAttribute('data-msfix-route') !== routeName) document.documentElement.setAttribute('data-msfix-route', routeName); } catch (e) {}

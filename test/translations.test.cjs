@@ -191,3 +191,110 @@ test('new ranking timestamps stay timestamps rather than combat-duration labels'
   assert.equal(ctx.translateString('(본캐 비율 15.25%)'), '(Main character share: 15.25%)');
   assert.equal(ctx.translateString('레전드리 공격 속도 단계 증가 : 1 ~ 1'), 'Legendary Attack Speed: 1 to 1');
 });
+
+const october1 = read('data/overrides/2026-10-01.json');
+test('October translations preserve placeholders and stable plain English', () => {
+  for (const [ko, en] of Object.entries(october1)) {
+    assert.equal(patch[ko], en, ko);
+    assert.equal(ctx.translateString(ko), en, ko);
+    assert.doesNotMatch(en, /[가-힣—]/);
+    assert.deepEqual(en.match(/\{\{?\w+\}?\}/g), ko.match(/\{\{?\w+\}?\}/g), ko);
+    assert.ok(ctx.translateString(en) === null || ctx.translateString(en) === en, en);
+  }
+});
+test('Soul simulator messages keep live stages, probabilities and equipment names', () => {
+  for (const [ko, en] of [
+    ['소울 증폭 (4단계 도전)', 'Amplify Soul (Stage 4)'],
+    ['소울 증폭 3단계 · 레전드리', 'Soul Amplification stage 3 · Legendary'],
+    ['천장까지 24회', '24 attempts until guaranteed'],
+    ['4단계 소울 에테르', 'Stage 4 Soul Ether'],
+    ['등급 상승 보장 진행도 · 상승 확률 0.015%', 'Rank-up progress. Chance: 0.015%'],
+    ['Example Weapon — 증폭 2단계 · 유니크 잠재를 불러왔습니다', 'Example Weapon: Amplification stage 2, Unique Potential loaded.'],
+    ['Example Weapon — 소울 증폭 전 상태로 시작합니다', 'Example Weapon: starting without Soul Amplification.'],
+    ['Example Weapon — 소울 잠재 옵션을 확률표에서 찾지 못해 에픽 등급으로 새로 굴렸습니다', 'Example Weapon: Soul Potential did not match the probability table. Rerolled at Epic rank.'],
+    ['지금 유니크 줄이라 레전드리 목표를 채울 수 없습니다', 'This line is Unique, so it cannot reach a Legendary target.'],
+    ['이 줄은 최대 38까지만 나옵니다', 'This line can roll 38 at most.'],
+  ]) assert.equal(ctx.translateString(ko), en, ko);
+});
+test('Soul measure labels retain React text nodes and update again after a rerender', () => {
+  const h = vm.createContext({ location: { pathname: '/en/simulator/soul' } });
+  vm.runInContext(source.slice(source.indexOf('  var soulMeasures'), source.indexOf('  // Second-chance matching')), h);
+  const value = { nodeType: 3, nodeValue: '1' }, suffix = { nodeType: 3, nodeValue: '단계' };
+  const parent = { closest: () => true, childNodes: [value, suffix] };
+  value.parentElement = suffix.parentElement = parent;
+  assert.equal(h.translateSoulMeasure(value), true);
+  assert.equal(value.nodeValue + suffix.nodeValue, 'Stage 1');
+  value.nodeValue = '4'; // React changes only its dynamic value, not the static suffix.
+  assert.equal(h.translateSoulMeasure(value), true);
+  assert.equal(value.nodeValue + suffix.nodeValue, 'Stage 4');
+  assert.equal(parent.childNodes[0], value);
+  assert.equal(parent.childNodes[1], suffix);
+  for (const [input, output] of [['25회','25 attempts'],['1회','1 attempt'],['9.2개','9.2 items']]) {
+    const n = { nodeType:3, nodeValue:input, parentElement:parent };
+    assert.equal(h.translateSoulMeasure(n), true);
+    assert.equal(n.nodeValue, output);
+  }
+  h.location.pathname = '/ko/simulator/soul';
+  value.nodeValue = '2';
+  assert.equal(h.translateSoulMeasure(value), false);
+  assert.equal(value.nodeValue, '2');
+});
+
+test('October 8 translations preserve CDR thresholds, skill levels and amplification stages', () => {
+  for (const [ko, en] of Object.entries(read('data/overrides/2026-10-08.json'))) {
+    assert.equal(patch[ko], en);
+    assert.equal(ctx.translateString(ko), en);
+    assert.doesNotMatch(en.replace('N기', ''), /[가-힣—]/); // Native post-i18next replacement token.
+    assert.ok(ctx.translateString(en) === null || ctx.translateString(en) === en);
+  }
+  for (const n of [1, 2, 3, 4]) {
+    assert.equal(ctx.translateString(`무기 소울 잠재 증폭 ${n}단계`), `Weapon Soul Potential amplification: Stage ${n}`);
+  }
+});
+
+test('ranking season descriptions survive the native post-translation placeholder replacement', () => {
+  const key = '메이플 공식 연무장 컨텐츠 N기 데이터를 기반으로 합니다.';
+  for (const n of [2, 4, 5, 10]) {
+    const rendered = patch[key].replace(' N기', ` ${n}기`);
+    assert.equal(ctx.rankingSeason(`${n}기`, '/en/battle-ranking'), `Season ${n}`);
+    assert.equal(ctx.translateString(rendered), `Based on Season ${n} data from MapleStory's official Training Grounds.`);
+  }
+  assert.doesNotMatch(patch[key].replace(' N기', ''), /[가-힣]|Season N/);
+  assert.equal(ctx.rankingSeason('2기', '/en/coordination'), null);
+  assert.equal(ctx.rankingSeason('2기', '/ko/battle-ranking'), null);
+});
+
+test('ranking tabs translate split season nodes without replacing them', () => {
+  const h = vm.createContext({ location: { pathname: '/en/battle-ranking' } });
+  vm.runInContext(source.slice(source.indexOf('  var rankingMeasures'), source.indexOf('  var soulMeasures')), h);
+  const value = { nodeType: 3, nodeValue: '5' }, suffix = { nodeType: 3, nodeValue: '기' };
+  const parent = { getAttribute: () => 'tab', childNodes: [value, suffix] };
+  value.parentElement = suffix.parentElement = parent;
+  h.translateRankingSeason(value);
+  assert.equal(value.nodeValue + suffix.nodeValue, 'Season 5');
+  value.nodeValue = '4';
+  h.translateRankingSeason(value);
+  assert.equal(value.nodeValue + suffix.nodeValue, 'Season 4');
+  assert.equal(parent.childNodes[0], value);
+  assert.equal(parent.childNodes[1], suffix);
+  h.location.pathname = '/ko/battle-ranking'; value.nodeValue = '2';
+  assert.equal(h.translateRankingSeason(value), false);
+  assert.equal(value.nodeValue, '2');
+});
+
+test('Soul reroll and stage phrases retain all React-owned nodes during numeric updates', () => {
+  const h = vm.createContext({ location: { pathname: '/en/simulator/soul' }, inOwnUi: () => false });
+  vm.runInContext(source.slice(source.indexOf('  var soulMeasures'), source.indexOf('  var ATTRS')), h);
+  for (const [prefix, suffix, expected] of [['소울 증폭 ', '단계', 'Soul Amplification stage '], ['재설정 ', '회', 'Reroll ×']]) {
+    const parts = [prefix, '1', suffix].map(nodeValue => ({nodeType: 3, nodeValue}));
+    const parent = { closest: () => true, childNodes: parts };
+    parts.forEach(n => { n.parentElement = parent; });
+    h.translateSoulMeasure(parts[0]);
+    parts[1].nodeValue = '4';
+    h.translateSoulMeasure(parts[1]);
+    assert.equal(parts.map(n => n.nodeValue).join(''), expected + '4');
+    assert.deepEqual(parent.childNodes, parts);
+  }
+  const card = { get children() { throw new Error('Must not replace React children on Soul success'); } };
+  assert.doesNotThrow(() => h.tryElementTranslate(card, {}));
+});

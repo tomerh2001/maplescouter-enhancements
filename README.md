@@ -38,7 +38,7 @@ Credentials are stored in GitHub Actions secrets, never in the extension package
 
 A weekly audit checks MapleScouter for new text, changed pages, and layout or compatibility problems. It runs on Thursdays at 10:00 (Asia/Jerusalem). Updates are tested, released on GitHub, and submitted to both Chrome and Firefox. The stores publish approved updates automatically. If nothing needs changing, no new version is uploaded.
 
-See the [maintenance runbook](docs/WEEKLY-MAINTENANCE.md) and [audit reports](docs/audits/). Version 1.7.4 translates the new Inner Ability tools, Soul equipment controls, HEXA reset guidance, and ranking filters. It also fixes clipped English ability cards and dropdowns that could stay visible but stop responding.
+See the [maintenance runbook](docs/WEEKLY-MAINTENANCE.md) and [audit reports](docs/audits/). Version 1.7.6 translates the Soul Amplification simulator, new ranking filters, and Level 3 Link Skill controls. It fixes crashes after Soul amplification succeeds, keeps English tables readable on phones, and shows the correct ranking season. See the [October 8 audit](docs/audits/2026-10-08.md) for tested coverage and store status.
 
 ## Features
 
