@@ -135,3 +135,18 @@ html[data-msfix-route="soul"] main button[class*="h-[54px]"] {
   min-height: 54px;
   white-space: normal;
 }
+
+/* GMS recommendations: use text names and wrap without clipping on narrow screens. */
+.msfix-gms-links { min-width: 0; width: 100%; }
+.msfix-gms-link-controls { display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
+.msfix-gms-link-controls input { accent-color: #ff7b00; }
+.msfix-gms-link-note { font-size: 12px; line-height: 1.5; color: var(--text-gray-med); margin: 8px 0; }
+.msfix-gms-link-list { counter-reset: gms-link; list-style: none; padding-left: 0; margin: 8px 0; }
+.msfix-gms-link-list li { display: flex; align-items: center; gap: 7px; padding: 7px 0; border-bottom: 1px solid var(--outline-gray-med); font-size: 12px; min-width: 0; }
+.msfix-gms-link-list li::before { content: counter(gms-link); font-variant-numeric: tabular-nums; width: 16px; flex-shrink: 0; color: var(--text-gray-med); }
+.msfix-gms-link-list li { counter-increment: gms-link; }
+.msfix-gms-link-list img { flex-shrink: 0; object-fit: contain; }
+.msfix-gms-link-name { min-width: 0; flex: 1; overflow-wrap: anywhere; line-height: 1.4; }
+.msfix-gms-link-list small { font-size: 10px; color: var(--text-gray-med); max-width: 52px; }
+.msfix-gms-link-value { flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.msfix-gms-link-list li:focus { outline: 1px solid #ff7b00; outline-offset: 2px; }

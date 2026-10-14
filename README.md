@@ -72,6 +72,10 @@ The site's **Load Preset / Save Preset** buttons and the IGN search on `/input` 
 - The cloud is **public and unauthenticated by design**: anyone who knows an IGN can load or overwrite it. Don't store anything you consider private.
 - **Export carries the IGN.** Save-as-JSON files of a linked preset contain `"ign"`, and importing such a file links the new preset again.
 
+### GMS Link Skill suggestions
+
+Version 1.7.7 adds Hayato, Kanna, Lynn and Mo Xuan to the Result page's Link Skill efficiency rankings, including Lv. 2 to 3 comparisons. Conditional effects are explained and can be switched off. It removes Lethe's KMS-only link from GMS suggestions, corrects Qi Cultivation's name, and highlights Erel's Guiding Stars without inventing a buff-duration score. See [effects, sources and calculation limits](docs/GMS-LINK-SKILLS.md).
+
 ### Quality of life
 - **Remembers your language.** The site redirects every fresh visit to Korean; the script sends you back to your language automatically.
 - **Remembers your server selection** (GMS/KMS/JMS/TMS/MSEA) and restores it if the site wipes it.

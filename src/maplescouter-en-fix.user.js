@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.6
+// @version      1.7.7
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -136,7 +136,7 @@
   }
 
   /* -- site stores, captured passively as webpack executes each module (no forced requires) */
-  var siteRefs = { manualStore: null, presetStore: null, regionStore: null, toast: null, enBundle: null, defaultUserStat: null };
+  var siteRefs = { manualStore: null, presetStore: null, regionStore: null, characterStore: null, toast: null, enBundle: null, defaultUserStat: null };
   // Test hook: with localStorage msfix:debug=1 the discovered refs are mirrored on window so an
   // end-to-end harness can drive the same stores we use, instead of force-requiring site modules.
   var DEBUG_REFS = false;
@@ -157,6 +157,7 @@
         if (!siteRefs.defaultUserStat && looksLikeUserStat(v)) siteRefs.defaultUserStat = v;
         if (typeof v.getState === 'function' && typeof v.subscribe === 'function') {
           var st = v.getState();
+          if (st && !siteRefs.characterStore && st.searchResult && typeof st.setSearchResult === 'function') siteRefs.characterStore = v;
           if (st && !siteRefs.regionStore && typeof st.region === 'string' && typeof st.setRegion === 'function') siteRefs.regionStore = v;
           if (st && !siteRefs.presetStore && st.preset && typeof st.setPreset === 'function' && typeof st.deletePreset === 'function') siteRefs.presetStore = v;
           if (st && !siteRefs.manualStore && ('draftStat' in st) && typeof st.loadDraft === 'function' && typeof st.setDraftStat === 'function') siteRefs.manualStore = v;
@@ -1472,6 +1473,160 @@
       childList: true, subtree: true, characterData: true,
       attributes: true, attributeFilter: ATTRS
     });
+  }
+
+  /* ---------------- GMS Link Skill suggestions ---------------------------------------- */
+  // The native efficiency list is KMS-only even though the optimizer has GMS candidates.
+  // Read the native rows and merge our estimates into a separate, non-interactive list.
+  // Never mutate React's children, the calculation response, or the character's saved stats.
+  var gmsLinkView = null;
+  var gmsLinkTimer = null;
+  var GMS_LINKS = [
+    { id: 'hayato', name: 'Moonlit Blade Learnings', ko: '창인전수', owners: ['하야토'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBMD', crit: [5, 7], note: 'Requires at least 100% critical rate and 50% critical damage.' },
+    { id: 'kanna', name: 'Elementalism', ko: '자선전수', owners: ['칸나'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBME', damage: [15, 20], note: 'Active for 12 seconds after 40 attack-skill uses. This is the active effect, not average damage.' },
+    { id: 'lynn', name: 'Focus Spirit', ko: '수호신의 가호', aliases: ['Spirit Guide Blessing'], owners: ['린'], icon: '/linkskill/lynn.png', boss: [7, 11], rate: [7, 10], hp: [4, 5], note: 'Boss damage, critical rate, and Max HP/MP. Critical rate is valued for Vicious Shot, as in the native table.' },
+    { id: 'mukhyun', name: 'Qi Cultivation', ko: '기백', aliases: ['Vigor', 'Grounded Body'], owners: ['묵현'], icon: '/linkskill/mukhyun.png', boss: [4, 6], stacks: [2, 3], note: 'Six stacks from sustained boss attacks. Stacks can build once every 2 seconds and last 5 seconds.' }
+  ];
+  function gmsLinkName(s) { return String(s || '').replace(/\([^)]*\)|\d+/g, '').trim().toLowerCase(); }
+  function gmsLinkEstimates(us, info, eff, upgrade, active, classData) {
+    if (!us || !us.isGMS || us.isTMS || us.isJMS || us.isMSEA || !us.stat || !eff) return [];
+    var cls = us.stat.myClass;
+    var archers = ['보우마스터', '신궁', '패스파인더', '윈드브레이커', '메르세데스', '와일드헌터', '카인'];
+    // The native table uses criInP, falling back to 0.235 for Vicious Shot classes.
+    var vicious = archers.indexOf(cls) >= 0 ? Number(classData && classData.criInP) || 0.235 : 0;
+    var equipped = info && info.settings && info.settings.now_link || [];
+    return GMS_LINKS.filter(function (s) { return s.owners.indexOf(cls) < 0; }).map(function (s) {
+      var aliases = [s.name, s.ko].concat(s.aliases || []).map(gmsLinkName);
+      var eq = equipped.find(function (e) { return aliases.indexOf(gmsLinkName(e.skill_name)) >= 0; });
+      var level = eq ? Number(eq.skill_level) : 0;
+      if (upgrade && level >= 3) return null;
+      var from = upgrade ? 0 : -1, to = upgrade ? 1 : 0;
+      var diff = function (a) { return a ? a[to] - (from < 0 ? 0 : a[from]) : 0; };
+      var blocked = s.id === 'hayato' && !(Number(us.stat.critical) >= 100 && Number(us.stat.criticalDmg) >= 50);
+      var dmg = diff(s.damage) * (active ? 1 : 0) + diff(s.boss) + (active ? 6 * diff(s.stacks) : 0);
+      var crit = diff(s.crit) + (vicious ? diff(s.rate) * vicious : 0);
+      var hp = cls === '데몬어벤져' ? diff(s.hp) : 0;
+      var terms = [[dmg, eff.dmgeff1], [crit, eff.cridmgeff1], [hp, eff.mainStatPereff1]];
+      var gain = 0;
+      for (var i = 0; i < terms.length; i++) {
+        if (!terms[i][0]) continue;
+        if (!Number.isFinite(terms[i][1]) || terms[i][1] < 0) return null;
+        gain += terms[i][0] * terms[i][1];
+      }
+      // Equipped links use the same removal-and-restore convention as the native table.
+      // Do not apply that correction to a Lv.2 -> Lv.3 increment.
+      if (!upgrade && level === 2) {
+        if (gain >= 1) return null;
+        gain = 1 / (1 - gain) - 1;
+      }
+      var note = s.note;
+      if (s.id === 'lynn' && !vicious) note += ' Critical rate is not scored for this character.';
+      if (blocked) note = 'Requirements not met in these inputs: 100% critical rate and 50% critical damage.';
+      if (s.id === 'kanna' && !active) note = 'Inactive. Turn on Active effects to compare its 12-second damage window.';
+      if (s.id === 'mukhyun' && !active) note = 'Base boss damage only. Turn on Active effects to include six stacks.';
+      return { id: s.id, name: s.name, icon: s.icon, value: blocked ? 0 : Math.round(gain * 100000) / 1000,
+        note: note, label: 'GMS ' + (upgrade ? 'Lv. 2 → 3' : 'Lv. 2') };
+    }).filter(function (s) { return s && Number.isFinite(s.value) && s.value >= 0; });
+  }
+  function gmsLinkContext() {
+    var manual = new URLSearchParams(location.search).get('manual') === 'true';
+    var store = manual ? siteRefs.manualStore : siteRefs.characterStore;
+    if (!store) return null;
+    var st = store.getState();
+    var res = manual ? st.result : st.searchResult;
+    if (!res || !res.userStat || !res.simulatorData || !res.simulatorData.specEfficiency) return null;
+    return { us: res.userStat, info: manual ? null : res.userApiData, eff: res.simulatorData.specEfficiency, classData: res.simulatorData.myClassData };
+  }
+  function readNativeLinkRows(list) {
+    var rows = [], children = Array.from(list.children);
+    if (!children.length) return null;
+    for (var row of children) {
+      if (row.querySelector('button, input, a, [role="button"]')) return null;
+      var last = row.lastElementChild, value = last && last.textContent.trim();
+      if (!/^\d+(?:\.\d+)?%$/.test(value || '')) return null;
+      var skills = Array.from(row.querySelectorAll('img[alt]'));
+      if (!skills.length) return null;
+      for (var img of skills) {
+        var tip = img.closest('[title]');
+        rows.push({ name: img.alt, icon: img.getAttribute('src'), value: Number(value.slice(0, -1)), note: tip ? tip.title : img.alt });
+      }
+    }
+    return rows;
+  }
+  function clearGmsLinkView() {
+    if (!gmsLinkView) return;
+    gmsLinkView.observer.disconnect();
+    gmsLinkView.native.style.display = gmsLinkView.display;
+    gmsLinkView.root.remove();
+    gmsLinkView = null;
+  }
+  function scheduleGmsLinks() {
+    if (gmsLinkTimer) return;
+    gmsLinkTimer = setTimeout(function () { gmsLinkTimer = null; ensureGmsLinks(); }, 80);
+  }
+  function ensureGmsLinks() {
+    var ctx = gmsLinkContext();
+    if (!/\/result$/.test(location.pathname) || pathLocale() !== 'en' || !ctx || !ctx.us.isGMS || ctx.us.isTMS || ctx.us.isJMS || ctx.us.isMSEA) { clearGmsLinkView(); return; }
+    var checkbox = document.getElementById('380-boss-checkbox');
+    var header = checkbox && checkbox.parentElement && checkbox.parentElement.parentElement;
+    var panel = header && header.parentElement;
+    var native = panel && Array.from(panel.children).find(function (el) { return el !== header && el.classList.contains('grid') && !el.hasAttribute('data-msfix-ui'); });
+    var upgrade = panel && panel.querySelector('#Lv-23-checkbox');
+    if (!native || !upgrade) { clearGmsLinkView(); return; }
+    var original = readNativeLinkRows(native);
+    if (!original) { clearGmsLinkView(); return; }
+    if (gmsLinkView && gmsLinkView.native !== native) clearGmsLinkView();
+    if (!gmsLinkView) {
+      var root = document.createElement('div');
+      root.setAttribute('data-msfix-ui', 'gms-links'); root.className = 'msfix-gms-links';
+      var controls = document.createElement('label'); controls.className = 'msfix-gms-link-controls';
+      var active = document.createElement('input'); active.type = 'checkbox'; active.checked = true;
+      active.addEventListener('change', scheduleGmsLinks);
+      controls.append(active, document.createTextNode('Active effects'));
+      controls.title = 'Includes Kanna during its 12-second effect and Mo Xuan at six stacks. These are not average damage estimates.';
+      var caption = document.createElement('p'); caption.className = 'msfix-gms-link-note';
+      caption.textContent = 'GMS links included. Hover a skill for its conditions.';
+      var list = document.createElement('ol'); list.className = 'msfix-gms-link-list'; list.setAttribute('aria-label', 'Link Skill efficiency including GMS');
+      var extra = document.createElement('p'); extra.className = 'msfix-gms-link-note';
+      extra.textContent = 'Also consider Guiding Stars (Erel). At Lv. 3: +3% critical damage and +10% buff duration. Buff duration is not scored by this table.';
+      root.append(controls, caption, list, extra);
+      native.after(root);
+      var obs = new MutationObserver(scheduleGmsLinks);
+      obs.observe(panel, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['aria-checked', 'title', 'alt', 'src'] });
+      gmsLinkView = { native: native, root: root, list: list, active: active, caption: caption, observer: obs, display: native.style.display, fingerprint: '' };
+    }
+    var view = gmsLinkView;
+    var isUpgrade = upgrade.getAttribute('aria-checked') === 'true';
+    var added = gmsLinkEstimates(ctx.us, ctx.info, ctx.eff, isUpgrade, view.active.checked, ctx.classData);
+    if (!added.length) { clearGmsLinkView(); return; }
+    var known = new Set(original.map(function (r) { return gmsLinkName(r.name); }));
+    added = added.filter(function (s) {
+      var def = GMS_LINKS.find(function (d) { return d.id === s.id; });
+      return ![def.name, def.ko].concat(def.aliases || []).some(function (name) { return known.has(gmsLinkName(name)); });
+    });
+    // The native optimizer excludes Lethe outside KMS; its efficiency table forgot to.
+    original = original.filter(function (r) { return ['covenant', '커버넌트'].indexOf(gmsLinkName(r.name)) < 0; });
+    var rows = original.concat(added).sort(function (a, b) { return b.value - a.value; });
+    var fp = JSON.stringify(rows);
+    if (view.fingerprint === fp) return;
+    view.fingerprint = fp;
+    // Disconnect while writing our own sibling to avoid MutationObserver feedback loops.
+    view.observer.disconnect();
+    view.caption.textContent = (isUpgrade ? 'GMS links compare Lv. 2 to 3.' : 'GMS links use Lv. 2.') + (view.active.checked ? ' Kanna active, Mo Xuan at six stacks.' : ' Kanna inactive, Mo Xuan without stacks.') + ' Hover for details.';
+    view.list.replaceChildren();
+    rows.forEach(function (s) {
+      var li = document.createElement('li');
+      var img = document.createElement('img'); img.src = s.icon; img.alt = ''; img.width = 24; img.height = 24;
+      img.addEventListener('error', function () { img.hidden = true; }, { once: true });
+      var name = document.createElement('span'); name.className = 'msfix-gms-link-name'; name.textContent = s.name;
+      var value = document.createElement('span'); value.className = 'msfix-gms-link-value'; value.textContent = s.value + '%';
+      li.title = s.note; li.tabIndex = 0; li.setAttribute('aria-label', s.name + ': ' + s.value + '%. ' + (s.label || '') + ' ' + s.note);
+      li.append(img, name);
+      if (s.label) { var badge = document.createElement('small'); badge.textContent = s.label; li.append(badge); }
+      li.append(value); view.list.append(li);
+    });
+    native.style.display = 'none';
+    view.observer.observe(panel, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['aria-checked', 'title', 'alt', 'src'] });
   }
 
   /* ---------------- 4a. Tooltip keep-alive ---------------------------------------------- */
@@ -3501,12 +3656,13 @@
     // for the housekeeping interval below.
     document.addEventListener('click', function () {
       setTimeout(ensureSaveImportIcons, 60);
+      scheduleGmsLinks();
       setTimeout(ensureSaveImportIcons, 260);
     }, true);
     // Delay the DOM layer slightly so React hydration finishes first.
     setTimeout(startDomLayer, 250);
     setTimeout(function () { translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); }, 400);
-    setInterval(function () { backupRegion(); translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); ensureSaveImportIcons(); refreshFloatRects(); ensureCharPicker(); }, 2000);
+    setInterval(function () { backupRegion(); translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); ensureSaveImportIcons(); refreshFloatRects(); ensureCharPicker(); ensureGmsLinks(); }, 2000);
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') onReady();
