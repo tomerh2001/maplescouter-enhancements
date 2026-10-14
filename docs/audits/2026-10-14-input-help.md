@@ -1,6 +1,6 @@
 # UI, skill cards and input help, 2026-10-14
 
-Release: 1.7.8. This report includes the interactive tooltip revisions and the following public-route and class audit. Store receipts will be recorded after submission.
+Release: 1.7.8. This report includes the interactive tooltip revisions and the following public-route and class audit. Both stores accepted this version for review; receipts are recorded below.
 
 ## Changes
 
@@ -41,3 +41,12 @@ The audit used the local proxy and isolated test drafts for class switching. Onc
 - Guild/Champion field limits and arithmetic were checked against the live site chunks. These descriptions do not alter damage calculations.
 
 [Scrollable native tabs](2026-10-14-input-help/scrollable-tabs.png)
+
+## Release and store receipts
+
+[Release v1.7.8](https://github.com/tomerh2001/maplescouter-enhancements/releases/tag/v1.7.8), commit `ea15890`, is available on GitHub. [Release workflow 38527278191](https://github.com/tomerh2001/maplescouter-enhancements/actions/runs/38527278191) completed successfully, including reproducible package verification and both marketplace submissions.
+
+- Chrome: version 1.7.8 accepted, `PENDING_REVIEW`, `DEFAULT_PUBLISH`.
+- Firefox: version 1.7.8 accepted, `PENDING_REVIEW`, listed channel, version ID `6575509`, reviewer source archive attached.
+
+Both submissions use automatic publication after approval. Store approval is still pending. Receipts are retained in the workflow's `chrome-submission` and `firefox-submission` artifacts. No older-pending Chrome replacement was needed.
