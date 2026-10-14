@@ -4,6 +4,10 @@ A Chrome extension, Firefox add-on, and Tampermonkey userscript for [maplescoute
 
 MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence calculator around, but its English mode ships with **thousands of missing translations** and quite a few awkward, Google-Translate-style ones. This script fixes that — and much more.
 
+## Version 1.7.9
+
+**Max level** in Link Skill Eff compares each link's full bonus at its GMS maximum level, including combined Explorer and Cygnus levels. **Lv 2→3** still compares only the upgrade gain. Selecting either turns the other off.
+
 ## Version 1.7.8
 
 Short native tooltips explain non-obvious stats, buffs and result scores. Guild and Legion Champion descriptions follow the entered levels. Character options keep their original layout, and wide tabs scroll within their cards. The result summary keeps the site’s original layout.

@@ -1,0 +1,555 @@
+[
+  {
+    "ko": "소울 컨트랙트",
+    "owners": [
+      "엔젤릭버스터"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHPAJF.png",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        30,
+        45,
+        60
+      ]
+    },
+    "note": "+60% Damage for 10 seconds.",
+    "damageWeight": 0.5555555555555556
+  },
+  {
+    "ko": "데몬스 퓨리",
+    "owners": [
+      "데몬슬레이어"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOBMB.png",
+    "maxLevel": 3,
+    "effects": {
+      "boss": [
+        0,
+        10,
+        15,
+        20
+      ]
+    },
+    "note": "+20% Boss Damage."
+  },
+  {
+    "ko": "판단",
+    "owners": [
+      "키네시스"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOAEI.png",
+    "maxLevel": 3,
+    "effects": {
+      "crit": [
+        0,
+        2,
+        4,
+        6
+      ]
+    },
+    "note": "+6% Critical Damage."
+  },
+  {
+    "ko": "인텐시브 인썰트",
+    "owners": [
+      "카데나"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHODKB.png",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        6,
+        12,
+        18
+      ]
+    },
+    "note": "+9% Damage against lower-level enemies; +9% against debuffed enemies."
+  },
+  {
+    "ko": "임피리컬 널리지",
+    "owners": [
+      "비숍",
+      "아크메이지(썬,콜)",
+      "아크메이지(불,독)"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHMGKC.png",
+    "maxLevel": 9,
+    "effects": {
+      "damage": [
+        0,
+        3,
+        3,
+        6,
+        6,
+        9,
+        9,
+        9,
+        9,
+        12
+      ],
+      "ied": [
+        0,
+        3,
+        3,
+        6,
+        6,
+        9,
+        9,
+        9,
+        9,
+        12
+      ]
+    },
+    "note": "+12% Damage and IED at three stacks."
+  },
+  {
+    "ko": "시프 커닝",
+    "owners": [
+      "섀도어",
+      "듀얼블레이드",
+      "나이트로드"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHMGLA.png",
+    "maxLevel": 9,
+    "effects": {
+      "damage": [
+        0,
+        3,
+        6,
+        9,
+        12,
+        15,
+        18,
+        21,
+        24,
+        27
+      ]
+    },
+    "note": "+27% Damage for 10 seconds after debuffing an enemy.",
+    "damageWeight": 0.6111111111111112
+  },
+  {
+    "ko": "무아",
+    "owners": [
+      "아크"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOENE.png",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        6,
+        11,
+        16
+      ]
+    },
+    "note": "+16% Damage at full stacks."
+  },
+  {
+    "ko": "와일드 레이지",
+    "owners": [
+      "데몬어벤져"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOBJA.png",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        5,
+        10,
+        15
+      ]
+    },
+    "note": "+15% Damage."
+  },
+  {
+    "ko": "전투의 흐름",
+    "owners": [
+      "일리움"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHODKI.png",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        8,
+        12,
+        16
+      ]
+    },
+    "note": "+16% Damage at four movement stacks."
+  },
+  {
+    "ko": "하이브리드 로직",
+    "owners": [
+      "제논"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOBIH.png",
+    "maxLevel": 3,
+    "effects": {
+      "allStat": [
+        0,
+        5,
+        10,
+        15
+      ]
+    },
+    "note": "+15% All Stats."
+  },
+  {
+    "ko": "프라이어 프리퍼레이션",
+    "owners": [
+      "카인"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNBNF.png",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        9,
+        17,
+        25
+      ]
+    },
+    "note": "+25% Damage for 20 seconds after five stacks.",
+    "damageWeight": 0.47058823529411764
+  },
+  {
+    "ko": "파이렛 블레스",
+    "owners": [
+      "캐논슈터",
+      "캡틴",
+      "바이퍼"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHMGLE.png",
+    "maxLevel": 9,
+    "effects": {
+      "flatStat": [
+        0,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100
+      ],
+      "flatHp": [
+        0,
+        350,
+        525,
+        700,
+        875,
+        1050,
+        1225,
+        1400,
+        1575,
+        1750
+      ]
+    },
+    "note": "+100 All Stats and +1,750 Max HP/MP."
+  },
+  {
+    "ko": "노블레스",
+    "owners": [
+      "아델"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHMJJH.png",
+    "maxLevel": 3,
+    "effects": {
+      "boss": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "damage": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "note": "+6% Boss Damage and +3% Damage when solo."
+  },
+  {
+    "ko": "시그너스 블레스",
+    "owners": [
+      "소울마스터",
+      "플레임위자드",
+      "나이트워커",
+      "스트라이커",
+      "윈드브레이커"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOBJF.png",
+    "maxLevel": 15,
+    "effects": {
+      "attack": [
+        0,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27,
+        29,
+        31,
+        33,
+        35
+      ]
+    },
+    "note": "+35 ATT/MATT."
+  },
+  {
+    "ko": "이네이트 기프트",
+    "owners": [
+      "칼리"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNDOE.png",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        3,
+        5,
+        7
+      ]
+    },
+    "note": "+7% Damage."
+  },
+  {
+    "ko": "자연의 벗",
+    "owners": [
+      "라라"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNBJI.png",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        3,
+        5,
+        7
+      ]
+    },
+    "note": "+7% Damage against bosses."
+  },
+  {
+    "ko": "퍼미에이트",
+    "owners": [
+      "루미너스"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFNCLDODNI.png",
+    "maxLevel": 3,
+    "effects": {
+      "ied": [
+        0,
+        10,
+        15,
+        20
+      ]
+    },
+    "note": "+20% IED."
+  },
+  {
+    "ko": "자신감",
+    "owners": [
+      "호영"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOHMJ.png",
+    "maxLevel": 3,
+    "effects": {
+      "ied": [
+        0,
+        5,
+        10,
+        15
+      ]
+    },
+    "note": "+15% IED. The full-HP damage bonus applies only to the opening hit."
+  },
+  {
+    "ko": "륀느의 축복",
+    "owners": [
+      "제로"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KEPCLHODLB.png",
+    "maxLevel": 6,
+    "effects": {
+      "ied": [
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        15
+      ]
+    },
+    "note": "+15% IED."
+  },
+  {
+    "ko": "아이언 윌",
+    "owners": [
+      "카이저"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOBMG.png",
+    "maxLevel": 3,
+    "effects": {
+      "hp": [
+        0,
+        10,
+        15,
+        20
+      ]
+    },
+    "note": "+20% Max HP."
+  },
+  {
+    "ko": "데들리 인스팅트",
+    "owners": [
+      "팬텀"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHOBMC.png",
+    "maxLevel": 3,
+    "effects": {
+      "rate": [
+        0,
+        10,
+        15,
+        20
+      ]
+    },
+    "note": "+20% Critical Rate."
+  },
+  {
+    "ko": "어드벤쳐러 큐리어스",
+    "owners": [
+      "보우마스터",
+      "신궁",
+      "패스파인더"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHMGKG.png",
+    "maxLevel": 9,
+    "effects": {
+      "rate": [
+        0,
+        3,
+        4,
+        6,
+        7,
+        9,
+        10,
+        12,
+        13,
+        15
+      ]
+    },
+    "note": "+15% Critical Rate."
+  },
+  {
+    "ko": "창인전수",
+    "name": "Moonlit Blade Learnings",
+    "aliases": [
+      "Moonlight Blade Learnings"
+    ],
+    "owners": [
+      "하야토"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBMD",
+    "maxLevel": 3,
+    "effects": {
+      "crit": [
+        0,
+        3,
+        5,
+        7
+      ]
+    },
+    "note": "+7% Critical Damage. Requires 100% critical rate and 50% critical damage.",
+    "requiresCritical": true
+  },
+  {
+    "ko": "자선전수",
+    "name": "Elementalism",
+    "aliases": [],
+    "owners": [
+      "칸나"
+    ],
+    "icon": "https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBME",
+    "maxLevel": 3,
+    "effects": {
+      "damage": [
+        0,
+        10,
+        15,
+        20
+      ]
+    },
+    "note": "+20% Damage during the active effect."
+  },
+  {
+    "ko": "수호신의 가호",
+    "name": "Focus Spirit",
+    "aliases": [
+      "Spirit Guide Blessing"
+    ],
+    "owners": [
+      "린"
+    ],
+    "icon": "/linkskill/lynn.png",
+    "maxLevel": 3,
+    "effects": {
+      "boss": [
+        0,
+        4,
+        7,
+        11
+      ],
+      "rate": [
+        0,
+        4,
+        7,
+        10
+      ],
+      "hp": [
+        0,
+        3,
+        4,
+        5
+      ]
+    },
+    "note": "+11% Boss Damage, +10% Critical Rate, +5% Max HP/MP."
+  },
+  {
+    "ko": "기백",
+    "name": "Qi Cultivation",
+    "aliases": [
+      "Vigor"
+    ],
+    "owners": [
+      "묵현"
+    ],
+    "icon": "/linkskill/mukhyun.png",
+    "maxLevel": 3,
+    "effects": {
+      "boss": [
+        0,
+        8,
+        16,
+        24
+      ]
+    },
+    "note": "+24% Boss Damage at six stacks."
+  }
+]

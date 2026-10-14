@@ -25,9 +25,15 @@ The bossing optimizer already includes the four GMS candidates. This release cha
 
 Normal mode compares Lv. 2, matching the native table. The existing Lv. 2 to 3 checkbox compares the additional effect. A character's own link is not suggested as another transferred link. Known equipped Lv. 3 links are not suggested for another upgrade.
 
+Version 1.7.9 adds **Max level**, a separate full-bonus comparison. It uses each GMS cap: individual Lv. 3, Explorer Lv. 9, Cygnus Lv. 15, and Zero Lv. 6. It and **Lv 2→3** are mutually exclusive. Both unchecked keeps the existing table. The mode affects this list only, without changing character inputs, cloud saves or the site's result.
+
+The max-level catalog covers all 26 damage candidates, including candidates below the native table's top-15 cutoff. It uses transferred effects, not the extra owner-only bonuses introduced in v269. Current GMS values include Empirical Knowledge's 12% Damage/IED at full stacks and Rhinne's Blessing's updated 15% IED. Survival and EXP links have no damage ranking; Guiding Stars retains its existing unranked note because buff duration is not modeled.
+
+The native timing assumptions for Terms and Conditions, Thief's Cunning and Time to Prepare are retained by scaling their existing Lv. 2 effective bonuses by the GMS max/base effect ratio. This changes level, not assumed uptime. Noble Fire retains the native solo-party assumption. All other existing class-specific limits still apply. Equipped links are removed from the comparison baseline before scoring the full maximum bonus; IED removal respects multiplicative stacking and the 300/380 selection. Estimates still use local efficiency coefficients, not a new server calculation.
+
 Since 1.7.8, Kanna always uses its active window and Mo Xuan always uses full stacks. The extra toggle and summary note have been removed. This is a comparison of those states, not a prediction of average encounter damage or a recommended set of twelve links.
 
-The estimates use the site's `specEfficiency` coefficients and its rounding and equipped-link removal convention. Lynn's HP is valued only for Demon Avenger; critical rate follows the native table's Vicious Shot convention. Extra critical rate below the cap on other classes, buff duration, MP, survival, utility and actual buff uptime are not modeled. Manual results have no equipped-link list, just as in the native table. The native KMS candidates keep their original scores.
+The estimates use the site's `specEfficiency` coefficients and rounding. Lynn's HP is valued only for Demon Avenger; critical rate follows the native table's Vicious Shot convention. Extra critical rate below the cap on other classes, buff duration, MP, survival, utility and actual buff uptime are not modeled. Manual results have no equipped-link list, just as in the native table. Outside Max level mode, the native KMS candidates keep their original scores.
 
 Guiding Stars is shown as a consideration using Nexon's confirmed individual Lv. 3 effect: 3% critical damage and 10% buff duration. This release does not assume a combined SHINE level cap or calculate a buff-duration score.
 

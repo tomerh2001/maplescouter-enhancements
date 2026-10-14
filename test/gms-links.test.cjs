@@ -3,7 +3,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const src = fs.readFileSync('src/maplescouter-en-fix.user.js', 'utf8');
-const ctx = vm.createContext({ URLSearchParams });
+const maxCatalog = JSON.parse(fs.readFileSync('data/link-max-levels.json', 'utf8'));
+const ctx = vm.createContext({ URLSearchParams, data: () => ({linkMaxLevels:maxCatalog}), translateString: x => x });
 vm.runInContext(src.slice(src.indexOf('  var GMS_LINKS ='), src.indexOf('  function readNativeLinkRows(')), ctx);
 const eff = { dmgeff1: .001, cridmgeff1: .003, mainStatPereff1: .002 };
 const input = (stat = {}, region = {}) => ({ isGMS: true, stat: { myClass: '은월', critical: '100', criticalDmg: '60', ...stat }, ...region });
@@ -63,6 +64,64 @@ test('manual and API results read their separate sources', () => {
   ctx.location={search:'?manual=true'}; assert.equal(ctx.gmsLinkContext().info,null);
   ctx.location.search='?name=Example'; assert.equal(ctx.gmsLinkContext().info,api.userApiData);
   ctx.siteRefs.characterStore=null; assert.equal(ctx.gmsLinkContext(),null);
+});
+
+const maxEff = {...eff, allStatEff:.002, atkeff1:.0002, mainStateff1:.0001, subStateff1:.00001, ssubStateff1:0, igreff1:.001, igreff1_380:.002};
+const maxRows = (us=input(), info=null, defense=false, e=maxEff) => ctx.maxLevelLinkEstimates(us,info,e,defense,null);
+const maxValue = (ko, rows=maxRows()) => rows.find(r=>r.ko===ko)?.value;
+test('Max level ranks full bonuses rather than Lv2 to Lv3 increments', () => {
+  assert.equal(maxValue('자선전수'),2);
+  assert.equal(maxValue('기백'),2.4);
+  assert.equal(maxValue('창인전수'),2.1);
+  assert.equal(maxValue('수호신의 가호'),1.1);
+  assert.equal(maxValue('데몬스 퓨리'),2);
+  assert.equal(maxValue('하이브리드 로직'),3);
+  assert.equal(maxValue('전투의 흐름'),1.6);
+});
+test('shared GMS links use their actual combined caps and transferable effects', () => {
+  const byKo=Object.fromEntries(maxRows().map(r=>[r.ko,r]));
+  assert.equal(byKo['임피리컬 널리지'].label,'Lv. 9');
+  assert.equal(byKo['임피리컬 널리지'].value,2.4);
+  assert.equal(byKo['시그너스 블레스'].label,'Lv. 15');
+  assert.equal(byKo['시그너스 블레스'].value,.7);
+  assert.equal(byKo['파이렛 블레스'].value,1.1);
+  assert.equal(byKo['륀느의 축복'].label,'Lv. 6');
+  assert.equal(byKo['륀느의 축복'].value,1.5);
+});
+test('max levels preserve native timing weights for timed links', () => {
+  assert.equal(maxValue('소울 컨트랙트'),3.333);
+  assert.equal(maxValue('시프 커닝'),1.65);
+  assert.equal(maxValue('프라이어 프리퍼레이션'),1.176);
+  assert.equal(maxValue('노블레스'),.9); // same solo-party assumption as native
+});
+test('max-level IED responds to 300/380 and removes equipped IED multiplicatively', () => {
+  assert.equal(maxValue('퍼미에이트'),2);
+  assert.equal(maxValue('퍼미에이트',maxRows(input(),null,true)),4);
+  const equipped={settings:{now_link:[{skill_name:'퍼미에이트',skill_level:2}]}};
+  const expected=Math.round((20*.001/.85)/(1-15*.001/.85)*100000)/1000;
+  assert.equal(maxValue('퍼미에이트',maxRows(input(),equipped)),expected);
+});
+test('an equipped max-level link stays in full-bonus comparisons, with no mutation', () => {
+  const us=input(), info={settings:{now_link:[{skill_name:'Elementalism',skill_level:3}]}}, before=JSON.stringify([us,info,maxEff,maxCatalog]);
+  assert.equal(maxValue('자선전수',maxRows(us,info)),2.041);
+  assert.equal(JSON.stringify([us,info,maxEff,maxCatalog]),before);
+});
+test('max-level HP and critical rate retain the native class-specific scoring', () => {
+  assert.equal(maxValue('파이렛 블레스',maxRows(input({myClass:'데몬어벤져'}))),17.5);
+  assert.equal(maxValue('아이언 윌',maxRows(input({myClass:'데몬어벤져'}))),4);
+  assert.equal(maxValue('데들리 인스팅트'),undefined);
+  assert.equal(maxValue('데들리 인스팅트',maxRows(input({myClass:'메르세데스'}))),1.41);
+  assert.equal(maxValue('창인전수',maxRows(input({critical:'99'}))),0);
+  assert.equal(maxValue('데몬스 퓨리',maxRows(input({myClass:'데몬슬레이어'}))),undefined);
+});
+test('max-level scoring fails closed for unsupported regions and invalid coefficients', () => {
+  assert.equal(maxRows(input({}, {isGMS:false})).length,0);
+  assert.equal(maxRows(input({}, {isTMS:true})).length,0);
+  assert.equal(maxValue('퍼미에이트',maxRows(input(),null,true,{...maxEff,igreff1_380:NaN})),undefined);
+  const removedAll={settings:{now_link:[{skill_name:'Elementalism',skill_level:3}]}};
+  assert.equal(maxValue('자선전수',maxRows(input(),removedAll,false,{...maxEff,dmgeff1:1})),undefined);
+  const info={settings:{now_link:[{skill_name:'Elementalism',skill_level:4}]}};
+  assert.equal(maxValue('자선전수',maxRows(input(),info)),undefined);
 });
 
 vm.runInContext(src.slice(src.indexOf('  function readNativeLinkRows('), src.indexOf('  function clearGmsLinkView(')), ctx);

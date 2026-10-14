@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.8
+// @version      1.7.9
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -1512,13 +1512,14 @@
   // Never mutate React's children, the calculation response, or the character's saved stats.
   var gmsLinkView = null;
   var gmsLinkTimer = null;
+  var gmsLinkMaxLevel = false;
   var GMS_LINKS = [
     { id: 'hayato', name: 'Moonlit Blade Learnings', ko: '창인전수', aliases: ['Moonlight Blade Learnings'], owners: ['하야토'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBMD', crit: [5, 7], note: 'Requires at least 100% critical rate and 50% critical damage.' },
     { id: 'kanna', name: 'Elementalism', ko: '자선전수', owners: ['칸나'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBME', damage: [15, 20], note: 'Active for 12 seconds after 40 attack-skill uses.' },
     { id: 'lynn', name: 'Focus Spirit', ko: '수호신의 가호', aliases: ['Spirit Guide Blessing'], owners: ['린'], icon: '/linkskill/lynn.png', boss: [7, 11], rate: [7, 10], hp: [4, 5], note: 'Boss damage and Max HP/MP. Extra critical rate contributes through Vicious Shot.' },
     { id: 'mukhyun', name: 'Qi Cultivation', ko: '기백', aliases: ['Vigor', 'Grounded Body'], owners: ['묵현'], icon: '/linkskill/mukhyun.png', boss: [4, 6], stacks: [2, 3], note: 'Gains a stack every 2 seconds of boss attacks, up to six. Stacks last 5 seconds.' }
   ];
-  function gmsLinkName(s) { return String(s || '').replace(/\([^)]*\)|\d+/g, '').trim().toLowerCase(); }
+  function gmsLinkName(s) { return String(s || '').replace(/[’‘]/g, "'").replace(/\([^)]*\)|\d+/g, '').trim().toLowerCase(); }
   function gmsLinkEstimates(us, info, eff, upgrade, classData) {
     if (!us || !us.isGMS || us.isTMS || us.isJMS || us.isMSEA || !us.stat || !eff) return [];
     var cls = us.stat.myClass;
@@ -1566,6 +1567,53 @@
     if (!res || !res.userStat || !res.simulatorData || !res.simulatorData.specEfficiency) return null;
     return { us: res.userStat, info: manual ? null : res.userApiData, eff: res.simulatorData.specEfficiency, classData: res.simulatorData.myClassData };
   }
+  function maxLevelLinkEstimates(us, info, eff, boss380, classData) {
+    if (!us || !us.isGMS || us.isTMS || us.isJMS || us.isMSEA || !us.stat || !eff) return [];
+    var cls = us.stat.myClass, equipped = info && info.settings && info.settings.now_link || [];
+    var archers = ['보우마스터', '신궁', '패스파인더', '윈드브레이커', '메르세데스', '와일드헌터', '카인'];
+    var vicious = archers.indexOf(cls) >= 0 ? Number(classData && classData.criInP) || 0.235 : 0;
+    return (data().linkMaxLevels || []).filter(function (s) { return s.owners.indexOf(cls) < 0; }).map(function (s) {
+      var name = s.name || translateString(s.ko) || s.ko;
+      var names = [name, s.ko].concat(s.aliases || []).map(gmsLinkName);
+      var eq = equipped.find(function (e) { return names.indexOf(gmsLinkName(e.skill_name)) >= 0; });
+      var current = eq ? Number(eq.skill_level) : 0;
+      if (!Number.isInteger(current) || current < 0 || current > s.maxLevel) return null;
+      var effect = function (key, level) { return s.effects[key] ? s.effects[key][level] : 0; };
+      var currentIed = effect('ied', current), iedBase = 1 - currentIed / 100;
+      // Remove an equipped link from the comparison baseline. IED stacks
+      // multiplicatively, so its removal is not the negative of adding it.
+      function contribution(level) {
+        var terms = [
+          [(effect('damage', level) * (s.damageWeight || 1)) + effect('boss', level), eff.dmgeff1],
+          [effect('crit', level) + vicious * effect('rate', level), eff.cridmgeff1],
+          [effect('allStat', level), eff.allStatEff],
+          [effect('attack', level), eff.atkeff1],
+          [effect('ied', level) / iedBase, boss380 ? eff.igreff1_380 : eff.igreff1]
+        ];
+        if (cls === '데몬어벤져') {
+          terms.push([effect('hp', level), eff.mainStatPereff1], [effect('flatHp', level), eff.mainStateff1]);
+        } else {
+          ['mainStateff1', 'subStateff1', 'ssubStateff1'].forEach(function (key) { terms.push([effect('flatStat', level), eff[key]]); });
+        }
+        var total = 0;
+        for (var term of terms) {
+          if (!term[0]) continue;
+          if (!Number.isFinite(term[0]) || !Number.isFinite(term[1]) || term[1] < 0) return NaN;
+          total += term[0] * term[1];
+        }
+        return total;
+      }
+      var removed = contribution(current), gain = contribution(s.maxLevel);
+      if (!Number.isFinite(removed) || !Number.isFinite(gain) || removed >= 1 || iedBase <= 0) return null;
+      gain /= 1 - removed;
+      var blocked = s.requiresCritical && !(Number(us.stat.critical) >= 100 && Number(us.stat.criticalDmg) >= 50);
+      if (blocked) gain = 0;
+      if (!gain && !blocked) return null; // Utility-only effects have no damage rank.
+      return { name:name, icon:s.icon, value:Math.round(gain * 100000) / 1000,
+        note:blocked ? 'Requires 100% critical rate and 50% critical damage.' : s.note,
+        label:'Lv. ' + s.maxLevel, ko:s.ko };
+    }).filter(function (row) { return row && Number.isFinite(row.value); });
+  }
   function readNativeLinkRows(list) {
     var rows = [], children = Array.from(list.children);
     if (!children.length) return null;
@@ -1586,6 +1634,8 @@
     if (!gmsLinkView) return;
     gmsLinkView.observer.disconnect();
     gmsLinkView.native.style.display = gmsLinkView.display;
+    gmsLinkView.upgrade.removeEventListener('click', gmsLinkView.onUpgrade);
+    gmsLinkView.maxControl.remove();
     gmsLinkView.root.remove();
     gmsLinkView = null;
   }
@@ -1613,11 +1663,37 @@
       extra.textContent = 'Also consider Guiding Stars (Erel). At Lv. 3: +3% critical damage and +10% buff duration. Buff duration is not scored by this table.';
       root.append(list, extra);
       native.after(root);
+      var maxControl = document.createElement('div');
+      maxControl.className = 'msfix-link-max-control'; maxControl.setAttribute('data-msfix-ui', '');
+      var maxToggle = document.createElement('button'); maxToggle.type = 'button';
+      maxToggle.id = 'msfix-link-max-level'; maxToggle.className = upgrade.className;
+      maxToggle.setAttribute('role', 'checkbox'); maxToggle.setAttribute('data-slot', 'checkbox');
+      var mark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      mark.setAttribute('viewBox', '0 0 24 24'); mark.setAttribute('fill', 'none'); mark.setAttribute('stroke', 'currentColor');
+      mark.setAttribute('stroke-width', '3'); mark.setAttribute('aria-hidden', 'true');
+      var tick = document.createElementNS('http://www.w3.org/2000/svg', 'path'); tick.setAttribute('d', 'M5 12l4 4L19 6'); mark.appendChild(tick);
+      maxToggle.appendChild(mark);
+      var maxLabel = document.createElement('label'); maxLabel.htmlFor = maxToggle.id; maxLabel.textContent = 'Max level';
+      maxControl.append(maxToggle, maxLabel); upgrade.parentElement.after(maxControl);
+      var onUpgrade = function () { gmsLinkMaxLevel = false; scheduleGmsLinks(); };
+      upgrade.addEventListener('click', onUpgrade);
+      maxToggle.addEventListener('click', function () {
+        var next = !gmsLinkMaxLevel;
+        if (next && upgrade.getAttribute('aria-checked') === 'true') upgrade.click();
+        gmsLinkMaxLevel = next; ensureGmsLinks();
+      });
       var obs = new MutationObserver(scheduleGmsLinks);
       obs.observe(panel, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['aria-checked', 'title', 'alt', 'src'] });
-      gmsLinkView = { native: native, root: root, list: list, observer: obs, display: native.style.display, fingerprint: '' };
+      gmsLinkView = { native: native, root: root, list: list, observer: obs, display: native.style.display, fingerprint: '',
+        maxControl:maxControl, maxToggle:maxToggle, upgrade:upgrade, onUpgrade:onUpgrade };
     }
     var view = gmsLinkView;
+    var maxState = gmsLinkMaxLevel ? 'true' : 'false';
+    if (view.maxToggle.getAttribute('aria-checked') !== maxState) {
+      view.maxToggle.setAttribute('aria-checked', maxState);
+      view.maxToggle.setAttribute('data-state', gmsLinkMaxLevel ? 'checked' : 'unchecked');
+      view.maxToggle.firstElementChild.style.visibility = gmsLinkMaxLevel ? 'visible' : 'hidden';
+    }
     var isUpgrade = upgrade.getAttribute('aria-checked') === 'true';
     var added = gmsLinkEstimates(ctx.us, ctx.info, ctx.eff, isUpgrade, ctx.classData);
     if (!added.length) { clearGmsLinkView(); return; }
@@ -1628,7 +1704,8 @@
     });
     // The native optimizer excludes Lethe outside KMS; its efficiency table forgot to.
     original = original.filter(function (r) { return ['covenant', '커버넌트'].indexOf(gmsLinkName(r.name)) < 0; });
-    var rows = original.concat(added).sort(function (a, b) { return b.value - a.value; });
+    var rows = gmsLinkMaxLevel ? maxLevelLinkEstimates(ctx.us, ctx.info, ctx.eff, checkbox.getAttribute('aria-checked') === 'true', ctx.classData) : original.concat(added);
+    rows.sort(function (a, b) { return b.value - a.value; });
     var fp = JSON.stringify(rows);
     if (view.fingerprint === fp) return;
     view.fingerprint = fp;
