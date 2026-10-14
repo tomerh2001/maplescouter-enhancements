@@ -138,8 +138,6 @@ html[data-msfix-route="soul"] main button[class*="h-[54px]"] {
 
 /* GMS recommendations: use text names and wrap without clipping on narrow screens. */
 .msfix-gms-links { min-width: 0; width: 100%; }
-.msfix-gms-link-controls { display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
-.msfix-gms-link-controls input { accent-color: #ff7b00; }
 .msfix-gms-link-note { font-size: 12px; line-height: 1.5; color: var(--text-gray-med); margin: 8px 0; }
 .msfix-gms-link-list { counter-reset: gms-link; list-style: none; padding-left: 0; margin: 8px 0; }
 .msfix-gms-link-list li { display: flex; align-items: center; gap: 7px; padding: 7px 0; border-bottom: 1px solid var(--outline-gray-med); font-size: 12px; min-width: 0; }
@@ -150,3 +148,60 @@ html[data-msfix-route="soul"] main button[class*="h-[54px]"] {
 .msfix-gms-link-list small { font-size: 10px; color: var(--text-gray-med); max-width: 52px; }
 .msfix-gms-link-value { flex-shrink: 0; font-variant-numeric: tabular-nums; }
 .msfix-gms-link-list li:focus { outline: 1px solid #ff7b00; outline-offset: 2px; }
+
+/* Native skill tooltip handles color, type, arrow and collision placement. */
+[data-msfix-input-help] { max-width: min(280px, calc(100vw - 16px)); white-space: normal; overflow-wrap: anywhere; }
+.msfix-check-help[hidden] { display: none !important; }
+
+/* A tooltip must never become the hit target at the edge of its own checkbox. */
+[data-msfix-input-help],
+[data-radix-popper-content-wrapper]:has(> [data-msfix-input-help]) { pointer-events: none !important; }
+
+/* Keep ring-buff names together; the native flex row can wrap whole controls. */
+html[data-msfix-route="result"] label[for="최초의 유산"],
+html[data-msfix-route="result"] label[for="파이렛플래그"] { white-space: nowrap; }
+html[data-msfix-route="result"] div:has(> label[for="최초의 유산"]),
+html[data-msfix-route="result"] div:has(> label[for="파이렛플래그"]) { flex-shrink: 0; }
+
+[data-msfix-input-help] { width: max-content; min-width: 0; text-wrap: pretty; }
+.msfix-help-copy { display: grid; gap: 3px; text-align: center; }
+.msfix-help-title { font-size: 12px !important; line-height: 1.4 !important; font-weight: 600 !important; text-align: center; }
+.msfix-help-detail { font-size: 11px !important; line-height: 1.4 !important; font-weight: 400 !important; text-align: center; opacity: .8; }
+.msfix-help-icon { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; padding: 0; margin-left: 4px; border: 0; background: none; color: var(--text-gray-med); cursor: help; flex: 0 0 auto; vertical-align: middle; }
+.msfix-help-icon:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; border-radius: 50%; }
+
+/* Keep translated tabs on one horizontally scrollable line inside their card. */
+html[lang="en"] main [data-slot="tabs"] { min-width: 0; max-width: 100%; }
+html[lang="en"] main [data-slot="tabs-list"] { max-width: 100%; height: auto; flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: thin; }
+html[lang="en"] main [data-slot="tabs-trigger"] { min-width: max-content; flex-shrink: 0; white-space: nowrap; }
+
+/* Keep the picker and sync control inside the Character card on phones. */
+html[data-msfix-route="input"] div:has(> .msfix-charpicker) { flex-wrap: wrap; gap: 8px; }
+.msfix-charpicker { max-width: 100%; min-width: 0; }
+.msfix-charpicker > .relative { min-width: 0; }
+.msfix-charpicker input[role="combobox"] { max-width: 100%; }
+.msfix-dd { max-width: calc(100vw - 48px); }
+/* Boss names must remain readable beside their separate numeric columns. */
+html[data-msfix-route="boss-data"] main .flex-col.gap-2.truncate,
+html[data-msfix-route="boss-data"] main .flex-col.gap-2.truncate > .truncate {
+  white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere;
+}
+
+/* Closed desktop mega-menus must not enlarge the page. Long English menus
+   scroll within the open panel, including when reached with the keyboard. */
+html[lang="en"] nav div.absolute.w-screen.min-w-max {
+  min-width: 0; max-width: 100vw; overflow-x: auto; max-height: calc(100vh - 140px);
+}
+html[data-msfix-route="union-ranking"] main th { white-space: normal; overflow-wrap: anywhere; }
+html[data-msfix-route="battle-ranking"] main button[role="combobox"] {
+  height: auto; min-height: 36px; white-space: normal;
+}
+html[data-msfix-route="profile-motion"] main button { white-space: normal; height: auto; min-height: 36px; }
+html[data-msfix-route="battle-ranking"] main div.flex.w-full.items-center:has(> button[role="combobox"]) { min-width: 0; }
+html[data-msfix-route="battle-ranking"] main button[role="combobox"] { flex-shrink: 1; min-width: 0; }
+html[data-msfix-route="challenge"] main .inline-flex.w-full.justify-between { flex-wrap: wrap; gap: 12px; }
+html[data-msfix-route="treasure-hunter"] main .flex.w-full.flex-col { min-width: 0; }
+html[data-msfix-route="treasure-hunter"] main .border-b.p-4 { flex-wrap: wrap; }
+html[data-msfix-route="fire"] main .flex.items-center.justify-between:has(> button),
+html[data-msfix-route="total"] main .flex.items-center.justify-between.gap-2 { flex-wrap: wrap; gap: 8px; }
+html[data-msfix-route="item"] main button.w-60 { min-width: 0; max-width: 100%; flex-shrink: 1; }

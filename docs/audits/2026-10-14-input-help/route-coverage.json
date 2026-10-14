@@ -1,0 +1,1402 @@
+[
+  {
+    "route": "/sitemap",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 5031,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/sitemap",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 5031,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 357,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 357,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/starforce",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 742,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/starforce",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 742,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/input",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 974,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/input",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 974,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hexa",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1060,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hexa",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1060,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/result",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 2851,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/result",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 2851,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/boss-data",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 3201,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/boss-data",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 3201,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/base",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 539,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/base",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 539,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/battle-ranking",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1116,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/battle-ranking",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1116,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/boss-income",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 12,
+    "status": "requires-character-data",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/boss-income",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 12,
+    "status": "requires-character-data",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/challenge",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 327,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/challenge",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 327,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/cube-fire",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 651,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/cube-fire",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 651,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/destiny",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 610,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/destiny",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 610,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/destiny-ranking",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 397,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/destiny-ranking",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 397,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/donate",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 405,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/donate",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 405,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/event",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1089,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/event",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1089,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/daily-quest",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 699,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/daily-quest",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 699,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/item",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1472,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/item",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1472,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/monster",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 259,
+    "status": "error-state-unattributed",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/monster",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 259,
+    "status": "error-state-unattributed",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/total",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 757,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/total",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 757,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/treasure-hunter",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 2449,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/treasure-hunter",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 2449,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/weekly-quest",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 626,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/exp/weekly-quest",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 626,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/bulls-and-cows",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 451,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/bulls-and-cows",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 451,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/draw",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 313,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/draw",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 313,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/ladder",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 135,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/ladder",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 135,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/roulette",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 213,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/roulette",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 213,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/stop-watch",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 267,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/stop-watch",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 267,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/guide",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 17192,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/guide",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 17192,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/genesis",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 576,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/genesis",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 576,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hall-of-fame",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 78,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hall-of-fame",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 78,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hexa-preview",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 472,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hexa-preview",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 472,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hexpago",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 356,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hexpago",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 356,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hunt/optimizer",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 838,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/hunt/optimizer",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 838,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/huntresult",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 874,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/huntresult",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 874,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/info",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 12,
+    "status": "requires-character-data",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/info",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 12,
+    "status": "requires-character-data",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/item",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 435,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/item",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 435,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/item-ranking",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 7934,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/item-ranking",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 7934,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/lucid",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 426,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/lucid",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 426,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/multi-result",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1276,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/multi-result",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1276,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/mypage",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 93,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/mypage",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 93,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/octopus",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 398,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/octopus",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 398,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/optimizer",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 991,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/optimizer",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 991,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/profile-motion",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1293,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/profile-motion",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1293,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/punchking-season3",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 4746,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/punchking-season3",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 4746,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/quick-link",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 340,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/quick-link",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 340,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/ranking-analysis",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 42,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/ranking-analysis",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 42,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/cube",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1440,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/cube",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1440,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/cube-additional",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1451,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/cube-additional",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1451,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/ranking",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 486,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/ranking",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 486,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/fire",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1277,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/fire",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1277,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/starforce",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1235,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/starforce",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1235,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/whetstone",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 505,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/whetstone",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 497,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/spec-order",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1342,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/spec-order",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1342,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/tax",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 573,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/tax",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 573,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/timeattack",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 417,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/timeattack",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 417,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/total-ranking",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 157,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/total-ranking",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 151,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/union-champion",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 12,
+    "status": "requires-character-data",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/union-champion",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 12,
+    "status": "requires-character-data",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/union-character",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 12,
+    "status": "requires-character-data",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/union-character",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 12,
+    "status": "requires-character-data",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/union-ranking",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 4693,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/union-ranking",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 4194,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/class-analysis",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 146,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/class-analysis",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 146,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/spec-quiz",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1028,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/game/spec-quiz",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1028,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/ability",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1207,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/ability",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1207,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/ability",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1612,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/ability",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1612,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/soul",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1623,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/simulator/soul",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1623,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/dojo-data",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1950,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/dojo-data",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1950,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/coordination",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 0,
+    "status": "empty-or-login-state",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/coordination",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 0,
+    "status": "empty-or-login-state",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/privacy",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 6247,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/privacy",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 6247,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/agreement",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 3348,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/agreement",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 3348,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/challenge_2",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 1200,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/challenge_2",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 1200,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/challenge_3",
+    "width": 1280,
+    "ready": true,
+    "pageWidth": 1280,
+    "textLength": 574,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  },
+  {
+    "route": "/challenge_3",
+    "width": 390,
+    "ready": true,
+    "pageWidth": 390,
+    "textLength": 574,
+    "status": "rendered",
+    "clipped": [],
+    "broken": []
+  }
+]

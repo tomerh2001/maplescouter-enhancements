@@ -4,6 +4,12 @@ A Chrome extension, Firefox add-on, and Tampermonkey userscript for [maplescoute
 
 MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence calculator around, but its English mode ships with **thousands of missing translations** and quite a few awkward, Google-Translate-style ones. This script fixes that — and much more.
 
+## Version 1.7.8
+
+Short native tooltips explain non-obvious stats, buffs and result scores. Guild and Legion Champion descriptions follow the entered levels. Character options keep their original layout, and wide tabs scroll within their cards. The result summary keeps the site’s original layout.
+
+This release also fixes phone layout overflow, the Phantom and Corsair class names, and missing simulator text. See the [October 14 UI and class audit](docs/audits/2026-10-14-input-help.md) for coverage and limitations.
+
 ## Install
 
 **Chrome, Edge, or Arc:** install from the [Chrome Web Store](https://chromewebstore.google.com/detail/alopdmlliacajfcgnphmojmneanikbdg). Store installs update automatically.
@@ -74,13 +80,14 @@ The site's **Load Preset / Save Preset** buttons and the IGN search on `/input` 
 
 ### GMS Link Skill suggestions
 
-Version 1.7.7 adds Hayato, Kanna, Lynn and Mo Xuan to the Result page's Link Skill efficiency rankings, including Lv. 2 to 3 comparisons. Conditional effects are explained and can be switched off. It removes Lethe's KMS-only link from GMS suggestions, corrects Qi Cultivation's name, and highlights Erel's Guiding Stars without inventing a buff-duration score. See [effects, sources and calculation limits](docs/GMS-LINK-SKILLS.md).
+Version 1.7.7 adds Hayato, Kanna, Lynn and Mo Xuan to the Result page's Link Skill efficiency rankings, including Lv. 2 to 3 comparisons. Kanna uses its active effect and Mo Xuan uses full stacks. It removes Lethe's KMS-only link from GMS suggestions, corrects Qi Cultivation's name, and highlights Erel's Guiding Stars without inventing a buff-duration score. See [effects, sources and calculation limits](docs/GMS-LINK-SKILLS.md).
 
 ### Quality of life
 - **Remembers your language.** The site redirects every fresh visit to Korean; the script sends you back to your language automatically.
 - **Remembers your server selection** (GMS/KMS/JMS/TMS/MSEA) and restores it if the site wipes it.
 - **No ads.** Ad slots, sponsor banners, popup ads, and the NOTICE billboard bar are removed — along with the empty gaps they reserve.
-- **Tooltips stay open.** Hover cards that used to vanish when you moved the mouse onto them now stay pinned until your cursor actually leaves.
+- **Short input help.** Wild Hunter Legion explains whose level to enter and its average Damage bonus. Cooldown inputs and selected buffs explain effects or hidden behavior. Guild and Legion Champion help follows the entered level. Result metrics use the whole label-and-value row as the tooltip trigger, without extra icons or layout changes. These use the site's skill tooltip, including its animation. Obvious controls get no added tooltip.
+- **Boss and equipment hover cards stay open.** Hover cards that used to vanish when you moved the mouse onto them now stay pinned until your cursor actually leaves.
 - **Preset import, improved.** MapleScouter now ships its own JSON preset export/import, so the script no longer adds its own buttons — it fills the gaps in the site's instead:
   - **Old export files still work.** Files saved by earlier versions of this script are translated to the site's format on the fly and imported natively (validated, added to a slot, no reload).
   - **Pick the character.** Those old files hold *every* preset you had saved, so when a file contains more than one character you're asked which to import instead of getting all of them.

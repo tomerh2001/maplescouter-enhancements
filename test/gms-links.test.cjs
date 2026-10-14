@@ -7,7 +7,7 @@ const ctx = vm.createContext({ URLSearchParams });
 vm.runInContext(src.slice(src.indexOf('  var GMS_LINKS ='), src.indexOf('  function readNativeLinkRows(')), ctx);
 const eff = { dmgeff1: .001, cridmgeff1: .003, mainStatPereff1: .002 };
 const input = (stat = {}, region = {}) => ({ isGMS: true, stat: { myClass: '은월', critical: '100', criticalDmg: '60', ...stat }, ...region });
-const rows = (us = input(), upgrade = false, active = true, info = null, e = eff, cls = null) => ctx.gmsLinkEstimates(us, info, e, upgrade, active, cls);
+const rows = (us = input(), upgrade = false, info = null, e = eff, cls = null) => ctx.gmsLinkEstimates(us, info, e, upgrade, cls);
 const value = (arr, id) => arr.find(x => x.id === id)?.value;
 test('GMS Lv2 candidates have current effects, not obsolete flat ATT', () => {
   assert.equal(value(rows(), 'hayato'), 1.5);
@@ -30,31 +30,31 @@ test('Hayato requires both critical thresholds; boundary values count', () => {
   assert.equal(value(rows(input({ criticalDmg: '49.9' })), 'hayato'), 0);
   assert.equal(value(rows(input({ critical: '100', criticalDmg: '50' })), 'hayato'), 1.5);
 });
-test('inactive effects remove Kanna and Mo Xuan stacks, preserving base boss damage', () => {
-  assert.equal(value(rows(input(), false, false), 'kanna'), 0);
-  assert.equal(value(rows(input(), false, false), 'mukhyun'), .4);
-  assert.equal(value(rows(input(), true, false), 'mukhyun'), .2);
+test('GMS suggestions always use active Kanna and full Mo Xuan stacks', () => {
+  assert.equal(value(rows(), 'kanna'), 1.5);
+  assert.equal(value(rows(), 'mukhyun'), 1.6);
+  assert.equal(value(rows(input(), true), 'mukhyun'), .8);
 });
 test('own link is not recommended as an extra transferred link', () => {
   for (const [myClass, id] of [['하야토','hayato'],['칸나','kanna'],['린','lynn'],['묵현','mukhyun']]) assert.equal(value(rows(input({myClass})), id), undefined);
 });
 test('Lynn HP affects Demon Avenger only; Vicious Shot uses class coefficient', () => {
   assert.equal(value(rows(input({myClass:'데몬어벤져'})), 'lynn'), 1.5);
-  assert.equal(value(rows(input({myClass:'메르세데스'}), false, true, null, eff, {criInP:.4}), 'lynn'), 1.54);
+  assert.equal(value(rows(input({myClass:'메르세데스'}), false, null, eff, {criInP:.4}), 'lynn'), 1.54);
   assert.equal(value(rows(input({myClass:'메르세데스'})), 'lynn'), 1.194);
 });
 test('equipped links match Korean and English aliases; no duplicate Lv3 upgrade', () => {
   const info = name => ({settings:{now_link:[{skill_name:name,skill_level:2}]}});
-  for (const name of ['자선전수','Elementalism']) assert.equal(value(rows(input(),false,true,info(name)),'kanna'),1.523);
-  assert.equal(value(rows(input(),true,true,{settings:{now_link:[{skill_name:'Spirit Guide Blessing',skill_level:3}]}}),'lynn'),undefined);
+  for (const name of ['자선전수','Elementalism']) assert.equal(value(rows(input(),false,info(name)),'kanna'),1.523);
+  assert.equal(value(rows(input(),true,{settings:{now_link:[{skill_name:'Spirit Guide Blessing',skill_level:3}]}}),'lynn'),undefined);
 });
 test('missing or invalid efficiency values cannot produce misleading finite estimates', () => {
-  for (const x of [undefined, NaN, Infinity, -1]) assert.equal(value(rows(input(),false,true,null,{...eff,dmgeff1:x}),'kanna'),undefined);
-  assert.equal(rows(input(),false,true,null,null).length,0);
+  for (const x of [undefined, NaN, Infinity, -1]) assert.equal(value(rows(input(),false,null,{...eff,dmgeff1:x}),'kanna'),undefined);
+  assert.equal(rows(input(),false,null,null).length,0);
 });
 test('calculating suggestions does not mutate character data or API response', () => {
   const us=input(), info={settings:{now_link:[{skill_name:'Qi Cultivation',skill_level:2}]}}, before=JSON.stringify([us,info,eff]);
-  rows(us,false,true,info); rows(us,true,false,info);
+  rows(us,false,info); rows(us,true,info);
   assert.equal(JSON.stringify([us,info,eff]),before);
 });
 test('manual and API results read their separate sources', () => {

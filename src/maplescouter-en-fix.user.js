@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.7
+// @version      1.7.8
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -136,7 +136,7 @@
   }
 
   /* -- site stores, captured passively as webpack executes each module (no forced requires) */
-  var siteRefs = { manualStore: null, presetStore: null, regionStore: null, characterStore: null, toast: null, enBundle: null, defaultUserStat: null };
+  var siteRefs = { manualStore: null, presetStore: null, regionStore: null, characterStore: null, toast: null, enBundle: null, defaultUserStat: null, react: null, createRoot: null, tooltip: null };
   // Test hook: with localStorage msfix:debug=1 the discovered refs are mirrored on window so an
   // end-to-end harness can drive the same stores we use, instead of force-requiring site modules.
   var DEBUG_REFS = false;
@@ -146,8 +146,27 @@
     return !!(v && typeof v === 'object' && v.stat && v.hexa && v.huntSkill && v.seedRing &&
       typeof v.isGMS === 'boolean' && typeof v.stat.myClass === 'string');
   }
+  // Discover the site's own tooltip components without importing or replacing its controls.
+  function noteHelpRuntime(ex) {
+    if (!ex || (typeof ex !== 'object' && typeof ex !== 'function')) return;
+    if (!siteRefs.react && typeof ex.createElement === 'function' && typeof ex.useState === 'function') siteRefs.react = ex;
+    if (!siteRefs.createRoot && typeof ex.createRoot === 'function' && typeof ex.hydrateRoot === 'function') siteRefs.createRoot = ex.createRoot;
+    if (siteRefs.tooltip) return;
+    var names = Object.keys(ex), found = {};
+    if (names.length > 12) return;
+    names.forEach(function (key) {
+      var fn = ex[key]; if (typeof fn !== 'function') return;
+      var code = Function.prototype.toString.call(fn);
+      if (code.length > 5000) return;
+      if (/"data-slot"\s*:\s*"tooltip"/.test(code)) found.Root = fn;
+      if (/"data-slot"\s*:\s*"tooltip-trigger"/.test(code)) found.Trigger = fn;
+      if (/"data-slot"\s*:\s*"tooltip-content"/.test(code)) found.Content = fn;
+    });
+    if (found.Root && found.Trigger && found.Content) siteRefs.tooltip = found;
+  }
   function noteExports(ex) {
     if (!ex || (typeof ex !== 'object' && typeof ex !== 'function')) return;
+    try { noteHelpRuntime(ex); if (ex.default) noteHelpRuntime(ex.default); } catch (_) {}
     var names; try { names = Object.keys(ex); } catch (e) { return; }
     for (var i = 0; i < names.length; i++) {
       var v; try { v = ex[names[i]]; } catch (e) { continue; }
@@ -175,6 +194,7 @@
         var payload = ex && ex.default && typeof ex.default === 'object' ? ex.default : ex;
         if (isEnBundle(payload)) applyPatch(payload);
         noteExports(ex);
+        if (module) module.exports = patchBuffExports(ex);
       } catch (e) {}
       return r;
     };
@@ -1219,9 +1239,20 @@
     return !!(e && e.closest && e.closest('[data-msfix-ui]'));
   }
 
+  function clarifiedControlLabel(text, forId, pathname) {
+    if (/^\/en\/result\/?$/.test(pathname)) {
+      if (forId === '최초의 유산' && /^(데티2차|최초의 유산|Destiny 2nd Lib\.|First Legacy(?: Buff)?|Destiny 2 Buff)$/.test(text.trim())) return 'Destiny 2 Buff';
+      if (forId === '파이렛플래그' && /^(파이렛|Ghost Pirate|Pirate's Banner)$/.test(text.trim())) return "Pirate's Banner";
+    }
+    if (!/^\/en\/input\/?$/.test(pathname) || forId !== 'destiny2ndSkill') return null;
+    return /^(최초의 유산|First Legacy(?: Buff)?|Destiny Liberated|Destiny 2nd Transcendence|Destiny 2 Liberated)$/.test(text.trim()) ? 'Destiny 2 Liberated' : null;
+  }
   function translateTextNode(node) {
     var v = node.nodeValue;
     if (!v || inOwnUi(node)) return;
+    var label = node.parentElement && node.parentElement.closest('label[for]');
+    var clarified = clarifiedControlLabel(v, label && label.htmlFor, location.pathname);
+    if (clarified) { if (v !== clarified) node.nodeValue = clarified; return; }
     if (HANGUL.test(v) && isPlayerNameContext(node)) return;
     if (translateRankingSeason(node)) return;
     var season = rankingSeason(v, location.pathname);
@@ -1482,13 +1513,13 @@
   var gmsLinkView = null;
   var gmsLinkTimer = null;
   var GMS_LINKS = [
-    { id: 'hayato', name: 'Moonlit Blade Learnings', ko: '창인전수', owners: ['하야토'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBMD', crit: [5, 7], note: 'Requires at least 100% critical rate and 50% critical damage.' },
-    { id: 'kanna', name: 'Elementalism', ko: '자선전수', owners: ['칸나'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBME', damage: [15, 20], note: 'Active for 12 seconds after 40 attack-skill uses. This is the active effect, not average damage.' },
-    { id: 'lynn', name: 'Focus Spirit', ko: '수호신의 가호', aliases: ['Spirit Guide Blessing'], owners: ['린'], icon: '/linkskill/lynn.png', boss: [7, 11], rate: [7, 10], hp: [4, 5], note: 'Boss damage, critical rate, and Max HP/MP. Critical rate is valued for Vicious Shot, as in the native table.' },
-    { id: 'mukhyun', name: 'Qi Cultivation', ko: '기백', aliases: ['Vigor', 'Grounded Body'], owners: ['묵현'], icon: '/linkskill/mukhyun.png', boss: [4, 6], stacks: [2, 3], note: 'Six stacks from sustained boss attacks. Stacks can build once every 2 seconds and last 5 seconds.' }
+    { id: 'hayato', name: 'Moonlit Blade Learnings', ko: '창인전수', aliases: ['Moonlight Blade Learnings'], owners: ['하야토'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBMD', crit: [5, 7], note: 'Requires at least 100% critical rate and 50% critical damage.' },
+    { id: 'kanna', name: 'Elementalism', ko: '자선전수', owners: ['칸나'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBME', damage: [15, 20], note: 'Active for 12 seconds after 40 attack-skill uses.' },
+    { id: 'lynn', name: 'Focus Spirit', ko: '수호신의 가호', aliases: ['Spirit Guide Blessing'], owners: ['린'], icon: '/linkskill/lynn.png', boss: [7, 11], rate: [7, 10], hp: [4, 5], note: 'Boss damage and Max HP/MP. Extra critical rate contributes through Vicious Shot.' },
+    { id: 'mukhyun', name: 'Qi Cultivation', ko: '기백', aliases: ['Vigor', 'Grounded Body'], owners: ['묵현'], icon: '/linkskill/mukhyun.png', boss: [4, 6], stacks: [2, 3], note: 'Gains a stack every 2 seconds of boss attacks, up to six. Stacks last 5 seconds.' }
   ];
   function gmsLinkName(s) { return String(s || '').replace(/\([^)]*\)|\d+/g, '').trim().toLowerCase(); }
-  function gmsLinkEstimates(us, info, eff, upgrade, active, classData) {
+  function gmsLinkEstimates(us, info, eff, upgrade, classData) {
     if (!us || !us.isGMS || us.isTMS || us.isJMS || us.isMSEA || !us.stat || !eff) return [];
     var cls = us.stat.myClass;
     var archers = ['보우마스터', '신궁', '패스파인더', '윈드브레이커', '메르세데스', '와일드헌터', '카인'];
@@ -1503,7 +1534,7 @@
       var from = upgrade ? 0 : -1, to = upgrade ? 1 : 0;
       var diff = function (a) { return a ? a[to] - (from < 0 ? 0 : a[from]) : 0; };
       var blocked = s.id === 'hayato' && !(Number(us.stat.critical) >= 100 && Number(us.stat.criticalDmg) >= 50);
-      var dmg = diff(s.damage) * (active ? 1 : 0) + diff(s.boss) + (active ? 6 * diff(s.stacks) : 0);
+      var dmg = diff(s.damage) + diff(s.boss) + 6 * diff(s.stacks);
       var crit = diff(s.crit) + (vicious ? diff(s.rate) * vicious : 0);
       var hp = cls === '데몬어벤져' ? diff(s.hp) : 0;
       var terms = [[dmg, eff.dmgeff1], [crit, eff.cridmgeff1], [hp, eff.mainStatPereff1]];
@@ -1522,8 +1553,6 @@
       var note = s.note;
       if (s.id === 'lynn' && !vicious) note += ' Critical rate is not scored for this character.';
       if (blocked) note = 'Requirements not met in these inputs: 100% critical rate and 50% critical damage.';
-      if (s.id === 'kanna' && !active) note = 'Inactive. Turn on Active effects to compare its 12-second damage window.';
-      if (s.id === 'mukhyun' && !active) note = 'Base boss damage only. Turn on Active effects to include six stacks.';
       return { id: s.id, name: s.name, icon: s.icon, value: blocked ? 0 : Math.round(gain * 100000) / 1000,
         note: note, label: 'GMS ' + (upgrade ? 'Lv. 2 → 3' : 'Lv. 2') };
     }).filter(function (s) { return s && Number.isFinite(s.value) && s.value >= 0; });
@@ -1579,25 +1608,18 @@
     if (!gmsLinkView) {
       var root = document.createElement('div');
       root.setAttribute('data-msfix-ui', 'gms-links'); root.className = 'msfix-gms-links';
-      var controls = document.createElement('label'); controls.className = 'msfix-gms-link-controls';
-      var active = document.createElement('input'); active.type = 'checkbox'; active.checked = true;
-      active.addEventListener('change', scheduleGmsLinks);
-      controls.append(active, document.createTextNode('Active effects'));
-      controls.title = 'Includes Kanna during its 12-second effect and Mo Xuan at six stacks. These are not average damage estimates.';
-      var caption = document.createElement('p'); caption.className = 'msfix-gms-link-note';
-      caption.textContent = 'GMS links included. Hover a skill for its conditions.';
       var list = document.createElement('ol'); list.className = 'msfix-gms-link-list'; list.setAttribute('aria-label', 'Link Skill efficiency including GMS');
       var extra = document.createElement('p'); extra.className = 'msfix-gms-link-note';
       extra.textContent = 'Also consider Guiding Stars (Erel). At Lv. 3: +3% critical damage and +10% buff duration. Buff duration is not scored by this table.';
-      root.append(controls, caption, list, extra);
+      root.append(list, extra);
       native.after(root);
       var obs = new MutationObserver(scheduleGmsLinks);
       obs.observe(panel, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['aria-checked', 'title', 'alt', 'src'] });
-      gmsLinkView = { native: native, root: root, list: list, active: active, caption: caption, observer: obs, display: native.style.display, fingerprint: '' };
+      gmsLinkView = { native: native, root: root, list: list, observer: obs, display: native.style.display, fingerprint: '' };
     }
     var view = gmsLinkView;
     var isUpgrade = upgrade.getAttribute('aria-checked') === 'true';
-    var added = gmsLinkEstimates(ctx.us, ctx.info, ctx.eff, isUpgrade, view.active.checked, ctx.classData);
+    var added = gmsLinkEstimates(ctx.us, ctx.info, ctx.eff, isUpgrade, ctx.classData);
     if (!added.length) { clearGmsLinkView(); return; }
     var known = new Set(original.map(function (r) { return gmsLinkName(r.name); }));
     added = added.filter(function (s) {
@@ -1612,7 +1634,6 @@
     view.fingerprint = fp;
     // Disconnect while writing our own sibling to avoid MutationObserver feedback loops.
     view.observer.disconnect();
-    view.caption.textContent = (isUpgrade ? 'GMS links compare Lv. 2 to 3.' : 'GMS links use Lv. 2.') + (view.active.checked ? ' Kanna active, Mo Xuan at six stacks.' : ' Kanna inactive, Mo Xuan without stacks.') + ' Hover for details.';
     view.list.replaceChildren();
     rows.forEach(function (s) {
       var li = document.createElement('li');
@@ -1627,6 +1648,376 @@
     });
     native.style.display = 'none';
     view.observer.observe(panel, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['aria-checked', 'title', 'alt', 'src'] });
+  }
+
+  /* ---------------- 4b. Selective input help ----------------------------------------- */
+  function cardHelp(props) {
+    var catalog = data().checkboxHelp || {}, image = props.imageUrl || '';
+    var handler = props.inputProps && props.inputProps.onChange;
+    var code = typeof handler === 'function' ? Function.prototype.toString.call(handler) : '';
+    var rule = (catalog.cards || []).concat(catalog.rules || []).find(function (r) {
+      return r.image && image.indexOf(r.image) !== -1 && (!r.key || code.indexOf(r.key) !== -1);
+    });
+    var title = rule && rule.title || translateString(props.tooltip) || props.tooltip;
+    if (props.tooltip === 'XXX' && image === '/icon/icon_guide.png') title = 'Unreleased Mastery Skill';
+    var detail = rule && rule.text || '';
+    if (rule && typeof rule.factor === 'number') {
+      var raw = props.inputProps && props.inputProps.value, level = Number(raw);
+      if (raw === '' || raw == null || !Number.isFinite(level) || level < 0 || level > rule.max) {
+        detail = 'Range: 0–' + rule.max + '.';
+      } else {
+        detail = (rule.level ? 'Lv. ' + level + ': ' : '') + '+' + (level * rule.factor) + rule.unit;
+        if (rule.hpFactor) detail += ', +' + (level * rule.hpFactor).toLocaleString('en-US') + ' Max HP/MP';
+        detail += '.';
+        if (rule.toggle && props.active === false) detail = 'Inactive. ' + detail;
+      }
+    }
+    return {title:title, detail:detail};
+  }
+  // Combine a buff's native name and our detail before React renders the card.
+  // Keep the original image, controls, props and event handlers. Unknown layouts stay native.
+  function combinedBuffTree(tree, props) {
+    var R = siteRefs.react;
+    if (pathLocale() !== 'en' || !/\/(input|result)\/?$/.test(location.pathname) || !R || !R.cloneElement || !siteRefs.tooltip || !siteRefs.createRoot) return tree;
+    if (!props || typeof props.tooltip !== 'string' || !props.tooltip.trim()) return tree;
+    if (!tree || tree.type !== 'div' || !tree.props || !Array.isArray(tree.props.children)) return tree;
+    var kids = tree.props.children, pair = kids[0] && kids[0].props && kids[0].props.children;
+    if (!Array.isArray(pair) || pair.length !== 2 || !pair[0].props || !pair[1].props || pair[1].props.children !== props.tooltip || !pair[0].props.children) return tree;
+    var help = cardHelp(props);
+    return R.cloneElement(tree, {'data-msfix-card-help':'', 'data-msfix-buff-title':help.title, 'data-msfix-buff-detail':help.detail}, [pair[0].props.children].concat(kids.slice(1)));
+  }
+  function patchBuffExports(ex) {
+    if (!ex || typeof ex !== 'object') return ex;
+    var keys = Object.keys(ex); if (keys.length > 4) return ex;
+    var replacements = {};
+    keys.forEach(function (key) {
+      var fn = ex[key]; if (typeof fn !== 'function' || fn.__msfixBuff) return;
+      var code = Function.prototype.toString.call(fn);
+      if (code.length > 5000 || !['imageUrl:', 'checkboxProps:', 'radioProps:', 'tooltip:', 'inputProps:'].every(function (part) { return code.indexOf(part) !== -1; })) return;
+      var wrapped = function (props) { return combinedBuffTree(fn.apply(this, arguments), props); };
+      wrapped.__msfixBuff = true;
+      replacements[key] = wrapped;
+    });
+    if (!Object.keys(replacements).length) return ex;
+    var result = {};
+    Reflect.ownKeys(ex).forEach(function (key) {
+      Object.defineProperty(result, key, Object.prototype.hasOwnProperty.call(replacements, key) ? {enumerable:true, value:replacements[key]} : Object.getOwnPropertyDescriptor(ex, key));
+    });
+    return result;
+  }
+  var CHECK_HELP_SELECTOR = '[role="checkbox"], [role="switch"], input[type="checkbox"]';
+  var checkHelpRecords = new Map(), checkHelpTargets = new WeakMap(), checkHelpCounter = 0;
+  var checkHelpActive = null, checkHelpHover = null, checkHelpFocus = null, checkHelpTimer = 0;
+  var checkHelpRoot = null, checkHelpRenderKey = '', checkHelpLast = null, checkHelpPointerFocus = false;
+  var checkHelpWasOpen = false, checkHelpSkipEnter = false;
+  var FIELD_HELP_SELECTOR = 'span, label';
+  function helpNormalize(s) { return String(s || '').replace(/\s+/g, ' ').trim().toLowerCase(); }
+  function helpVariants(s) {
+    var d = data(), bundle = siteRefs.enBundle || {};
+    return [s, d.i18nPatch[s], d.dict[s], bundle[s]].filter(function (x) { return typeof x === 'string'; }).map(helpNormalize);
+  }
+  // Pure resolver: route and role disambiguate reused IDs (notably destiny-checkbox).
+  function resolveCheckboxHelp(info, catalog, variants) {
+    variants = variants || function (s) { return [helpNormalize(s)]; };
+    var label = helpNormalize(info.label), context = helpNormalize(info.context);
+    function matchesText(keys, haystack, contains) {
+      return keys.some(function (k) { return variants(k).some(function (v) { return v && (contains ? haystack.indexOf(v) !== -1 : haystack === v); }); });
+    }
+    for (var i = 0; i < catalog.length; i++) {
+      var r = catalog[i];
+      if (r.routes && r.routes.indexOf(info.route) === -1) continue;
+      if (r.role && r.role !== info.role) continue;
+      if (r.ids && r.ids.indexOf(info.id) === -1) continue;
+      if (r.idPrefix && !info.id.startsWith(r.idPrefix)) continue;
+      if (r.idSuffix && !info.id.endsWith(r.idSuffix)) continue;
+      if (r.image && info.image.indexOf(r.image) === -1) continue;
+      if (r.labels && !matchesText(r.labels, label, false)) continue;
+      if (r.context && !matchesText(r.context, context, true)) continue;
+      return { text: r.text, title: r.title, detail: r.detail, name: r.name || info.label };
+    }
+    return null; // Never invent a calculation effect for an unrecognized control.
+  }
+  function checkboxInfo(control) {
+    var scope = control.closest('label') || control.parentElement, labelNode = null;
+    if (!scope) return null;
+    // Prefer the adjacent label. The site reuses IDs, so document.querySelector is unsafe here.
+    if (control.id) labelNode = Array.from(scope.querySelectorAll('label')).find(function (l) { return l.htmlFor === control.id; }) || null;
+    if (!labelNode && scope.tagName === 'LABEL') labelNode = scope;
+    var label = labelNode ? labelNode.textContent : control.getAttribute('aria-label') || control.textContent;
+    if (!label || !label.trim()) {
+      for (var n = scope, depth = 0; n && depth < 3; n = n.parentElement, depth++) {
+        if (n.querySelectorAll(CHECK_HELP_SELECTOR).length > 1) break;
+        if (n.textContent.trim() && n.textContent.trim().length < 150) { scope = n; label = n.textContent; break; }
+      }
+    }
+    var image = scope.querySelector('img'), imageUrl = image ? image.getAttribute('src') || '' : '';
+    try { imageUrl = decodeURIComponent(imageUrl); } catch (_) {}
+    return { route: location.pathname.replace(/^\/(en|ko|ja|ch)(?=\/|$)/, '') || '/', id: control.id || '', role: control.getAttribute('role') || 'checkbox', label: (label || '').trim(), context: scope.textContent.trim(), image: imageUrl, labelNode: labelNode, scope: scope };
+  }
+  function checkHelpDescription(control, info) {
+    var result = resolveCheckboxHelp(info, (data().checkboxHelp || {}).rules || [], helpVariants);
+    return result;
+  }
+  function hasNativeHelp(element) {
+    return !!element.closest('[data-slot="tooltip-trigger"], [data-slot="hover-card-trigger"], [title]:not([title=""])');
+  }
+  function ensureCardHelp(card) {
+    var title = card.getAttribute('data-msfix-buff-title'), detail = card.getAttribute('data-msfix-buff-detail') || '';
+    if (!title || !card.isConnected) return null;
+    var rec = checkHelpRecords.get(card);
+    if (!rec) {
+      var node = document.createElement('div'); node.id = 'msfix-check-help-' + (++checkHelpCounter);
+      node.className = 'msfix-check-help'; node.setAttribute('data-msfix-ui', ''); node.hidden = true; document.body.appendChild(node);
+      rec = {control:card, anchor:card, node:node, targets:[card], described:[], card:true};
+      checkHelpRecords.set(card, rec); checkHelpTargets.set(card, rec);
+    }
+    rec.title = title; rec.detail = detail;
+    var copy = title + (detail ? '. ' + detail : '');
+    if (rec.node.textContent !== copy) rec.node.textContent = copy;
+    Array.from(card.querySelectorAll('input, [role="checkbox"], [role="radio"]')).forEach(function (control) {
+      var ids = (control.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+      if (ids.indexOf(rec.node.id) === -1) { ids.push(rec.node.id); control.setAttribute('aria-describedby', ids.join(' ')); }
+      if (rec.described.indexOf(control) === -1) rec.described.push(control);
+    });
+    return rec;
+  }
+  function ensureCheckboxHelp(control) {
+    if (pathLocale() !== 'en' || !control.isConnected || control.getAttribute('aria-hidden') === 'true' || control.type === 'hidden') return null;
+    if (control.closest('[data-msfix-ui]') && !control.closest('.msfix-gms-links')) return null;
+    var card = control.closest('[data-msfix-card-help]');
+    if (card) return ensureCardHelp(card);
+    if (hasNativeHelp(control)) {
+      var old = checkHelpRecords.get(control); if (old) removeCheckboxHelp(control, old);
+      return null;
+    }
+    var info = checkboxInfo(control); if (!info) return null;
+    var help = checkHelpDescription(control, info), rec = checkHelpRecords.get(control);
+    // If a buff could not be combined safely, leave its original tooltip alone.
+    var buffTitle = info.scope.getAttribute('data-msfix-buff-title');
+    if (!buffTitle && info.scope.querySelector('[data-slot="tooltip-trigger"], [data-slot="hover-card-trigger"]')) help = null;
+    if (!help) { if (rec) removeCheckboxHelp(control, rec); return null; }
+    if (!rec) {
+      var node = document.createElement('div'); node.id = 'msfix-check-help-' + (++checkHelpCounter);
+      node.className = 'msfix-check-help'; node.setAttribute('data-msfix-ui', ''); node.hidden = true;
+      document.body.appendChild(node);
+      rec = {control: control, node: node, targets: [], addedLabel: null, described: [control]}; checkHelpRecords.set(control, rec);
+    }
+    rec.info = info; rec.title = buffTitle || help.title || ''; rec.detail = help.detail || help.text;
+    rec.anchor = info.scope.querySelectorAll(CHECK_HELP_SELECTOR).length === 1 ? info.scope : control;
+    var copy = help.detail ? help.text + ' ' + help.detail : help.text;
+    if (rec.node.textContent !== copy) rec.node.textContent = copy;
+    var desc = (control.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+    if (desc.indexOf(rec.node.id) === -1) { desc.push(rec.node.id); control.setAttribute('aria-describedby', desc.join(' ')); }
+    // Icon-only native buff checkboxes have no accessible name at all.
+    if (!info.labelNode && !control.getAttribute('aria-labelledby') && (!control.getAttribute('aria-label') || control.getAttribute('aria-label') === rec.addedLabel) && help.name) {
+      if (control.getAttribute('aria-label') !== help.name) control.setAttribute('aria-label', help.name);
+      rec.addedLabel = help.name;
+    }
+    rec.targets.forEach(function (target) { if (checkHelpTargets.get(target) === rec) checkHelpTargets.delete(target); });
+    // Bind the entire control block, including padding and the gap beside its label.
+    rec.targets = [rec.anchor];
+    rec.targets.forEach(function (target) { checkHelpTargets.set(target, rec); });
+    return rec;
+  }
+  function ensureFieldHelp(label, metricHelp) {
+    if (metricHelp && (typeof metricHelp !== 'object' || typeof metricHelp.text !== 'string')) metricHelp = null;
+    if (!label.isConnected || label.children.length || label.closest('[data-msfix-ui], [data-slot="tooltip-content"]')) return null;
+    if (hasNativeHelp(label)) return null;
+    var route = location.pathname.replace(/^\/(en|ko|ja|ch)(?=\/|$)/, '') || '/';
+    var help = metricHelp || resolveCheckboxHelp({route:route, label:label.textContent, context:'', id:'', image:''}, (data().checkboxHelp || {}).fields || [], helpVariants);
+    var rec = checkHelpRecords.get(label);
+    if (rec && rec.metric && !metricHelp) return rec;
+    if (!help) { if (rec) removeCheckboxHelp(label, rec); return null; }
+    if (!rec) {
+      var node = document.createElement('div'); node.id = 'msfix-check-help-' + (++checkHelpCounter);
+      node.className = 'msfix-check-help'; node.setAttribute('data-msfix-ui', ''); node.hidden = true;
+      document.body.appendChild(node);
+      rec = {control:label, anchor:label.closest('th, td') || label.parentElement || label, node:node, targets:[], described:[], field:true, metric:!!metricHelp}; checkHelpRecords.set(label, rec);
+      // Only associate inputs in a small, unambiguous row. No wrapping, reparenting, or value writes.
+      for (var row = metricHelp ? null : label.parentElement, depth = 0; row && depth < 4; row = row.parentElement, depth++) {
+        var inputs = Array.from(row.querySelectorAll('input:not([type="hidden"]):not([type="checkbox"]), select'));
+        if (inputs.length > 2) break;
+        if (inputs.length) { rec.described = inputs; rec.anchor = row; break; }
+      }
+      if (!rec.described.length) {
+        rec.described = [label];
+      }
+      var icon = document.createElement('button'); icon.type = 'button'; icon.className = 'msfix-help-icon';
+      icon.setAttribute('data-msfix-ui', ''); icon.setAttribute('aria-label', 'About ' + label.textContent.trim());
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      var attrs = {width:24, height:24, viewBox:'0 0 24 24', fill:'none', stroke:'var(--text-gray-disabled)', 'stroke-width':2, 'stroke-linecap':'round', 'stroke-linejoin':'round', 'class':'lucide lucide-circle-help size-4', 'aria-hidden':'true'};
+      Object.keys(attrs).forEach(function (key) { svg.setAttribute(key, attrs[key]); });
+      [['circle', {cx:12,cy:12,r:10}], ['path', {d:'M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'}], ['path', {d:'M12 17h.01'}]].forEach(function (part) {
+        var element = document.createElementNS('http://www.w3.org/2000/svg', part[0]);
+        Object.keys(part[1]).forEach(function (key) { element.setAttribute(key, part[1][key]); }); svg.appendChild(element);
+      });
+      icon.appendChild(svg);
+      icon.addEventListener('click', function (e) { e.stopPropagation(); showCheckboxHelp(rec); });
+      label.after(icon); rec.icon = icon; rec.anchor = icon; rec.described.push(icon);
+      rec.targets = [icon];
+      rec.targets.forEach(function (target) { checkHelpTargets.set(target, rec); });
+      label.setAttribute('data-msfix-help-label', '');
+    }
+    if (rec.node.textContent !== help.text) rec.node.textContent = help.text;
+    rec.described.forEach(function (target) {
+      var ids = (target.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+      if (ids.indexOf(rec.node.id) === -1) { ids.push(rec.node.id); target.setAttribute('aria-describedby', ids.join(' ')); }
+    });
+    return rec;
+  }
+  function ensureMetricRowHelp(row, text) {
+    var rec = checkHelpRecords.get(row);
+    if (!rec) {
+      var node = document.createElement('div'); node.id = 'msfix-check-help-' + (++checkHelpCounter);
+      node.className = 'msfix-check-help'; node.setAttribute('data-msfix-ui', ''); node.hidden = true;
+      document.body.appendChild(node);
+      rec = {control:row, anchor:row, node:node, targets:[row], described:[row], metric:true};
+      checkHelpRecords.set(row, rec); checkHelpTargets.set(row, rec);
+      if (!row.hasAttribute('tabindex')) { row.setAttribute('tabindex', '0'); rec.addedTabIndex = true; }
+    }
+    if (rec.node.textContent !== text) rec.node.textContent = text;
+    var ids = (row.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+    if (ids.indexOf(rec.node.id) === -1) { ids.push(rec.node.id); row.setAttribute('aria-describedby', ids.join(' ')); }
+    return rec;
+  }
+  function ensureMetricHelp(label) {
+    if (!label.isConnected || label.children.length || label.closest('[data-msfix-ui], [data-slot="tooltip-content"]') || hasNativeHelp(label)) return;
+    var rules = (data().checkboxHelp || {}).metrics || [];
+    var candidates = rules.filter(function (r) { return r.labels.indexOf(label.textContent.trim()) !== -1; });
+    if (!candidates.length) return;
+    var row = label.parentElement, value = row && row.lastElementChild;
+    if (!value || value === label || value.tagName !== 'SPAN') return;
+    for (var group = row.parentElement, depth = 0; group && depth < 3; group = group.parentElement, depth++) {
+      var heading = group.firstElementChild;
+      if (!heading || heading.contains(label)) continue;
+      var found = candidates.find(function (r) { return r.groups.indexOf(heading.textContent.trim()) !== -1; });
+      if (found) return ensureMetricRowHelp(row, found.text);
+    }
+  }
+  function removeCheckboxHelp(control, rec) {
+    if (checkHelpActive === rec) hideCheckboxHelp();
+    if (checkHelpHover === rec) checkHelpHover = null;
+    if (checkHelpFocus === rec) checkHelpFocus = null;
+    (rec.described || [control]).forEach(function (target) {
+      var ids = (target.getAttribute('aria-describedby') || '').split(/\s+/).filter(function (id) { return id && id !== rec.node.id; });
+      if (ids.length) target.setAttribute('aria-describedby', ids.join(' ')); else target.removeAttribute('aria-describedby');
+    });
+    if (rec.addedTabIndex && control.getAttribute('tabindex') === '0') control.removeAttribute('tabindex');
+    if (rec.field) control.removeAttribute('data-msfix-help-label');
+    if (rec.icon) rec.icon.remove();
+    if (rec.addedLabel && control.getAttribute('aria-label') === rec.addedLabel) control.removeAttribute('aria-label');
+    rec.targets.forEach(function (target) { if (checkHelpTargets.get(target) === rec) checkHelpTargets.delete(target); });
+    rec.node.remove(); checkHelpRecords.delete(control);
+  }
+  function refreshCheckboxHelp() {
+    checkHelpRecords.forEach(function (rec, control) { if (!control.isConnected || pathLocale() !== 'en') removeCheckboxHelp(control, rec); });
+    if (pathLocale() !== 'en') return;
+    document.querySelectorAll('[data-msfix-card-help]').forEach(ensureCardHelp);
+    document.querySelectorAll(CHECK_HELP_SELECTOR).forEach(ensureCheckboxHelp);
+    if (/\/input\/?$/.test(location.pathname)) document.querySelectorAll(FIELD_HELP_SELECTOR).forEach(function (label) { ensureFieldHelp(label); });
+    if (/\/(input|result)\/?$/.test(location.pathname)) document.querySelectorAll('span').forEach(ensureMetricHelp);
+    if (checkHelpActive) placeCheckboxHelp();
+  }
+  function renderNativeHelp(rec, rect) {
+    var R = siteRefs.react, T = siteRefs.tooltip;
+    if (!R || !T || !siteRefs.createRoot) return; // Fail closed if the site changes its component contract.
+    try {
+      var open = !!rec;
+      if (open && !checkHelpWasOpen) {
+        // Re-entering during the native exit animation must not replay the entrance.
+        var visible = document.querySelector('[data-msfix-input-help]');
+        checkHelpSkipEnter = !!(visible && visible.getClientRects().length && Number(getComputedStyle(visible).opacity) > 0);
+      }
+      checkHelpWasOpen = open;
+      if (rec) checkHelpLast = {rec:rec, rect:rect};
+      else if (checkHelpLast) { rec = checkHelpLast.rec; rect = checkHelpLast.rect; }
+      else return;
+      if (!checkHelpRoot) {
+        var host = document.createElement('div'); host.setAttribute('data-msfix-ui', '');
+        host.className = 'msfix-help-root'; document.body.appendChild(host);
+        checkHelpRoot = siteRefs.createRoot(host);
+      }
+      var key = [open, checkHelpSkipEnter, rec.node.id, rec.title, rec.node.textContent, rect.x, rect.y, rect.width, rect.height].join('|');
+      if (key === checkHelpRenderKey) return;
+      checkHelpRenderKey = key;
+      var h = R.createElement;
+      checkHelpRoot.render(h(T.Root, {open:open, disableHoverableContent:true},
+        h(T.Trigger, {asChild:true}, h('span', {'aria-hidden':true, tabIndex:-1, style:{position:'fixed', pointerEvents:'none', left:rect.x, top:rect.y, width:rect.width, height:rect.height}})),
+        h(T.Content, {'data-msfix-ui':'', 'data-msfix-input-help':'', collisionPadding:8,
+          style:open && checkHelpSkipEnter ? {animationName:'none'} : undefined,
+          onFocusOutside:function (e) { if (checkHelpFocus === rec) e.preventDefault(); }
+        }, rec.title ? h('div', {className:'msfix-help-copy'},
+          h('div', {className:'msfix-help-title'}, rec.title),
+          rec.detail ? h('div', {className:'msfix-help-detail'}, rec.detail) : null
+        ) : rec.node.textContent)
+      ));
+    } catch (_) { checkHelpRenderKey = ''; }
+  }
+  function hideCheckboxHelp() {
+    clearTimeout(checkHelpTimer); checkHelpActive = null; renderNativeHelp(null);
+  }
+  function placeCheckboxHelp() {
+    var rec = checkHelpActive; if (!rec) return;
+    if (!rec.control.isConnected || pathLocale() !== 'en' || !rec.control.getClientRects().length) { hideCheckboxHelp(); return; }
+    var r = (rec.anchor || rec.control).getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) { hideCheckboxHelp(); return; }
+    renderNativeHelp(rec, r);
+  }
+  function showCheckboxHelp(rec) {
+    if (!rec) return;
+    clearTimeout(checkHelpTimer); checkHelpActive = rec; placeCheckboxHelp();
+  }
+  function checkboxHelpTarget(target) {
+    // Native skill icons inside a control block keep their existing tooltip.
+    if (target && target.nodeType === 1 && hasNativeHelp(target)) return null;
+    for (var e = target; e && e.nodeType === 1; e = e.parentElement) {
+      if (e.hasAttribute('data-msfix-input-help')) return null;
+      var rec = checkHelpTargets.get(e); if (rec) return rec.card ? ensureCardHelp(e) : rec;
+      if (e.hasAttribute('data-msfix-card-help')) return ensureCardHelp(e);
+      if (e.matches(CHECK_HELP_SELECTOR)) return ensureCheckboxHelp(e);
+      if (e.tagName === 'LABEL') {
+        var c = e.querySelector(CHECK_HELP_SELECTOR);
+        if (!c && e.htmlFor && e.parentElement) c = Array.from(e.parentElement.querySelectorAll(CHECK_HELP_SELECTOR)).find(function (x) { return x.id === e.htmlFor; });
+        if (c) return ensureCheckboxHelp(c);
+      }
+    }
+    return null;
+  }
+  function deferHideCheckboxHelp() {
+    clearTimeout(checkHelpTimer);
+    checkHelpTimer = setTimeout(function () { if (!checkHelpHover && !checkHelpFocus) hideCheckboxHelp(); }, 0);
+  }
+  function startCheckboxHelp() {
+    document.addEventListener('pointerover', function (e) {
+      if (e.pointerType === 'touch') return;
+      checkHelpHover = checkboxHelpTarget(e.target);
+      if (checkHelpHover) showCheckboxHelp(checkHelpHover);
+    });
+    document.addEventListener('pointerout', function (e) {
+      if (e.pointerType === 'touch') return;
+      checkHelpHover = checkboxHelpTarget(e.relatedTarget);
+      if (!checkHelpHover) deferHideCheckboxHelp();
+    });
+    document.addEventListener('focusin', function (e) { checkHelpFocus = checkHelpPointerFocus ? null : checkboxHelpTarget(e.target); if (checkHelpFocus) showCheckboxHelp(checkHelpFocus); });
+    document.addEventListener('focusout', function (e) { checkHelpFocus = checkboxHelpTarget(e.relatedTarget); if (!checkHelpFocus) deferHideCheckboxHelp(); });
+    document.addEventListener('pointerdown', function (e) {
+      checkHelpPointerFocus = true; checkHelpFocus = null;
+      var rec = checkboxHelpTarget(e.target);
+      if (!rec) { checkHelpFocus = checkHelpHover = null; hideCheckboxHelp(); }
+      else if (e.pointerType === 'touch') showCheckboxHelp(rec); // Does not intercept the normal toggle.
+    }, true);
+    document.addEventListener('keydown', function (e) {
+      checkHelpPointerFocus = false;
+      if (e.key === 'Escape') { checkHelpHover = checkHelpFocus = null; hideCheckboxHelp(); }
+    }, true);
+    window.addEventListener('scroll', placeCheckboxHelp, true);
+    window.addEventListener('resize', placeCheckboxHelp);
+    document.addEventListener('click', function () { setTimeout(refreshCheckboxHelp, 100); }, true);
+    document.addEventListener('input', function (e) {
+      var card = e.target.closest('[data-msfix-card-help]'); if (!card) return;
+      requestAnimationFrame(function () { ensureCardHelp(card); if (checkHelpActive && checkHelpActive.control === card) placeCheckboxHelp(); });
+    }, true);
+    setTimeout(refreshCheckboxHelp, 500);
   }
 
   /* ---------------- 4a. Tooltip keep-alive ---------------------------------------------- */
@@ -1644,7 +2035,7 @@
   // A clone has no React handlers. Never preserve a menu, form, or other
   // interactive layer after the site closes it, and never clone our own clone.
   function canPinFloating(el) {
-    if (el.closest('#msfix-pinned-tooltip, [data-msfix-ui]')) return false;
+    if (el.closest('#msfix-pinned-tooltip, [data-msfix-ui]') || el.querySelector('[data-msfix-input-help]')) return false;
     if (el.matches(INTERACTIVE_FLOAT_SELECTOR) || el.querySelector(INTERACTIVE_FLOAT_SELECTOR)) return false;
     return el.matches(INFO_FLOAT_SELECTOR) || !!el.querySelector(INFO_FLOAT_SELECTOR);
   }
@@ -1817,7 +2208,7 @@
   }
   function applyRouteGate() {
     var on = isInputRoute();
-    var routeName = on ? 'input' : (/^\/(ko|en|ja|ch)\/game\/spec-quiz(?:\/|$)/.test(location.pathname) ? 'spec-quiz' : '');
+    var routeName = on ? 'input' : (/^\/(ko|en|ja|ch)\/game\/spec-quiz(?:\/|$)/.test(location.pathname) ? 'spec-quiz' : location.pathname.split('/').filter(Boolean).pop() || 'home');
     if (/^\/en\/(?:simulator\/)?ability\/?$/.test(location.pathname)) routeName = 'ability';
     if (/^\/en\/simulator\/soul\/?$/.test(location.pathname)) routeName = 'soul';
     var st = routeStyle();
@@ -2359,7 +2750,7 @@
     return { state: 'conflict', key: key, b: b };
   }
   var ICON_STATES = {
-    'none':         { icon: 'cloud',          color: 'text-text-gray-low', title: 'No character selected. Your inputs are not being saved. Pick one from the list.' },
+    'none':         { icon: 'cloud',          color: 'text-text-gray-low', title: 'No character selected. Inputs are not saved to a character.' },
     'unlinked':     { icon: 'cloud-off',      color: 'text-text-gray-low', title: 'Saved in this browser only. Click to link it to an IGN.' },
     'off':          { icon: 'cloud-off',      color: 'text-text-gray-low', title: 'Cloud sync is off.' },
     'not-uploaded': { icon: 'cloud-upload',   color: 'text-text-gray-low', title: 'Not in the cloud yet. Click to upload.' },
@@ -2416,7 +2807,7 @@
     if (!picker.icon) return;
     var info = syncInfo(), st = ICON_STATES[info.state] || ICON_STATES.none;
     var title = st.title;
-    if (info.state === 'offline' && cloud.offlineReason === 'blocked') title = 'Cloud access was blocked. Your local saves still work. Click to retry.';
+    if (info.state === 'offline' && cloud.offlineReason === 'blocked') title = 'Cloud access blocked. Local saves remain available. Click to retry.';
     var busyNow = cloud.busy > 0;
     picker.icon.className = SOFT_BASE + ' msfix-sync ' + (busyNow ? 'text-text-gray-low' : st.color);
     picker.icon.innerHTML = busyNow ? svgIcon('loader', 'animate-spin') : svgIcon(st.icon, info.state === 'checking' ? 'animate-spin' : '');
@@ -3650,6 +4041,7 @@
 
   function onReady() {
     injectCss();
+    startCheckboxHelp();
     installPresetImportBridge(); // let the site's native import accept our old export files
     cloudOnReady();              // character picker + cloud sync (Manual Input page)
     // The Save window mounts on click, so look for it right after one rather than waiting
@@ -3662,7 +4054,7 @@
     // Delay the DOM layer slightly so React hydration finishes first.
     setTimeout(startDomLayer, 250);
     setTimeout(function () { translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); }, 400);
-    setInterval(function () { backupRegion(); translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); ensureSaveImportIcons(); refreshFloatRects(); ensureCharPicker(); ensureGmsLinks(); }, 2000);
+    setInterval(function () { backupRegion(); translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); ensureSaveImportIcons(); refreshFloatRects(); ensureCharPicker(); ensureGmsLinks(); refreshCheckboxHelp(); }, 2000);
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') onReady();

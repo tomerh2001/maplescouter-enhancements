@@ -1,0 +1,277 @@
+{
+  "classes": [
+    {
+      "name": "Night Lord",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Night Walker",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Dark Knight",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Demon Slayer",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Demon Avenger",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Dual Blade",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Lara",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Lethe",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Ren",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Luminous",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Mercedes",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Mechanic",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Mihile",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Buccaneer",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Battle Mage",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Bowmaster",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Blaster",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Bishop",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Shadower",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Dawn Warrior",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Thunder Breaker",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Marksman",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Adele",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Aran",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Ark",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Fire/Poison",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Ice/Lightning",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Evan",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Angelic Buster",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Wild Hunter",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Wind Archer",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Shade",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Illium",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Xenon",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Zero",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Cadena",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Kaiser",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Kain",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Khali",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Cannoneer",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Corsair",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Kinesis",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Paladin",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Pathfinder",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Phantom",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Blaze Wizard",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Hoyoung",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Hero",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Hayato",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Mo Xuan",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Lynn",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Kanna",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 0
+    },
+    {
+      "name": "Sia Astelle",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 2
+    },
+    {
+      "name": "Erel Light",
+      "skillCards": 15,
+      "unreleasedMasterySlots": 2
+    }
+  ],
+  "assetsChecked": 639,
+  "failedAssets": [],
+  "note": "Class cards were read by switching each native class option. URLs were fetched independently; this does not prove every skill image is semantically correct. Sia’s Freud report was not reproduced in the current input panel."
+}

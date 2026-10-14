@@ -1,0 +1,715 @@
+{
+  "rules": [
+    {
+      "routes": [
+        "/input"
+      ],
+      "ids": [
+        "reboot"
+      ],
+      "text": "Heroic passive: +45% Final Damage at Lv. 250+."
+    },
+    {
+      "routes": [
+        "/input"
+      ],
+      "ids": [
+        "genesis"
+      ],
+      "text": "+10% Final Damage."
+    },
+    {
+      "routes": [
+        "/input"
+      ],
+      "ids": [
+        "destiny2ndSkill"
+      ],
+      "text": "First Legacy Buff: +10% ATT/MATT"
+    },
+    {
+      "routes": [
+        "/input"
+      ],
+      "ids": [
+        "mugongSoul"
+      ],
+      "text": "+25% ATT/MATT.",
+      "title": "+25% ATT/MATT.",
+      "detail": "Lv. 1: 10s; Lv. 2: 20s."
+    },
+    {
+      "routes": [
+        "/input"
+      ],
+      "ids": [
+        "useRuinForceShild"
+      ],
+      "text": "+10% Final Damage."
+    },
+    {
+      "routes": [
+        "/input"
+      ],
+      "ids": [
+        "all"
+      ],
+      "text": "Resets buff levels and selects compatible buffs."
+    },
+    {
+      "routes": [
+        "/result"
+      ],
+      "ids": [
+        "Lv-23-checkbox"
+      ],
+      "text": "Shows only the gain from Lv. 2 to Lv. 3."
+    },
+    {
+      "routes": [
+        "/result"
+      ],
+      "ids": [
+        "380-boss-checkbox"
+      ],
+      "text": "380% boss defense instead of 300%. IED becomes more valuable."
+    },
+    {
+      "routes": [
+        "/result"
+      ],
+      "ids": [
+        "380-checkbox"
+      ],
+      "text": "380% boss defense instead of 300%. IED potential lines become more valuable."
+    },
+    {
+      "routes": [
+        "/result"
+      ],
+      "ids": [
+        "eternal-checkbox"
+      ],
+      "text": "Uses the higher Bonus Potential values available on Eternal armor."
+    },
+    {
+      "routes": [
+        "/result"
+      ],
+      "ids": [
+        "메용2"
+      ],
+      "text": "Extra stats from Maple Warrior 2 reduce Weapon Jump's relative gain."
+    },
+    {
+      "routes": [
+        "/result"
+      ],
+      "ids": [
+        "무공"
+      ],
+      "text": "Mu Gong's ATT buff reduces the relative gain from ATT-based rings."
+    },
+    {
+      "routes": [
+        "/result"
+      ],
+      "ids": [
+        "파이렛플래그"
+      ],
+      "text": "Extra stats from Pirate's Banner reduce Weapon Jump's relative gain."
+    },
+    {
+      "routes": [
+        "/result"
+      ],
+      "ids": [
+        "최초의 유산"
+      ],
+      "text": "First Legacy Buff: +10% ATT/MATT"
+    },
+    {
+      "routes": [
+        "/hexa"
+      ],
+      "ids": [
+        "reachableOnly"
+      ],
+      "text": "Limits upgrades to the Sol Erda and fragments recovered by resetting. Requires the After Reset starting point."
+    },
+    {
+      "routes": [
+        "/spec-order"
+      ],
+      "ids": [
+        "ascentic-pump"
+      ],
+      "context": [
+        "다음 마을",
+        "Next Area",
+        "Next Town"
+      ],
+      "text": "Includes symbols from areas the character cannot enter yet."
+    },
+    {
+      "routes": [
+        "/spec-order"
+      ],
+      "ids": [
+        "ascentic-pump"
+      ],
+      "text": "Counts the boss damage multiplier from Sacred Power, not just the stats added by symbols."
+    },
+    {
+      "routes": [
+        "/battle-ranking"
+      ],
+      "ids": [
+        "local-only",
+        "stat-local-only"
+      ],
+      "text": "Only characters within ±5,000 HEXA converted stat of the selected benchmark."
+    },
+    {
+      "routes": [
+        "/battle-ranking"
+      ],
+      "ids": [
+        "exclude-overcool"
+      ],
+      "text": "Excludes builds with at least 7 seconds of cooldown reduction."
+    },
+    {
+      "routes": [
+        "/ranking-analysis"
+      ],
+      "ids": [
+        "account-only"
+      ],
+      "text": "One character per account: whichever has the highest equipment-converted stat."
+    },
+    {
+      "labels": [
+        "아이템 점수 증가 시 중단",
+        "Stop when item score increases"
+      ],
+      "text": "Stops on any score improvement, even before the chosen target is reached."
+    },
+    {
+      "labels": [
+        "첫 번째 옵션 제외",
+        "Exclude first option"
+      ],
+      "text": "A match on the first Inner Ability line will not stop auto-rerolling."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/hero.png",
+      "name": "Echo of Hero",
+      "text": "+4% ATT/MATT."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/union.png",
+      "name": "Legion's Might",
+      "text": "+30 ATT/MATT."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/urus.png",
+      "name": "Ursus buff",
+      "text": "+30 ATT/MATT."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/extreme.png",
+      "name": "Monster Park Extreme potion",
+      "text": "+30 ATT or MATT for the selected class."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/superpower.png",
+      "name": "Superpower buff",
+      "text": "+30 ATT/MATT."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/moonshine.png",
+      "name": "Moonshine buff",
+      "text": "+20 ATT/MATT."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/thanks.png",
+      "name": "Thank You Maple",
+      "text": "+30 ATT/MATT."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/candy.png",
+      "name": "Candied Apple",
+      "text": "+7% All Stats."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/house.png",
+      "name": "Caretaker's Support",
+      "text": "+15% Damage."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/ultraVip.png",
+      "name": "VIP Ultra Power Coupon",
+      "text": "+50 ATT/MATT in the JMS calculation."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/superVip.png",
+      "name": "VIP Super Power Coupon",
+      "text": "+30 ATT/MATT in the JMS calculation."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/truffle.png",
+      "name": "Truffle Chocolate",
+      "text": "+40 ATT/MATT in the JMS calculation."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/medal.png",
+      "name": "Medal Chocolate",
+      "text": "+120 ATT/MATT in the JMS calculation."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/shiningred.png",
+      "name": "Sparkling Red Star Potion",
+      "text": "+20% Boss Damage."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/bighero.png",
+      "name": "Advanced Great Hero Boost Potion",
+      "text": "+10% Damage. Replaces Advanced Weapon Tempering and other enhancement potions."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/legendhero.png",
+      "name": "Legendary potion",
+      "text": "Replaces Advanced Weapon Tempering and other enhancement potions."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/jangbi.png",
+      "name": "Advanced Weapon Tempering",
+      "text": "+5% Critical Damage. Replaces enhancement potions such as Sparkling Blue Star."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/shiningblue.png",
+      "name": "Sparkling Blue Star Potion",
+      "text": "+20% IED. Replaces Advanced Weapon Tempering and other enhancement potions."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/fish.png",
+      "name": "Fish buff",
+      "text": "+30 ATT/MATT. Replaces Onyx Apple."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/whiteBear.png",
+      "name": "Polar Friends",
+      "text": "+80 ATT/MATT. Replaces Onyx Apple."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/dragonsmeal.png",
+      "name": "Baby Dragon Food",
+      "text": "+7 ATT for physical classes. Replaces Onyx Apple."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/apple.png",
+      "name": "Onyx Apple",
+      "text": "+100 ATT/MATT. Replaces Snowing Fishbread."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/cake.png",
+      "name": "Fresh Cream Cake",
+      "text": "+40 ATT/MATT. Replaces Onyx Apple."
+    },
+    {
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "image": "/doping_v2/tengu.png",
+      "name": "Tengu's Judgement",
+      "text": "+20 ATT/MATT. Replaces Onyx Apple."
+    },
+    {
+      "image": "/doping_v2/sayram.png",
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "text": "Strongest buff applies: replaces Sharp Eyes, Advanced Blessing and Call of the Wild bonuses."
+    },
+    {
+      "image": "/doping_v2/collector.png",
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "text": "Cannot be used inside boss maps."
+    },
+    {
+      "image": "/doping_v2/buff300.png",
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "text": "+60 ATT/MATT."
+    },
+    {
+      "image": "/doping_v2/vipbuff.png",
+      "routes": [
+        "/input",
+        "/result"
+      ],
+      "text": "+15 All Stats and ATT/MATT, +1,500 HP, +15% Boss Damage and IED."
+    }
+  ],
+  "fields": [
+    {
+      "routes": [
+        "/input"
+      ],
+      "labels": [
+        "Wild Hunter Legion",
+        "와헌 유니온"
+      ],
+      "text": "Wild Hunter Legion member's level. Average Damage: Lv. 200 = 3.2%; Lv. 250 = 4%."
+    },
+    {
+      "routes": [
+        "/input"
+      ],
+      "labels": [
+        "Artifact Final Attack",
+        "아티팩트 파이널 어택",
+        "Final Attack",
+        "파이널 어택"
+      ],
+      "text": "Legion Artifact's Final Attack Damage %, not the skill's level."
+    },
+    {
+      "routes": [
+        "/input"
+      ],
+      "labels": [
+        "Cooldown Reduction",
+        "쿨타임 감소"
+      ],
+      "text": "Hat: seconds. Mercedes Legion: %."
+    }
+  ],
+  "metrics": [
+    {
+      "labels": [
+        "Normal",
+        "Equiv. Stat"
+      ],
+      "groups": [
+        "Equivalent Combat Power",
+        "Combat Power"
+      ],
+      "text": "Power from stats and equipment, excluding HEXA skill progression."
+    },
+    {
+      "labels": [
+        "HEXA",
+        "HEXA Equiv. Stat"
+      ],
+      "groups": [
+        "Equivalent Combat Power",
+        "Combat Power"
+      ],
+      "text": "Power adjusted for current HEXA skill levels."
+    },
+    {
+      "labels": [
+        "Dojo"
+      ],
+      "groups": [
+        "Equivalent Combat Power",
+        "Combat Power"
+      ],
+      "text": "Power under Mu Lung Dojo conditions."
+    },
+    {
+      "labels": [
+        "Normal"
+      ],
+      "groups": [
+        "Boss 300",
+        "Boss 300 (Practice)"
+      ],
+      "text": "Equivalent main stat against 300% boss defense, excluding HEXA skill progression."
+    },
+    {
+      "labels": [
+        "HEXA"
+      ],
+      "groups": [
+        "Boss 300",
+        "Boss 300 (Practice)"
+      ],
+      "text": "Equivalent main stat against 300% boss defense, using current HEXA upgrades."
+    },
+    {
+      "labels": [
+        "Normal"
+      ],
+      "groups": [
+        "Boss 380",
+        "Boss 380 (Practice)"
+      ],
+      "text": "Equivalent main stat against 380% boss defense, excluding HEXA skill progression."
+    },
+    {
+      "labels": [
+        "HEXA"
+      ],
+      "groups": [
+        "Boss 380",
+        "Boss 380 (Practice)"
+      ],
+      "text": "Equivalent main stat against 380% boss defense, using current HEXA upgrades."
+    }
+  ],
+  "cards": [
+    {
+      "image": "/doping_v2/noblessboss.png",
+      "factor": 2,
+      "unit": "% Boss Damage",
+      "max": 15,
+      "level": true,
+      "toggle": true
+    },
+    {
+      "image": "/doping_v2/noblessignore.png",
+      "factor": 2,
+      "unit": "% IED",
+      "max": 15,
+      "level": true,
+      "toggle": true
+    },
+    {
+      "image": "/doping_v2/noblessdam.png",
+      "factor": 2,
+      "unit": "% Damage",
+      "max": 15,
+      "level": true,
+      "toggle": true
+    },
+    {
+      "image": "/doping_v2/noblesscridam.png",
+      "factor": 2,
+      "unit": "% Critical Damage",
+      "max": 15,
+      "level": true,
+      "toggle": true
+    },
+    {
+      "image": "/doping_v2/statpotion.png",
+      "title": "Advanced Stat Potion",
+      "factor": 1,
+      "unit": " Main/Sub Stats",
+      "max": 30,
+      "toggle": true
+    },
+    {
+      "image": "/doping_v2/champion.png",
+      "key": "championAll",
+      "title": "Legion Champion",
+      "factor": 10,
+      "unit": " All Stats",
+      "max": 5,
+      "level": true,
+      "hpFactor": 500
+    },
+    {
+      "image": "/doping_v2/champion.png",
+      "key": "championAtk",
+      "title": "Legion Champion",
+      "factor": 5,
+      "unit": " ATT/MATT",
+      "max": 5,
+      "level": true
+    },
+    {
+      "image": "/doping_v2/champion.png",
+      "key": "championBoss",
+      "title": "Legion Champion",
+      "factor": 2,
+      "unit": "% Boss Damage",
+      "max": 5,
+      "level": true
+    },
+    {
+      "image": "/doping_v2/champion.png",
+      "key": "championIgnore",
+      "title": "Legion Champion",
+      "factor": 2,
+      "unit": "% IED",
+      "max": 5,
+      "level": true
+    },
+    {
+      "image": "/doping_v2/champion.png",
+      "key": "championCriDmg",
+      "title": "Legion Champion",
+      "factor": 0.5,
+      "unit": "% Critical Damage",
+      "max": 5,
+      "level": true
+    },
+    {
+      "image": "/linkskill/kadena.png",
+      "title": "Cadena",
+      "text": "Unfair Advantage"
+    },
+    {
+      "image": "/linkskill/illium.png",
+      "title": "Illium",
+      "text": "Tide of Battle"
+    },
+    {
+      "image": "/linkskill/ark.png",
+      "title": "Ark",
+      "text": "Solus"
+    },
+    {
+      "image": "/linkskill/kain.png",
+      "title": "Kain",
+      "text": "Time to Prepare"
+    },
+    {
+      "image": "/linkskill/magician.png",
+      "title": "Explorer Magicians",
+      "text": "Empirical Knowledge"
+    },
+    {
+      "image": "/linkskill/thief.png",
+      "title": "Explorer Thieves",
+      "text": "Thief's Cunning"
+    },
+    {
+      "image": "/linkskill/angel.png",
+      "title": "Angelic Buster",
+      "text": "Terms and Conditions"
+    },
+    {
+      "image": "/linkskill/kanna.png",
+      "title": "Kanna",
+      "text": "Elementalism"
+    },
+    {
+      "image": "/linkskill/mukhyun.png",
+      "title": "Mo Xuan",
+      "text": "Qi Cultivation"
+    },
+    {
+      "image": "/linkskill/hoyoung.png",
+      "title": "Hoyoung",
+      "text": "Bravado"
+    },
+    {
+      "image": "/linkskill/mihile.png",
+      "title": "Mihile",
+      "text": "Knight's Watch"
+    },
+    {
+      "image": "/linkskill/kaiser.png",
+      "title": "Kaiser",
+      "text": "Iron Will"
+    },
+    {
+      "image": "/linkskill/hayato.png",
+      "title": "Hayato",
+      "text": "Moonlit Blade Learnings"
+    }
+  ]
+}

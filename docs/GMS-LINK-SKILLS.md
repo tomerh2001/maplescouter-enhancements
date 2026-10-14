@@ -25,7 +25,7 @@ The bossing optimizer already includes the four GMS candidates. This release cha
 
 Normal mode compares Lv. 2, matching the native table. The existing Lv. 2 to 3 checkbox compares the additional effect. A character's own link is not suggested as another transferred link. Known equipped Lv. 3 links are not suggested for another upgrade.
 
-**Active effects** includes Kanna's active window and Mo Xuan's full stacks. Turning it off sets Kanna's contribution to zero and keeps only Mo Xuan's base bonus. This is a comparison of those states, not a prediction of average encounter damage or a recommended set of twelve links.
+Since 1.7.8, Kanna always uses its active window and Mo Xuan always uses full stacks. The extra toggle and summary note have been removed. This is a comparison of those states, not a prediction of average encounter damage or a recommended set of twelve links.
 
 The estimates use the site's `specEfficiency` coefficients and its rounding and equipped-link removal convention. Lynn's HP is valued only for Demon Avenger; critical rate follows the native table's Vicious Shot convention. Extra critical rate below the cap on other classes, buff duration, MP, survival, utility and actual buff uptime are not modeled. Manual results have no equipped-link list, just as in the native table. The native KMS candidates keep their original scores.
 
