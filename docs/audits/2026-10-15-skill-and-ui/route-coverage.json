@@ -1,0 +1,562 @@
+[
+  {
+    "route": "/sitemap",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 5031,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 756,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/hexa",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 870,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/result",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 3056,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/starforce",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 742,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/input",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1026,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/boss-income",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 12,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/boss-data",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 3201,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/base",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 539,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/challenge",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 404,
+    "visibleTextLength": 327,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/battle-ranking",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 508,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/challenge_2",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1200,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/destiny",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 610,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/challenge_3",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 574,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/cube-fire",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 651,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/destiny-ranking",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 407,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/donate",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 599,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/exp/daily-quest",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 699,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/exp/item",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1471,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/exp/event",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1077,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/exp/total",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 771,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/exp/monster",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 2038,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/exp/weekly-quest",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 626,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/game/bulls-and-cows",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 451,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/exp/treasure-hunter",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 2451,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/game/draw",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 313,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/game/ladder",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 135,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/game/stop-watch",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 267,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/game/roulette",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 212,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/genesis",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 482,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/guide",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 17192,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/hall-of-fame",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 78,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/hexa-preview",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 467,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/hexpago",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 356,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/hunt/optimizer",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 838,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/huntresult",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1005,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/info",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 12,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/item",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 435,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/lucid",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 426,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/multi-result",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1276,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/item-ranking",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 7898,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/mypage",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 93,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/octopus",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 398,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/optimizer",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 991,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/profile-motion",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1293,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/punchking-season3",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 4746,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/quick-link",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 505,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/ranking-analysis",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 42,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/simulator/cube",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1460,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/simulator/cube-additional",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1470,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/ranking",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 486,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/simulator/fire",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 393,
+    "visibleTextLength": 1291,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/simulator/starforce",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1235,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/simulator/whetstone",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 505,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/tax",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 573,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/spec-order",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1342,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/timeattack",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 417,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/total-ranking",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 157,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/union-ranking",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 319,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/union-character",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 12,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/union-champion",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 12,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/class-analysis",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 146,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/game/spec-quiz",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1028,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/ability",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1207,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/simulator/ability",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1612,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/simulator/soul",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 1623,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/dojo-data",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 399,
+    "visibleTextLength": 2358,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/coordination",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 2026,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/privacy",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 6247,
+    "initialBrokenImages": []
+  },
+  {
+    "route": "/agreement",
+    "desktopWidth": 1280,
+    "phoneWidth": 390,
+    "initialPhonePageWidth": 390,
+    "visibleTextLength": 3348,
+    "initialBrokenImages": []
+  }
+]

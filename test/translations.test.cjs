@@ -13,6 +13,41 @@ const ctx = vm.createContext({ data: () => ({ dict, rules: read('data/rules.json
 vm.runInContext(source.slice(source.indexOf('  var KO_NUM_UNITS'), source.indexOf('  function translateTitle(')), ctx);
 const reviewed = read('data/overrides/2026-09-17.json');
 
+test('reset refunds translate complete dynamic text without changing resource counts', () => {
+  const out = 'Before the first X: Energy 1,116 / 1,190 · Fragments 32,285 / 34,054';
+  assert.equal(ctx.translateString('X 없는 데까지 — 기운 1,116 / 1,190 · 조각 32,285 / 34,054'), out);
+  assert.equal(ctx.translateString('X 없는 데까지 — Energy 1,116 / 1,190 · Fragment 32,285 / 34,054'), out);
+  assert.equal(ctx.translateString('X 없는 데까지 — 기운 8 / 15 · 조각 20 / 300'), 'Before the first X: Energy 8 / 15 · Fragments 20 / 300');
+});
+test('derived Cadena card titles and current site labels are translated', () => {
+  for (const [ko,en] of Object.entries(read('data/overrides/2026-10-15.json'))) assert.equal(ctx.translateString(ko),en,ko);
+  assert.equal(ctx.translateString('마이페이지는 HARD인데 인게임 스케줄러엔 NORMAL로 등록돼 있어요 — 확인하세요'), 'Difficulty mismatch: My Page HARD; in-game schedule NORMAL.');
+});
+
+test('dynamic EXP, duration, Dojo and draw labels preserve their numbers', () => {
+  for (const [ko,en] of [
+    ['326.7개','326.7 items'], ['2시간 51분','2h 51m'], ['283Hours 47분','283h 47m'],
+    ['(현재 레벨의 41.10%)','(41.10% of the current level)'], ['50층 (핑크빈)','Floor 50 (Pink Bean)'],
+    ['0.53T(반감)','0.53T (elemental resistance)'], ['5표','5 entries'], ['데이터 기준 : 2025-02-21','Data as of: 2025-02-21']
+  ]) {assert.equal(ctx.translateString(ko),en);assert.deepEqual(en.match(/[\d,.]+/g),ko.match(/[\d,.]+/g));}
+});
+test('reward particles are scoped to the reward card and preserve React nodes', () => {
+  const c=vm.createContext({location:{pathname:'/en/info'}});
+  vm.runInContext(source.slice(source.indexOf('  function translateRewardFragment('),source.indexOf('  // React emits a number')),c);
+  const amount={nodeValue:'1,234,567'},parent={tagName:'DIV',textContent:'Possible additional rewards: 1,234,567에',parentElement:null};
+  const particle={nodeValue:'에',parentElement:parent};
+  assert.equal(c.translateRewardFragment(particle),true);assert.equal(particle.nodeValue,' + ');assert.equal(amount.nodeValue,'1,234,567');
+  particle.nodeValue='을 추가로 얻을 수도 있습니다.';assert.equal(c.translateRewardFragment(particle),true);assert.equal(particle.nodeValue,'');
+  particle.nodeValue='에';parent.textContent='An unrelated Korean name';assert.equal(c.translateRewardFragment(particle),false);assert.equal(particle.nodeValue,'에');
+  parent.textContent='Possible additional rewards:';c.location.pathname='/en/input';assert.equal(c.translateRewardFragment(particle),false);
+});
+test('ASCII character names are protected even when they match a translated placeholder', () => {
+  const c=vm.createContext({location:{pathname:'/en/input'},inOwnUi:()=>false,clarifiedControlLabel:()=>null,isPlayerNameContext:()=>true});
+  vm.runInContext(source.slice(source.indexOf('  function translateTextNode('),source.indexOf('  // The reward card')),c);
+  const node={nodeValue:'XXX',parentElement:{closest:()=>null}};
+  c.translateTextNode(node);assert.equal(node.nodeValue,'XXX');
+});
+
 test('reviewed UI strings work in both i18next and exact DOM text, including whitespace', () => {
   for (const [ko, en] of Object.entries(reviewed)) {
     assert.equal(patch[ko], en, ko);

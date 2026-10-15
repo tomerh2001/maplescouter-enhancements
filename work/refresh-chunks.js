@@ -23,7 +23,7 @@ async function main() {
   const routes = new Set(['/', '/sitemap', '/input', '/result', '/hexa', '/starforce', '/boss-data', ...Object.values(oldMap)]);
   for (const m of home.matchAll(/href="\/en(\/[^"?#]*)?/g)) routes.add(m[1] || '/');
   async function page(route) {
-    if (!/^\/[a-z0-9/-]*$/i.test(route)) return;
+    if (!/^\/[a-z0-9/_-]*$/i.test(route)) return;
     try {
       const html = route==='/' ? home : await get(origin+'/en'+route);
       const current = refs(html); if (!current.length) throw new Error('No application chunks');

@@ -1,0 +1,452 @@
+[
+  {
+    "name": "Hayato",
+    "icons": [
+      {
+        "alt": "HEXA: HEXA [Shinsoku] Mist Slash/HEXA [Shinsoku] Afterimage Slash",
+        "broken": false,
+        "src": "/hexaskill/Hayato_2.png"
+      },
+      {
+        "alt": "HEXA: HEXA [Shinsoku] Crescent Moon Cut/HEXA [Shinsoku] Silent Arc",
+        "broken": false,
+        "src": "/hexaskill/Hayato_7.png"
+      },
+      {
+        "alt": "HEXA: HEXA [Battou] Dark Moon Cut",
+        "broken": false,
+        "src": "/hexaskill/Hayato_8.png"
+      },
+      {
+        "alt": "HEXA: HEXA [Battou] Full Moon's Rage",
+        "broken": false,
+        "src": "/hexaskill/Hayato_9.png"
+      },
+      {
+        "alt": "HEXA: Shogetsu Form",
+        "broken": false,
+        "src": "/hexaskill/Hayato_3.png"
+      },
+      {
+        "alt": "HEXA: [Shinsoku] Crashing Tide",
+        "broken": false,
+        "src": "/hexaskill/Hayato_4.png"
+      },
+      {
+        "alt": "HEXA: [Shinsoku] Light Cutter",
+        "broken": false,
+        "src": "/hexaskill/Hayato_5.png"
+      },
+      {
+        "alt": "HEXA: [Battou] Wailing Heavens",
+        "broken": false,
+        "src": "/hexaskill/Hayato_6.png"
+      },
+      {
+        "alt": "HEXA: Shin Quick Draw",
+        "broken": false,
+        "src": "/hexaskill/Hayato_1.png"
+      },
+      {
+        "alt": "HEXA: Fleeting Breath",
+        "broken": false,
+        "src": "/hexaskill/Hayato_10.png"
+      },
+      {
+        "alt": "Unreleased Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "HEXA: Sol Hecate",
+        "broken": false,
+        "src": "/hexaskill/General/General_2.png"
+      },
+      {
+        "alt": "hexa-황혼의 개화 VI",
+        "broken": false,
+        "src": "/hexaskill/Hayato_11.png"
+      },
+      {
+        "alt": "HEXA: Sol Janus",
+        "broken": false,
+        "src": "/hexaskill/General/General_1.png"
+      }
+    ]
+  },
+  {
+    "name": "Mo Xuan",
+    "icons": [
+      {
+        "alt": "HEXA: Xuanshan Arts [Tian] / [Di] VI",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_2.png"
+      },
+      {
+        "alt": "hexa-신공 VI(1)",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_7.png"
+      },
+      {
+        "alt": "HEXA: Divine Art VI(2)/Soul Art: Black Wind VI",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_8.png"
+      },
+      {
+        "alt": "HEXA: Secret Art: Qi Projection VI",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_9.png"
+      },
+      {
+        "alt": "HEXA: Soul Art: Beneath Heaven Enhancement",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_3.png"
+      },
+      {
+        "alt": "HEXA: Soul Art: The Conquered Self Enhancement",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_4.png"
+      },
+      {
+        "alt": "HEXA: Soul Art: The Opened Gate Enhancement",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_5.png"
+      },
+      {
+        "alt": "HEXA: Divine Art: Crashing Earth Enhancement",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_6.png"
+      },
+      {
+        "alt": "HEXA: Soul Art: Beneath Heaven",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_1.png"
+      },
+      {
+        "alt": "HEXA: Soul Art: Where Destiny Falls",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_10.png"
+      },
+      {
+        "alt": "Unreleased Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "HEXA: Sol Hecate",
+        "broken": false,
+        "src": "/hexaskill/General/General_2.png"
+      },
+      {
+        "alt": "hexa-윤회의 고리 VI",
+        "broken": false,
+        "src": "/hexaskill/Moxuan_11.png"
+      },
+      {
+        "alt": "HEXA: Sol Janus",
+        "broken": false,
+        "src": "/hexaskill/General/General_1.png"
+      }
+    ]
+  },
+  {
+    "name": "Lynn",
+    "icons": [
+      {
+        "alt": "HEXA: Strike VI",
+        "broken": false,
+        "src": "/hexaskill/Lynn_2.png"
+      },
+      {
+        "alt": "HEXA: Sneak Attack VI/Raid VI",
+        "broken": false,
+        "src": "/hexaskill/Lynn_7.png"
+      },
+      {
+        "alt": "HEXA: Peck VI",
+        "broken": false,
+        "src": "/hexaskill/Lynn_8.png"
+      },
+      {
+        "alt": "HEXA: [Focus] Heal VI/[Focus] Forest Protection VI/Mother Nature's Touch VI",
+        "broken": false,
+        "src": "/hexaskill/Lynn_9.png"
+      },
+      {
+        "alt": "HEXA: Beast's Rage",
+        "broken": false,
+        "src": "/hexaskill/Lynn_3.png"
+      },
+      {
+        "alt": "HEXA: Beak Strike",
+        "broken": false,
+        "src": "/hexaskill/Lynn_4.png"
+      },
+      {
+        "alt": "HEXA: [Focus] Awaken",
+        "broken": false,
+        "src": "/hexaskill/Lynn_5.png"
+      },
+      {
+        "alt": "HEXA: Nature's Grace",
+        "broken": false,
+        "src": "/hexaskill/Lynn_6.png"
+      },
+      {
+        "alt": "HEXA: Flow of the Root",
+        "broken": false,
+        "src": "/hexaskill/Lynn_1.png"
+      },
+      {
+        "alt": "HEXA: Wild Hunt",
+        "broken": false,
+        "src": "/hexaskill/Lynn_10.png"
+      },
+      {
+        "alt": "Unreleased Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "HEXA: Sol Hecate",
+        "broken": false,
+        "src": "/hexaskill/General/General_2.png"
+      },
+      {
+        "alt": "hexa-윤회의 고리 VI",
+        "broken": false,
+        "src": "/hexaskill/Lynn_11.png"
+      },
+      {
+        "alt": "HEXA: Sol Janus",
+        "broken": false,
+        "src": "/hexaskill/General/General_1.png"
+      }
+    ]
+  },
+  {
+    "name": "Kanna",
+    "icons": [
+      {
+        "alt": "HEXA: HEXA Soul-Shatter Talisman: Dance/HEXA Heart-Wreck Talisman",
+        "broken": false,
+        "src": "/hexaskill/Kanna_2.png"
+      },
+      {
+        "alt": "HEXA: HEXA Summon Oni",
+        "broken": false,
+        "src": "/hexaskill/Kanna_7.png"
+      },
+      {
+        "alt": "HEXA: HEXA Summon Tengu",
+        "broken": false,
+        "src": "/hexaskill/Kanna_8.png"
+      },
+      {
+        "alt": "HEXA: HEXA Summon Orochi",
+        "broken": false,
+        "src": "/hexaskill/Kanna_9.png"
+      },
+      {
+        "alt": "HEXA: [Spirit] Hakumenkonmou Juubi",
+        "broken": false,
+        "src": "/hexaskill/Kanna_3.png"
+      },
+      {
+        "alt": "HEXA: [Spirit] Unleash the Radiant Flame",
+        "broken": false,
+        "src": "/hexaskill/Kanna_4.png"
+      },
+      {
+        "alt": "HEXA: [Spirit] Unleash Black-Winged Destruction",
+        "broken": false,
+        "src": "/hexaskill/Kanna_5.png"
+      },
+      {
+        "alt": "HEXA: [Spirit] Unleash Soul-Searing Venom",
+        "broken": false,
+        "src": "/hexaskill/Kanna_6.png"
+      },
+      {
+        "alt": "HEXA: [Divine Will] Advent of Crimson",
+        "broken": false,
+        "src": "/hexaskill/Kanna_1.png"
+      },
+      {
+        "alt": "HEXA: Wild Hunt",
+        "broken": false,
+        "src": "/hexaskill/Kanna_10.png"
+      },
+      {
+        "alt": "Unreleased Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "HEXA: Sol Hecate",
+        "broken": false,
+        "src": "/hexaskill/General/General_2.png"
+      },
+      {
+        "alt": "hexa-황혼의 개화 VI",
+        "broken": false,
+        "src": "/hexaskill/Kanna_11.png"
+      },
+      {
+        "alt": "HEXA: Sol Janus",
+        "broken": false,
+        "src": "/hexaskill/General/General_1.png"
+      }
+    ]
+  },
+  {
+    "name": "Sia Astelle",
+    "icons": [
+      {
+        "alt": "HEXA: SHINE Ray/SHINE Stellar I - Antares",
+        "broken": false,
+        "src": "/hexaskill/Sia_2.png"
+      },
+      {
+        "alt": "HEXA: SHINE Boom/SHINE Stellar II - Algol/SHINE Stellar V - Fomalhaut",
+        "broken": false,
+        "src": "/hexaskill/Sia_7.png"
+      },
+      {
+        "alt": "Unreleased Mastery Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "Unreleased Mastery Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "HEXA: Shine",
+        "broken": false,
+        "src": "/hexaskill/Sia_3.png"
+      },
+      {
+        "alt": "HEXA: Stellar XI - Sirius",
+        "broken": false,
+        "src": "/hexaskill/Sia_4.png"
+      },
+      {
+        "alt": "HEXA: Stellar XII - Sadalsuud ",
+        "broken": false,
+        "src": "/hexaskill/Sia_5.png"
+      },
+      {
+        "alt": "HEXA: Savior's Circle",
+        "broken": false,
+        "src": "/hexaskill/Sia_6.png"
+      },
+      {
+        "alt": "HEXA: Celestial Design",
+        "broken": false,
+        "src": "/hexaskill/Sia_1.png"
+      },
+      {
+        "alt": "HEXA: Starlit Cosmos",
+        "broken": false,
+        "src": "/hexaskill/Sia_10.png"
+      },
+      {
+        "alt": "Unreleased Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "HEXA: Sol Hecate",
+        "broken": false,
+        "src": "/hexaskill/General/General_2.png"
+      },
+      {
+        "alt": "hexa-SHINE Tree of Stars",
+        "broken": false,
+        "src": "/hexaskill/Sia_11.png"
+      },
+      {
+        "alt": "HEXA: Sol Janus",
+        "broken": false,
+        "src": "/hexaskill/General/General_1.png"
+      }
+    ]
+  },
+  {
+    "name": "Erel Light",
+    "icons": [
+      {
+        "alt": "hexa-에렐 마코1",
+        "broken": false,
+        "src": "/hexaskill/Erel_2.png"
+      },
+      {
+        "alt": "hexa-에렐 마코2",
+        "broken": false,
+        "src": "/hexaskill/Erel_7.png"
+      },
+      {
+        "alt": "Unreleased Mastery Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "Unreleased Mastery Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "hexa-Erel Light 5Round1",
+        "broken": false,
+        "src": "/hexaskill/Erel_3.png"
+      },
+      {
+        "alt": "hexa-Erel Light 5Round2",
+        "broken": false,
+        "src": "/hexaskill/Erel_4.png"
+      },
+      {
+        "alt": "hexa-Erel Light 5Round3",
+        "broken": false,
+        "src": "/hexaskill/Erel_5.png"
+      },
+      {
+        "alt": "hexa-Erel Light 5Round4",
+        "broken": false,
+        "src": "/hexaskill/Erel_6.png"
+      },
+      {
+        "alt": "hexa-에렐 오리진",
+        "broken": false,
+        "src": "/hexaskill/Erel_1.png"
+      },
+      {
+        "alt": "hexa-에렐 어센트",
+        "broken": false,
+        "src": "/hexaskill/Erel_10.png"
+      },
+      {
+        "alt": "Unreleased Skill",
+        "broken": false,
+        "src": "[built-in unreleased placeholder]"
+      },
+      {
+        "alt": "HEXA: Sol Hecate",
+        "broken": false,
+        "src": "/hexaskill/General/General_2.png"
+      },
+      {
+        "alt": "hexa-SHINE Tree of Stars",
+        "broken": false,
+        "src": "/hexaskill/Erel_11.png"
+      },
+      {
+        "alt": "HEXA: Sol Janus",
+        "broken": false,
+        "src": "/hexaskill/General/General_1.png"
+      }
+    ]
+  }
+]

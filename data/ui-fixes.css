@@ -203,7 +203,12 @@ html[data-msfix-route="battle-ranking"] main button[role="combobox"] {
 html[data-msfix-route="profile-motion"] main button { white-space: normal; height: auto; min-height: 36px; }
 html[data-msfix-route="battle-ranking"] main div.flex.w-full.items-center:has(> button[role="combobox"]) { min-width: 0; }
 html[data-msfix-route="battle-ranking"] main button[role="combobox"] { flex-shrink: 1; min-width: 0; }
+html[data-msfix-route="battle-ranking"] main .flex.w-full:has(> div > #exclude-overcycle) { flex-wrap: wrap; }
 html[data-msfix-route="challenge"] main .inline-flex.w-full.justify-between { flex-wrap: wrap; gap: 12px; }
+html[data-msfix-route="challenge"] main .flex.gap-2:has(> button) { flex-wrap: wrap; }
+/* Dojo uses flex rows instead of a table; retain aligned columns in a local scroll area. */
+html[data-msfix-route="dojo-data"] main .rounded-2xl > .w-full:has(> .flex > .rounded-tl-lg) { overflow-x: auto; }
+html[data-msfix-route="dojo-data"] main .rounded-2xl > .w-full:has(> .flex > .rounded-tl-lg) > div { min-width: 620px; }
 html[data-msfix-route="treasure-hunter"] main .flex.w-full.flex-col { min-width: 0; }
 html[data-msfix-route="treasure-hunter"] main .border-b.p-4 { flex-wrap: wrap; }
 html[data-msfix-route="fire"] main .flex.items-center.justify-between:has(> button),

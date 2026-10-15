@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.12
+// @version      1.7.13
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -9,7 +9,7 @@
 // @match        https://www.maplescouter.com/*
 // @run-at       document-start
 // @grant        none
-// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.12
+// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.13
 // @updateURL    https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @downloadURL  https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @supportURL   https://github.com/tomerh2001/maplescouter-enhancements/issues
@@ -375,6 +375,24 @@
 
   // Built-in dynamic rules — run after dict/JSON rules miss.
   function builtinRules(t, d) {
+    var quantity = t.match(/^([\d,.]+)\s*개$/);
+    if (quantity) return quantity[1] + ' items';
+    var duration = t.match(/^(\d+)\s*(?:시간|Hours?)\s*(\d+)\s*분$/);
+    if (duration) return duration[1] + 'h ' + duration[2] + 'm';
+    var expShare = t.match(/^\(현재 레벨의 ([\d.]+)%\)$/);
+    if (expShare) return '(' + expShare[1] + '% of the current level)';
+    var votes = t.match(/^([\d,]+)표$/);
+    if (votes) return votes[1] + ' entries';
+    var dojo = t.match(/^(\d+)층 \((.+)\)$/);
+    if (dojo) return 'Floor ' + dojo[1] + ' (' + (d.dict[dojo[2]] || dojo[2]) + ')';
+    var resistance = t.match(/^([\d,.]+[TMB]?)\(반감\)$/);
+    if (resistance) return resistance[1] + ' (elemental resistance)';
+    var dataDate = t.match(/^데이터 기준\s*:\s*(\d{4}-\d{2}-\d{2})$/);
+    if (dataDate) return 'Data as of: ' + dataDate[1];
+    var refund = t.match(/^X 없는 데까지 — (?:기운|Energy) ([\d,]+) \/ ([\d,]+) · (?:조각|Fragment|Fragments) ([\d,]+) \/ ([\d,]+)$/);
+    if (refund) return 'Before the first X: Energy ' + refund[1] + ' / ' + refund[2] + ' · Fragments ' + refund[3] + ' / ' + refund[4];
+    var schedule = t.match(/^마이페이지는 (.+?)인데 인게임 스케줄러엔 (.+?)로 등록돼 있어요 — 확인하세요$/);
+    if (schedule) return 'Difficulty mismatch: My Page ' + schedule[1] + '; in-game schedule ' + schedule[2] + '.';
     // The ranking page replaces the literal " N기" after calling i18next.
     // Preserve that token in the bundle, then translate its populated value.
     var seasonNote = t.match(/^Based on (\d+)기 data from MapleStory's official Training Grounds\.$/);
@@ -1250,20 +1268,41 @@
   function translateTextNode(node) {
     var v = node.nodeValue;
     if (!v || inOwnUi(node)) return;
+    if (/^\/en\/game\/draw\/?$/.test(location.pathname) && v === '표' && node.parentElement && /draw pool|추첨 풀/.test(node.parentElement.textContent)) {
+      node.nodeValue = ' entries'; return;
+    }
     var label = node.parentElement && node.parentElement.closest('label[for]');
     var clarified = clarifiedControlLabel(v, label && label.htmlFor, location.pathname);
     if (clarified) { if (v !== clarified) node.nodeValue = clarified; return; }
-    if (HANGUL.test(v) && isPlayerNameContext(node)) return;
+    if (isPlayerNameContext(node)) return;
     if (translateRankingSeason(node)) return;
     var season = rankingSeason(v, location.pathname);
     if (season) { node.nodeValue = season; return; }
     if (translateSoulMeasure(node)) return;
+    if (translateRewardFragment(node)) return;
     var r = translateString(v);
     if (r != null && r !== v) node.nodeValue = r;
     var shown = (r != null ? r : v).trim();
     if (BADGE_TITLES[shown] && node.parentElement && !node.parentElement.title) {
       node.parentElement.title = BADGE_TITLES[shown];
     }
+  }
+
+  // The reward card splits one sentence around live amounts and item icons.
+  // Translate its particles only in that card; never replace Korean particles globally.
+  function translateRewardFragment(node) {
+    if (!/^\/en\/(info|mypage)\/?$/.test(location.pathname)) return false;
+    var fragments = {'에':' + ', '을':'', '을 벌 수 있습니다.':'', '을 추가로 얻을 수도 있습니다.':'', '추가로 얻을 수도 있습니다.':''};
+    if (!Object.prototype.hasOwnProperty.call(fragments, node.nodeValue)) return false;
+    var p = node.parentElement;
+    for (var i = 0; p && i < 5; i++, p = p.parentElement) {
+      if (p.tagName === 'MAIN' || p.tagName === 'BODY') break;
+      if (/진짜 안 도실 건가요\?|Possible additional rewards:/.test(p.textContent) && p.textContent.length < 800) {
+        node.nodeValue = fragments[node.nodeValue];
+        return true;
+      }
+    }
+    return false;
   }
 
   // React emits a number and its unit as separate Text nodes. Retain both nodes
@@ -1370,6 +1409,31 @@
 
   var ATTRS = ['placeholder', 'title', 'aria-label', 'alt'];
 
+  // Presentation-only fallback for slots explicitly marked unreleased by the site.
+  // Do not change the shared catalog: empty URLs are also used to filter calculations.
+  var UNRELEASED_ICON = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="8" fill="none" stroke="#888" stroke-width="2" stroke-dasharray="4 3"/><path d="M16 24h16" stroke="#aaa" stroke-width="3" stroke-linecap="round"/></svg>');
+  var unreleasedImages = new WeakMap();
+  function repairUnreleasedImage(img) {
+    if (img.tagName !== 'IMG') return;
+    var src = img.getAttribute('src') || '', alt = img.getAttribute('alt') || '';
+    var old = unreleasedImages.get(img);
+    if (old && src !== UNRELEASED_ICON) {
+      if (alt === old.shown) img.setAttribute('alt', old.alt);
+      unreleasedImages.delete(img);
+      alt = img.getAttribute('alt') || '';
+    }
+    var card = img.closest('[data-msfix-card-help]');
+    var title = card ? card.getAttribute('data-msfix-buff-title') : alt;
+    var marked = /^(?:(?:HEXA: |hexa-)?(?:미출시|XXX|Unreleased(?: Mastery Skill)?))$/i.test(title || '');
+    if (!marked || (src && src !== '/icon/icon_guide.png' && src !== UNRELEASED_ICON && !/^\/hexaskill\/[\w/.-]+\.png$/.test(src))) return;
+    var shown = /Mastery|XXX/.test(title) ? 'Unreleased Mastery Skill' : 'Unreleased Skill';
+    if (src !== UNRELEASED_ICON) {
+      unreleasedImages.set(img, {alt:img.getAttribute('alt') || '', shown:shown});
+      img.setAttribute('src', UNRELEASED_ICON);
+    }
+    if (img.getAttribute('alt') !== shown) img.setAttribute('alt', shown);
+  }
+
   function translateAttrs(el) {
     if (inOwnUi(el)) return;
     for (var i = 0; i < ATTRS.length; i++) {
@@ -1380,6 +1444,7 @@
         if (r != null && r !== v) el.setAttribute(a, r);
       }
     }
+    repairUnreleasedImage(el);
   }
 
   function processTree(root) {
@@ -1465,7 +1530,7 @@
       }
       fixLogo();
     } catch (e) {} finally {
-      observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS.concat(['src']) });
     }
     if (qAdded.size || qChar.size || qAttr.size) scheduleFlush();
   }
@@ -1479,7 +1544,7 @@
     if (!observer) { processTree(root); return; }
     observer.disconnect();
     try { processTree(root); } finally {
-      observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS.concat(['src']) });
     }
   }
 
@@ -1502,7 +1567,7 @@
     });
     observer.observe(document.body, {
       childList: true, subtree: true, characterData: true,
-      attributes: true, attributeFilter: ATTRS
+      attributes: true, attributeFilter: ATTRS.concat(['src'])
     });
   }
 

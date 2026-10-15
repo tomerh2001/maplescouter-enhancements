@@ -4,6 +4,12 @@ A Chrome extension, Firefox add-on, and Tampermonkey userscript for [maplescoute
 
 MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence calculator around, but its English mode ships with **thousands of missing translations** and quite a few awkward, Google-Translate-style ones. This script fixes that — and much more.
 
+## Version 1.7.13
+
+Unreleased HEXA slots now have a clear placeholder instead of broken images or question marks, including the separate result-popup images. Fixes missing Cadena skill names, HEXA reset-refund totals, EXP and Dojo labels, and other interface translations. Ranking filters wrap, and the Dojo table scrolls on narrow screens.
+
+The audit covered all 54 class selectors and 70 public routes. See the [October 15 skill and UI audit](docs/audits/2026-10-15-skill-and-ui.md) for the verified fixes and coverage limits.
+
 ## Version 1.7.12
 
 The Link Skill comparison controls are centered as a group, with equal spacing and aligned labels.
