@@ -4,6 +4,10 @@ A Chrome extension, Firefox add-on, and Tampermonkey userscript for [maplescoute
 
 MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence calculator around, but its English mode ships with **thousands of missing translations** and quite a few awkward, Google-Translate-style ones. This script fixes that — and much more.
 
+## Version 1.7.11
+
+The Link Skill comparison controls now use consistent spacing and label alignment instead of stretching across the card.
+
 ## Version 1.7.10
 
 Guiding Stars (Sia Astelle / Erel Light) now appears in the Link Skill rankings with its shared Lv. 6 cap. **Max level** is the leftmost control; the redundant heading and bottom note are removed. The skill tooltip lists both effects and identifies the unscored buff-duration bonus.
