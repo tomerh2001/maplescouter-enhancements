@@ -150,7 +150,7 @@ html[data-msfix-route="soul"] main button[class*="h-[54px]"] {
 .msfix-link-max-control { display: flex; align-items: center; gap: 6px; flex-shrink: 0; white-space: nowrap; font-size: 14px; font-weight: 500; line-height: 1; }
 .msfix-link-max-control button { flex-shrink: 0; }
 .msfix-link-max-control svg { width: 100%; height: 100%; }
-main div:has(> .msfix-link-max-control) { justify-content: flex-start; flex-wrap: wrap; gap: 12px 20px; }
+main div:has(> .msfix-link-max-control) { justify-content: center; flex-wrap: wrap; gap: 12px 20px; }
 [data-msfix-link-heading] { display: none !important; }
 
 /* Native skill tooltip handles color, type, arrow and collision placement. */
