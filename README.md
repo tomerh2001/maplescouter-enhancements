@@ -4,9 +4,13 @@ A Chrome extension, Firefox add-on, and Tampermonkey userscript for [maplescoute
 
 MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence calculator around, but its English mode ships with **thousands of missing translations** and quite a few awkward, Google-Translate-style ones. This script fixes that — and much more.
 
+## Version 1.7.10
+
+Guiding Stars (Sia Astelle / Erel Light) now appears in the Link Skill rankings with its shared Lv. 6 cap. **Max level** is the leftmost control; the redundant heading and bottom note are removed. The skill tooltip lists both effects and identifies the unscored buff-duration bonus.
+
 ## Version 1.7.9
 
-**Max level** in Link Skill Eff compares each link's full bonus at its GMS maximum level, including combined Explorer and Cygnus levels. **Lv 2→3** still compares only the upgrade gain. Selecting either turns the other off.
+**Max level** in Links/Potentials compares each link's full bonus at its GMS maximum level, including combined Explorer and Cygnus levels. **Lv 2→3** still compares only the upgrade gain. Selecting either turns the other off.
 
 ## Version 1.7.8
 
@@ -84,7 +88,7 @@ The site's **Load Preset / Save Preset** buttons and the IGN search on `/input` 
 
 ### GMS Link Skill suggestions
 
-Version 1.7.7 adds Hayato, Kanna, Lynn and Mo Xuan to the Result page's Link Skill efficiency rankings, including Lv. 2 to 3 comparisons. Kanna uses its active effect and Mo Xuan uses full stacks. It removes Lethe's KMS-only link from GMS suggestions, corrects Qi Cultivation's name, and highlights Erel's Guiding Stars without inventing a buff-duration score. See [effects, sources and calculation limits](docs/GMS-LINK-SKILLS.md).
+Version 1.7.7 adds Hayato, Kanna, Lynn and Mo Xuan to the Result page's Link Skill efficiency rankings, including Lv. 2 to 3 comparisons. Kanna uses its active effect and Mo Xuan uses full stacks. It removes Lethe's KMS-only link from GMS suggestions, corrects Qi Cultivation's name, and now ranks Sia/Erel's shared Guiding Stars by its critical-damage contribution. See [effects, sources and calculation limits](docs/GMS-LINK-SKILLS.md).
 
 ### Quality of life
 - **Remembers your language.** The site redirects every fresh visit to Korean; the script sends you back to your language automatically.

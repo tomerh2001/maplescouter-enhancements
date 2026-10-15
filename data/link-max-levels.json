@@ -551,5 +551,27 @@
       ]
     },
     "note": "+24% Boss Damage at six stacks."
+  },
+  {
+    "ko": "Guiding Stars",
+    "name": "Guiding Stars",
+    "owners": [
+      "시아",
+      "에렐"
+    ],
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKuSURBVFhHvZdhsaRADISx8CyshbWABSxgAQtYGAtYwAIWsICFufrCNBtmM/y77apUSNJJegbe1l3X3ZF/ZCHyuu0/sUiEFX6FedluIq7lwzjnbllydxyXB4pfy5o7BuSc18DIU++2PfdTyv04f80krkVcAqKlNrD4qSyyWsOow4OP4Hc6Z159y/IgoBDB1RAsfsKXkGAmiAWUG6iX14sVR1ZzvAjLPd3A7X3pnQZDydffgXKRkCvvXnFTgL2zxnIt+nPmY/+B1r31vFAAX+4rrYWs5k+jPe+HmZaTkwjVfK+8iXK5poCL7Jq/BBUB4uH/JK5eWs8pu0IB0elbw2teHcOvc5oFQgEUTXX5UcTbEF2t2afWfj65LwlTrcQgFHAj7zmnnPO7nAaPkRMHEAu+h+WY5+M5IAgFbNxCIeMTS/fTeFZdHEBNUA2eeuuZxKAp4FXIeOK+LCdWDSzHWeu2D0cQV6LrmaAtoDDwEoCxUHVxADVBNcoSGM0ETQHvwsAzZOBat9Nj5MQBxELU4/n4RwE12YZxqvVjvt56FpfeaCYIBYwo5OpKA35lAIvX7/xTDL/OMZsdIBTQp82ahvK3gt+PnCeu0+UYTo6a55Cve31sgpZzVyhgmJbbYDX6574YPIm1wa7m+fLM5PTDdP5yxALGdA2sh7AQ84skwue9MOFz+uNZwFia8DT4GOMU5OctNmp20sKvZw1pt0M2BfDvgcmImw3koyEWeMbIYyzDFKvu+crbd8L3U367mwL6dBLHtOXkRNSD55LzVtfpxbMc4IlBKIDlasAjQjehnAZEUF23wgF8Ds8O40YCIrX8ZYzzet7GfhdSm1+sw3hh5B7/X6Dr1/tSA18uhhC7kSLEmxYj2Phjuubhr1mBgJuIX6Befomg8AuLlgsq/m+78A9TzBDu4ec1tQAAAABJRU5ErkJggg==",
+    "maxLevel": 6,
+    "effects": {
+      "crit": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "note": "Sia Astelle + Erel Light. +6% Critical Damage, +19% Buff Duration. Score excludes buff duration."
   }
 ]

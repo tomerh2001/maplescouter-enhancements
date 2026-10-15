@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.9
+// @version      1.7.10
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -1514,6 +1514,7 @@
   var gmsLinkTimer = null;
   var gmsLinkMaxLevel = false;
   var GMS_LINKS = [
+    { id: 'shine', name: 'Guiding Stars', ko: 'Guiding Stars', owners: ['시아', '에렐'], icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKuSURBVFhHvZdhsaRADISx8CyshbWABSxgAQtYGAtYwAIWsICFufrCNBtmM/y77apUSNJJegbe1l3X3ZF/ZCHyuu0/sUiEFX6FedluIq7lwzjnbllydxyXB4pfy5o7BuSc18DIU++2PfdTyv04f80krkVcAqKlNrD4qSyyWsOow4OP4Hc6Z159y/IgoBDB1RAsfsKXkGAmiAWUG6iX14sVR1ZzvAjLPd3A7X3pnQZDydffgXKRkCvvXnFTgL2zxnIt+nPmY/+B1r31vFAAX+4rrYWs5k+jPe+HmZaTkwjVfK+8iXK5poCL7Jq/BBUB4uH/JK5eWs8pu0IB0elbw2teHcOvc5oFQgEUTXX5UcTbEF2t2afWfj65LwlTrcQgFHAj7zmnnPO7nAaPkRMHEAu+h+WY5+M5IAgFbNxCIeMTS/fTeFZdHEBNUA2eeuuZxKAp4FXIeOK+LCdWDSzHWeu2D0cQV6LrmaAtoDDwEoCxUHVxADVBNcoSGM0ETQHvwsAzZOBat9Nj5MQBxELU4/n4RwE12YZxqvVjvt56FpfeaCYIBYwo5OpKA35lAIvX7/xTDL/OMZsdIBTQp82ahvK3gt+PnCeu0+UYTo6a55Cve31sgpZzVyhgmJbbYDX6574YPIm1wa7m+fLM5PTDdP5yxALGdA2sh7AQ84skwue9MOFz+uNZwFia8DT4GOMU5OctNmp20sKvZw1pt0M2BfDvgcmImw3koyEWeMbIYyzDFKvu+crbd8L3U367mwL6dBLHtOXkRNSD55LzVtfpxbMc4IlBKIDlasAjQjehnAZEUF23wgF8Ds8O40YCIrX8ZYzzet7GfhdSm1+sw3hh5B7/X6Dr1/tSA18uhhC7kSLEmxYj2Phjuubhr1mBgJuIX6Befomg8AuLlgsq/m+78A9TzBDu4ec1tQAAAABJRU5ErkJggg==", crit: [4, 6], baseLevel: 4, maxLevel: 6, note: 'Sia Astelle + Erel Light. +4% Critical Damage, +13% Buff Duration. Score excludes buff duration.', upgradeNote: 'Sia Astelle + Erel Light: +2% Critical Damage, +6% Buff Duration. Score excludes buff duration.' },
     { id: 'hayato', name: 'Moonlit Blade Learnings', ko: '창인전수', aliases: ['Moonlight Blade Learnings'], owners: ['하야토'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBMD', crit: [5, 7], note: 'Requires at least 100% critical rate and 50% critical damage.' },
     { id: 'kanna', name: 'Elementalism', ko: '자선전수', owners: ['칸나'], icon: 'https://open.api.nexon.com/static/maplestorysea/skill/icon/KFHCLHOBME', damage: [15, 20], note: 'Active for 12 seconds after 40 attack-skill uses.' },
     { id: 'lynn', name: 'Focus Spirit', ko: '수호신의 가호', aliases: ['Spirit Guide Blessing'], owners: ['린'], icon: '/linkskill/lynn.png', boss: [7, 11], rate: [7, 10], hp: [4, 5], note: 'Boss damage and Max HP/MP. Extra critical rate contributes through Vicious Shot.' },
@@ -1531,7 +1532,8 @@
       var aliases = [s.name, s.ko].concat(s.aliases || []).map(gmsLinkName);
       var eq = equipped.find(function (e) { return aliases.indexOf(gmsLinkName(e.skill_name)) >= 0; });
       var level = eq ? Number(eq.skill_level) : 0;
-      if (upgrade && level >= 3) return null;
+      var baseLevel = s.baseLevel || 2, maxLevel = s.maxLevel || 3;
+      if (!Number.isInteger(level) || level < 0 || level > maxLevel || (upgrade && level >= maxLevel)) return null;
       var from = upgrade ? 0 : -1, to = upgrade ? 1 : 0;
       var diff = function (a) { return a ? a[to] - (from < 0 ? 0 : a[from]) : 0; };
       var blocked = s.id === 'hayato' && !(Number(us.stat.critical) >= 100 && Number(us.stat.criticalDmg) >= 50);
@@ -1547,15 +1549,16 @@
       }
       // Equipped links use the same removal-and-restore convention as the native table.
       // Do not apply that correction to a Lv.2 -> Lv.3 increment.
-      if (!upgrade && level === 2) {
-        if (gain >= 1) return null;
-        gain = 1 / (1 - gain) - 1;
+      if (!upgrade && (level === baseLevel || s.id === 'shine')) {
+        var removed = s.id === 'shine' ? level * eff.cridmgeff1 : gain;
+        if (removed >= 1) return null;
+        gain /= 1 - removed;
       }
-      var note = s.note;
+      var note = upgrade && s.upgradeNote || s.note;
       if (s.id === 'lynn' && !vicious) note += ' Critical rate is not scored for this character.';
       if (blocked) note = 'Requirements not met in these inputs: 100% critical rate and 50% critical damage.';
       return { id: s.id, name: s.name, icon: s.icon, value: blocked ? 0 : Math.round(gain * 100000) / 1000,
-        note: note, label: 'GMS ' + (upgrade ? 'Lv. 2 → 3' : 'Lv. 2') };
+        note: note, label: 'GMS Lv. ' + baseLevel + (upgrade ? ' → ' + maxLevel : '') };
     }).filter(function (s) { return s && Number.isFinite(s.value) && s.value >= 0; });
   }
   function gmsLinkContext() {
@@ -1635,6 +1638,7 @@
     gmsLinkView.observer.disconnect();
     gmsLinkView.native.style.display = gmsLinkView.display;
     gmsLinkView.upgrade.removeEventListener('click', gmsLinkView.onUpgrade);
+    if (gmsLinkView.heading) gmsLinkView.heading.removeAttribute('data-msfix-link-heading');
     gmsLinkView.maxControl.remove();
     gmsLinkView.root.remove();
     gmsLinkView = null;
@@ -1659,9 +1663,7 @@
       var root = document.createElement('div');
       root.setAttribute('data-msfix-ui', 'gms-links'); root.className = 'msfix-gms-links';
       var list = document.createElement('ol'); list.className = 'msfix-gms-link-list'; list.setAttribute('aria-label', 'Link Skill efficiency including GMS');
-      var extra = document.createElement('p'); extra.className = 'msfix-gms-link-note';
-      extra.textContent = 'Also consider Guiding Stars (Erel). At Lv. 3: +3% critical damage and +10% buff duration. Buff duration is not scored by this table.';
-      root.append(list, extra);
+      root.appendChild(list);
       native.after(root);
       var maxControl = document.createElement('div');
       maxControl.className = 'msfix-link-max-control'; maxControl.setAttribute('data-msfix-ui', '');
@@ -1674,7 +1676,9 @@
       var tick = document.createElementNS('http://www.w3.org/2000/svg', 'path'); tick.setAttribute('d', 'M5 12l4 4L19 6'); mark.appendChild(tick);
       maxToggle.appendChild(mark);
       var maxLabel = document.createElement('label'); maxLabel.htmlFor = maxToggle.id; maxLabel.textContent = 'Max level';
-      maxControl.append(maxToggle, maxLabel); upgrade.parentElement.after(maxControl);
+      maxControl.append(maxToggle, maxLabel); upgrade.parentElement.before(maxControl);
+      var heading = Array.from(header.children).find(function (el) { return el.textContent.trim() === 'Link Skill Eff' && !el.querySelector('button, input'); });
+      if (heading) heading.setAttribute('data-msfix-link-heading', '');
       var onUpgrade = function () { gmsLinkMaxLevel = false; scheduleGmsLinks(); };
       upgrade.addEventListener('click', onUpgrade);
       maxToggle.addEventListener('click', function () {
@@ -1685,7 +1689,7 @@
       var obs = new MutationObserver(scheduleGmsLinks);
       obs.observe(panel, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['aria-checked', 'title', 'alt', 'src'] });
       gmsLinkView = { native: native, root: root, list: list, observer: obs, display: native.style.display, fingerprint: '',
-        maxControl:maxControl, maxToggle:maxToggle, upgrade:upgrade, onUpgrade:onUpgrade };
+        maxControl:maxControl, maxToggle:maxToggle, upgrade:upgrade, onUpgrade:onUpgrade, heading:heading };
     }
     var view = gmsLinkView;
     var maxState = gmsLinkMaxLevel ? 'true' : 'false';

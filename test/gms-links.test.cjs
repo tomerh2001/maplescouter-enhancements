@@ -22,6 +22,28 @@ test('Lv2 to Lv3 uses increments, including Lynn 7 to 11 boss damage', () => {
   assert.equal(value(rows(input(), true), 'lynn'), .4);
   assert.equal(value(rows(input(), true), 'mukhyun'), .8);
 });
+test('Guiding Stars combines both Shine links at Lv4 or Lv6 and ranks critical damage', () => {
+  const base = rows().find(r => r.id === 'shine');
+  const upgrade = rows(input(), true).find(r => r.id === 'shine');
+  assert.equal(base.value, 1.2);
+  assert.equal(base.label, 'GMS Lv. 4');
+  assert.match(base.note, /\+13% Buff Duration/);
+  assert.equal(upgrade.value, .6);
+  assert.equal(upgrade.label, 'GMS Lv. 4 → 6');
+  assert.match(upgrade.note, /\+6% Buff Duration/);
+  assert.match(base.note, /Score excludes buff duration/);
+  assert.match(base.icon, /^data:image\/png;base64,/);
+});
+test('Guiding Stars removes the actual equipped level and accepts all six levels', () => {
+  for (let level = 0; level <= 6; level++) {
+    const info = {settings:{now_link:[{skill_name:'Guiding Stars',skill_level:level}]}};
+    assert.equal(value(rows(input(), false, info), 'shine'), Math.round(.012 / (1 - level * .003) * 100000) / 1000);
+    assert.equal(value(rows(input(), true, info), 'shine'), level === 6 ? undefined : .6);
+  }
+  for (const level of [-1, 7, 1.5, 'bad']) {
+    assert.equal(value(rows(input(), false, {settings:{now_link:[{skill_name:'Guiding Stars',skill_level:level}]}}), 'shine'), undefined);
+  }
+});
 test('no GMS estimates for KMS, JMS, TMS, MSEA or missing inputs', () => {
   for (const region of [{ isGMS: false }, { isJMS: true }, { isTMS: true }, { isMSEA: true }]) assert.equal(rows(input({}, region)).length, 0);
   assert.equal(rows(null).length, 0);
@@ -87,6 +109,18 @@ test('shared GMS links use their actual combined caps and transferable effects',
   assert.equal(byKo['파이렛 블레스'].value,1.1);
   assert.equal(byKo['륀느의 축복'].label,'Lv. 6');
   assert.equal(byKo['륀느의 축복'].value,1.5);
+  assert.equal(byKo['Guiding Stars'].label,'Lv. 6');
+  assert.equal(byKo['Guiding Stars'].value,1.8);
+  assert.match(byKo['Guiding Stars'].note,/\+19% Buff Duration/);
+});
+test('Guiding Stars max-level score removes equipped critical damage without scoring buff duration', () => {
+  const info = {settings:{now_link:[{skill_name:'Guiding Stars',skill_level:6}]}};
+  assert.equal(maxValue('Guiding Stars',maxRows(input(),info)),1.833);
+  assert.equal(maxValue('Guiding Stars',maxRows(input(),null,false,{...maxEff,cridmgeff1:NaN})),undefined);
+  for (const myClass of ['시아','에렐']) {
+    assert.equal(value(rows(input({myClass})),'shine'),undefined);
+    assert.equal(maxValue('Guiding Stars',maxRows(input({myClass}))),undefined);
+  }
 });
 test('max levels preserve native timing weights for timed links', () => {
   assert.equal(maxValue('소울 컨트랙트'),3.333);
