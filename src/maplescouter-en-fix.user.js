@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.13
+// @version      1.7.14
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -2323,7 +2323,7 @@
   var ROUTE_CSS = ROW_SEL + '{display:none!important}\n' + IGN_SEL + '{display:none!important}';
   var CLOUD_CSS = [
     '.msfix-charpicker [hidden]{display:none!important}',
-    '.msfix-charpicker .msfix-dd{top:100%;max-width:92vw}',
+    '.msfix-charpicker .msfix-dd{top:100%;max-width:calc(100vw - 16px)}',
     '.msfix-charpicker input::placeholder,.msfix-dialog input::placeholder{color:var(--text-gray-low)}',
     '.msfix-charpicker .msfix-opt[aria-selected="true"]{box-shadow:inset 3px 0 0 var(--color-primary,#e5772f)}',
     '.msfix-charpicker .msfix-row-menu{opacity:.55}.msfix-charpicker .msfix-opt:hover .msfix-row-menu,.msfix-charpicker .msfix-opt.msfix-active .msfix-row-menu,.msfix-charpicker .msfix-row-menu:focus{opacity:1}',
@@ -3997,6 +3997,18 @@
       }
     });
   }
+  function placePickerDropdown() {
+    if (!picker.open || !picker.dd || picker.dd.hidden) return;
+    var anchor = picker.dd.parentElement.getBoundingClientRect();
+    var viewport = document.documentElement.clientWidth || window.innerWidth;
+    // clientWidth excludes a non-overlay scrollbar, unlike CSS 100vw.
+    picker.dd.style.maxWidth = Math.max(0, viewport - 16) + 'px';
+    var width = picker.dd.getBoundingClientRect().width;
+    // Keep the desktop right alignment, but shift inward at either viewport edge.
+    var left = Math.max(8, Math.min(anchor.right - width, viewport - width - 8));
+    picker.dd.style.left = (left - anchor.left) + 'px';
+    picker.dd.style.right = 'auto';
+  }
   function renderDropdown() {
     if (!picker.dd || !picker.open) return;
     var dd = picker.dd; dd.innerHTML = ''; picker.items = [];
@@ -4038,6 +4050,7 @@
     }
     dd.appendChild(foot);
     setActive(picker.active >= 0 && picker.active < picker.items.length ? picker.active : -1);
+    placePickerDropdown();
   }
 
   function unmountPicker() {
@@ -4118,6 +4131,7 @@
       cloud.lastFocusCheck = now; if (picker.open) refreshPickerCloud(); if (!cloud.offline) cloud.pollDelay = POLL_MS; pollTick(true);   // while offline, one probe now but keep the backed-off delay
     };
     window.addEventListener('focus', onFocus);
+    window.addEventListener('resize', placePickerDropdown);
     document.addEventListener('visibilitychange', onFocus);
     if (DEBUG_REFS) { siteRefs.pollNow = function () { pollTick(true); }; siteRefs.avatarFor = avatarFor; siteRefs.avatarCached = avatarCached; }   // test hooks
     window.addEventListener('storage', function (e) {

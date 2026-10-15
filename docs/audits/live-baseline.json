@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-15T04:44:23.525Z",
+  "at": "2026-10-15T07:06:47.842Z",
   "routes": [
     "/sitemap",
     "/",
@@ -1709,41 +1709,6 @@
     }
   ],
   "newMissing": 0,
-  "changedChunks": [
-    "9354-6e54f973971b29c0.js",
-    "9641-3c772f762a456094.js",
-    "page-690965c8f4a35518.js",
-    "7676-42f06b1ef6fc1590.js",
-    "page-b03707fe48457fe0.js",
-    "4871-cc537baa23b9c830.js",
-    "page-e5d72f5d16b6bf56.js",
-    "page-bbe8f36d826cd020.js",
-    "2677-cddc48ef0510ac3c.js",
-    "9479-034879087628a3ab.js",
-    "page-52a4ce395ead534a.js",
-    "4496-5452f9fd73c4a195.js",
-    "page-e8dd269ed40981ea.js",
-    "3769-a9a3fd8680102e20.js",
-    "page-c2172d9343824c1d.js",
-    "page-9bd3c830b64953d0.js",
-    "6445-53468406d31cee55.js",
-    "page-aafcd836b4908b80.js",
-    "page-8de38762974c66f7.js"
-  ],
-  "removedChunks": [
-    "129-2db1359587c167ad.js",
-    "page-8857e1acf8fe5292.js",
-    "9354-86a42850a49d164c.js",
-    "2051-5fdb9342cd5b3bf0.js",
-    "page-5f749a7abac64fbf.js",
-    "page-0a7b82e13ae679f3.js",
-    "4871-5c8459ba60717e8e.js",
-    "page-0ea1448c9ad6623e.js",
-    "1769-75dab039cef3c6d7.js",
-    "page-061a2a6df45c5ca0.js",
-    "4682-4973cb6b56fcde85.js",
-    "page-c9c1dc4180d74ad1.js",
-    "page-6439908c7174cbee.js",
-    "page-9cf24d98b53a2470.js"
-  ]
+  "changedChunks": [],
+  "removedChunks": []
 }

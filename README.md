@@ -4,6 +4,10 @@ A Chrome extension, Firefox add-on, and Tampermonkey userscript for [maplescoute
 
 MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence calculator around, but its English mode ships with **thousands of missing translations** and quite a few awkward, Google-Translate-style ones. This script fixes that — and much more.
 
+## Version 1.7.14
+
+The character dropdown stays inside the screen on phones, keeping character names and actions visible. It retains its desktop alignment and adjusts when the window is resized. The input page also keeps its single-column layout on small tablets to avoid clipping the buffs panel. See the [October 15 weekly audit](docs/audits/2026-10-15.md).
+
 ## Version 1.7.13
 
 Unreleased HEXA slots now have a clear placeholder instead of broken images or question marks, including the separate result-popup images. Fixes missing Cadena skill names, HEXA reset-refund totals, EXP and Dojo labels, and other interface translations. Ranking filters wrap, and the Dojo table scrolls on narrow screens.
@@ -62,7 +66,7 @@ Credentials are stored in GitHub Actions secrets, never in the extension package
 
 A weekly audit checks MapleScouter for new text, changed pages, and layout or compatibility problems. It runs on Thursdays at 10:00 (Asia/Jerusalem). Updates are tested, released on GitHub, and submitted to both Chrome and Firefox. The stores publish approved updates automatically. If nothing needs changing, no new version is uploaded.
 
-See the [maintenance runbook](docs/WEEKLY-MAINTENANCE.md) and [audit reports](docs/audits/). Version 1.7.6 translates the Soul Amplification simulator, new ranking filters, and Level 3 Link Skill controls. It fixes crashes after Soul amplification succeeds, keeps English tables readable on phones, and shows the correct ranking season. See the [October 8 audit](docs/audits/2026-10-08.md) for tested coverage and store status.
+See the [maintenance runbook](docs/WEEKLY-MAINTENANCE.md) and [audit reports](docs/audits/). The [October 15 weekly audit](docs/audits/2026-10-15.md) records the latest live-site comparison, phone and tablet layout fixes, interaction checks and store status.
 
 ## Features
 

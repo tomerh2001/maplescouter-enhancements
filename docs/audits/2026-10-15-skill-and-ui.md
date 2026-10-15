@@ -52,3 +52,5 @@ Native calculations and result popups were exercised for **all six affected GMS 
 - Firefox: 1.7.13 accepted, `PENDING_REVIEW`, listed channel, version ID `6579624`, source archive attached.
 
 Automatic publication after approval remains enabled. No older-pending replacement was needed. Receipts are retained in the workflow artifacts and locally in `/tmp/maplescouter-1.7.13-receipts`.
+
+Follow-up at 07:10 UTC: both public stores now serve 1.7.13. Chrome's listing shows 1.7.13; Mozilla's version API reports `file.status: public` on the listed channel. See the [weekly follow-up](2026-10-15.md) for subsequent layout checks.

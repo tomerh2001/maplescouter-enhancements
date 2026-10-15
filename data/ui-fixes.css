@@ -184,7 +184,11 @@ html[data-msfix-route="input"] div:has(> .msfix-charpicker) { flex-wrap: wrap; g
 .msfix-charpicker { max-width: 100%; min-width: 0; }
 .msfix-charpicker > .relative { min-width: 0; }
 .msfix-charpicker input[role="combobox"] { max-width: 100%; }
-.msfix-dd { max-width: calc(100vw - 48px); }
+/* The two input columns need about 785px once English labels are laid out. */
+@media (max-width: 799px) {
+  html[data-msfix-route="input"] main .tablet\:flex-row:has(> .tablet\:min-w-\[448px\]) { flex-direction: column; }
+  html[data-msfix-route="input"] main .tablet\:min-w-\[448px\] { width: 100%; min-width: 0; }
+}
 /* Boss names must remain readable beside their separate numeric columns. */
 html[data-msfix-route="boss-data"] main .flex-col.gap-2.truncate,
 html[data-msfix-route="boss-data"] main .flex-col.gap-2.truncate > .truncate {
