@@ -46,4 +46,9 @@ Native calculations and result popups were exercised for **all six affected GMS 
 
 ## Store submissions
 
-Submission receipts will be recorded after GitHub Actions completes.
+[Release v1.7.13](https://github.com/tomerh2001/maplescouter-enhancements/releases/tag/v1.7.13), source commit `6a11cb6`. [Release workflow 38684846051](https://github.com/tomerh2001/maplescouter-enhancements/actions/runs/38684846051) passed all jobs.
+
+- Chrome: 1.7.13 accepted, `PENDING_REVIEW`, `DEFAULT_PUBLISH`.
+- Firefox: 1.7.13 accepted, `PENDING_REVIEW`, listed channel, version ID `6579624`, source archive attached.
+
+Automatic publication after approval remains enabled. No older-pending replacement was needed. Receipts are retained in the workflow artifacts and locally in `/tmp/maplescouter-1.7.13-receipts`.
