@@ -30,4 +30,9 @@ This remains an efficiency comparison, not a full buff-uptime simulation or opti
 
 ## Store submissions
 
-Pending release workflow.
+[Release v1.7.10](https://github.com/tomerh2001/maplescouter-enhancements/releases/tag/v1.7.10), source commit `14668a1`. [Release workflow 38663357177](https://github.com/tomerh2001/maplescouter-enhancements/actions/runs/38663357177) passed all jobs, including reproducible package verification.
+
+- Chrome: 1.7.10 accepted, `PENDING_REVIEW`, `DEFAULT_PUBLISH`.
+- Firefox: 1.7.10 accepted, `PENDING_REVIEW`, listed channel, version ID `6579171`, source archive attached.
+
+Both submissions request automatic publication after approval. No older-pending replacement was needed. Receipts are retained in the workflow artifacts.
