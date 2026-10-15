@@ -15,4 +15,9 @@ Centered Max level, Lv 2→3 and 380 as a group, retaining equal 20px gaps and a
 
 ## Store submissions
 
-Pending release workflow.
+[Release v1.7.12](https://github.com/tomerh2001/maplescouter-enhancements/releases/tag/v1.7.12), source commit `e55b6c1`. [Release workflow 38682133111](https://github.com/tomerh2001/maplescouter-enhancements/actions/runs/38682133111) passed all jobs.
+
+- Chrome: 1.7.12 accepted, `PENDING_REVIEW`, `DEFAULT_PUBLISH`.
+- Firefox: 1.7.12 accepted, `PENDING_REVIEW`, listed channel, version ID `6579558`, source attached.
+
+Automatic publication after approval remains enabled. No pending-version replacement was needed. Receipts are retained in the workflow artifacts.
