@@ -15,4 +15,9 @@ The native header used `justify-between`, spreading Max level, Lv 2→3 and 380 
 
 ## Store submissions
 
-Pending release workflow.
+[Release v1.7.11](https://github.com/tomerh2001/maplescouter-enhancements/releases/tag/v1.7.11), source commit `8256010`. [Release workflow 38663921638](https://github.com/tomerh2001/maplescouter-enhancements/actions/runs/38663921638) built the release, verified reproducible packages and submitted Firefox. Chrome initially declined because an older version was pending. The authorized [replacement workflow 38664068718](https://github.com/tomerh2001/maplescouter-enhancements/actions/runs/38664068718) succeeded.
+
+- Chrome: 1.7.11 accepted, `PENDING_REVIEW`, `DEFAULT_PUBLISH`.
+- Firefox: 1.7.11 accepted, `PENDING_REVIEW`, listed channel, version ID `6579182`, source archive attached.
+
+Automatic publication after approval remains enabled. Both receipts are retained in the respective workflow artifacts.
