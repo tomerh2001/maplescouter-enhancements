@@ -20,7 +20,8 @@ async function main() {
   const pages = {}, chunks = new Set(), routeMap = {}, failures = [];
   const home = await get(origin+'/en');
   fs.writeFileSync(path.join(W,'home.html'),home);
-  const routes = new Set(['/', '/sitemap', '/input', '/result', '/hexa', '/starforce', '/boss-data', ...Object.values(oldMap)]);
+  const routes = new Set(['/', '/sitemap', '/input', '/result', '/hexa', '/starforce', '/boss-data',
+    '/manual/input', '/manual/result', '/manual/hexa', '/manual/optimizer', ...Object.values(oldMap)]);
   for (const m of home.matchAll(/href="\/en(\/[^"?#]*)?/g)) routes.add(m[1] || '/');
   async function page(route) {
     if (!/^\/[a-z0-9/_-]*$/i.test(route)) return;
