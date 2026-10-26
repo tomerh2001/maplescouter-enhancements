@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.14
+// @version      1.7.15
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -9,7 +9,7 @@
 // @match        https://www.maplescouter.com/*
 // @run-at       document-start
 // @grant        none
-// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.14
+// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.15
 // @updateURL    https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @downloadURL  https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @supportURL   https://github.com/tomerh2001/maplescouter-enhancements/issues
@@ -377,8 +377,10 @@
   function builtinRules(t, d) {
     var quantity = t.match(/^([\d,.]+)\s*개$/);
     if (quantity) return quantity[1] + ' items';
-    var duration = t.match(/^(\d+)\s*(?:시간|Hours?)\s*(\d+)\s*분$/);
+    var duration = t.match(/^([\d,]+)\s*(?:시간|Hours?)\s*(\d+)\s*분$/);
     if (duration) return duration[1] + 'h ' + duration[2] + 'm';
+    var minutes = t.match(/^(\d+(?:\.\d+)?)\s*분$/);
+    if (minutes) return minutes[1] + ' min';
     var expShare = t.match(/^\(현재 레벨의 ([\d.]+)%\)$/);
     if (expShare) return '(' + expShare[1] + '% of the current level)';
     var votes = t.match(/^([\d,]+)표$/);
@@ -393,6 +395,10 @@
     if (refund) return 'Before the first X: Energy ' + refund[1] + ' / ' + refund[2] + ' · Fragments ' + refund[3] + ' / ' + refund[4];
     var schedule = t.match(/^마이페이지는 (.+?)인데 인게임 스케줄러엔 (.+?)로 등록돼 있어요 — 확인하세요$/);
     if (schedule) return 'Difficulty mismatch: My Page ' + schedule[1] + '; in-game schedule ' + schedule[2] + '.';
+    var borderChanges = t.match(/^테두리 변경은 하루 (\d+)번 가능합니다 \(오늘 (\d+)번 남음\)$/);
+    if (borderChanges) return 'Border changes: ' + borderChanges[1] + ' per day (' + borderChanges[2] + ' remaining today)';
+    var joined = t.match(/^· (\d{4}[./-]\d{1,2}[./-]\d{1,2}) 가입$/);
+    if (joined) return '· Joined ' + joined[1];
     // The ranking page replaces the literal " N기" after calling i18next.
     // Preserve that token in the bundle, then translate its populated value.
     var seasonNote = t.match(/^Based on (\d+)기 data from MapleStory's official Training Grounds\.$/);
@@ -465,6 +471,9 @@
   }
 
   function translateString(s) {
+    // The account endpoint requires this exact confirmation word. Keep it intact
+    // when the observer revisits the translated instruction or placeholder.
+    if (/^Type "탈퇴" to confirm(?: account deletion\.)?$/.test(s.trim())) return null;
     var d = data();
     // Exact text can include meaningful spaces or complete multi-line probability tables.
     // Try it before trimming so these reviewed translations are reachable in the DOM.
@@ -1258,6 +1267,7 @@
   }
 
   function clarifiedControlLabel(text, forId, pathname) {
+    pathname = featurePath(pathname);
     if (/^\/en\/result\/?$/.test(pathname)) {
       if (forId === '최초의 유산' && /^(데티2차|최초의 유산|Destiny 2nd Lib\.|First Legacy(?: Buff)?|Destiny 2 Buff)$/.test(text.trim())) return 'Destiny 2 Buff';
       if (forId === '파이렛플래그' && /^(파이렛|Ghost Pirate|Pirate's Banner)$/.test(text.trim())) return "Pirate's Banner";
@@ -1275,6 +1285,7 @@
     var clarified = clarifiedControlLabel(v, label && label.htmlFor, location.pathname);
     if (clarified) { if (v !== clarified) node.nodeValue = clarified; return; }
     if (isPlayerNameContext(node)) return;
+    if (translateDurationFragment(node)) return;
     if (translateRankingSeason(node)) return;
     var season = rankingSeason(v, location.pathname);
     if (season) { node.nodeValue = season; return; }
@@ -1286,6 +1297,15 @@
     if (BADGE_TITLES[shown] && node.parentElement && !node.parentElement.title) {
       node.parentElement.title = BADGE_TITLES[shown];
     }
+  }
+
+  // The farming slider emits its live number and unit as separate React nodes.
+  function translateDurationFragment(node) {
+    var value = node.previousSibling;
+    if (!/^\/en\/exp\/monster\/?$/.test(location.pathname) || node.nodeValue !== '분' ||
+        !value || value.nodeType !== 3 || !/^\d+(?:\.\d+)?$/.test(value.nodeValue)) return false;
+    node.nodeValue = ' min';
+    return true;
   }
 
   // The reward card splits one sentence around live amounts and item icons.
@@ -1627,7 +1647,7 @@
     }).filter(function (s) { return s && Number.isFinite(s.value) && s.value >= 0; });
   }
   function gmsLinkContext() {
-    var manual = new URLSearchParams(location.search).get('manual') === 'true';
+    var manual = /^\/(ko|en|ja|ch)\/manual\/result\/?$/.test(location.pathname) || new URLSearchParams(location.search).get('manual') === 'true';
     var store = manual ? siteRefs.manualStore : siteRefs.characterStore;
     if (!store) return null;
     var st = store.getState();
@@ -1898,7 +1918,7 @@
     }
     var image = scope.querySelector('img'), imageUrl = image ? image.getAttribute('src') || '' : '';
     try { imageUrl = decodeURIComponent(imageUrl); } catch (_) {}
-    return { route: location.pathname.replace(/^\/(en|ko|ja|ch)(?=\/|$)/, '') || '/', id: control.id || '', role: control.getAttribute('role') || 'checkbox', label: (label || '').trim(), context: scope.textContent.trim(), image: imageUrl, labelNode: labelNode, scope: scope };
+    return { route: featurePath(location.pathname).replace(/^\/(en|ko|ja|ch)(?=\/|$)/, '') || '/', id: control.id || '', role: control.getAttribute('role') || 'checkbox', label: (label || '').trim(), context: scope.textContent.trim(), image: imageUrl, labelNode: labelNode, scope: scope };
   }
   function checkHelpDescription(control, info) {
     var result = resolveCheckboxHelp(info, (data().checkboxHelp || {}).rules || [], helpVariants);
@@ -1969,7 +1989,7 @@
     if (metricHelp && (typeof metricHelp !== 'object' || typeof metricHelp.text !== 'string')) metricHelp = null;
     if (!label.isConnected || label.children.length || label.closest('[data-msfix-ui], [data-slot="tooltip-content"]')) return null;
     if (hasNativeHelp(label)) return null;
-    var route = location.pathname.replace(/^\/(en|ko|ja|ch)(?=\/|$)/, '') || '/';
+    var route = featurePath(location.pathname).replace(/^\/(en|ko|ja|ch)(?=\/|$)/, '') || '/';
     var help = metricHelp || resolveCheckboxHelp({route:route, label:label.textContent, context:'', id:'', image:''}, (data().checkboxHelp || {}).fields || [], helpVariants);
     var rec = checkHelpRecords.get(label);
     if (rec && rec.metric && !metricHelp) return rec;
@@ -2314,8 +2334,26 @@
   function eqi(a, b) { return String(a == null ? '' : a).toLowerCase() === String(b == null ? '' : b).toLowerCase(); }
   function nowIso() { return new Date().toISOString(); }
 
-  /* -- route gate: the picker and the hide rules apply to /{locale}/input only ---------- */
-  function isInputRoute() { return /^\/(ko|en|ja|ch)\/input(?:\/|$)/.test(location.pathname); }
+  /* -- support both the original pages and the site's separate manual workspace ------ */
+  function featurePath(pathname) {
+    return pathname.replace(/^\/(ko|en|ja|ch)\/manual\/(input|result|hexa|optimizer)(\/?$)/, '/$1/$2$3');
+  }
+  function isInputRoute() { return /^\/(ko|en|ja|ch)\/input\/?$/.test(featurePath(location.pathname)); }
+  var manualNavLayout = new WeakMap();
+  function revealManualTab() {
+    // The new workspace scrolls horizontally on phones. Reveal the active page once
+    // after navigation or a size change, without undoing the user's own scrolling.
+    document.querySelectorAll('main a[aria-current="page"][href*="/manual/"]').forEach(function (link) {
+      var strip = link.parentElement;
+      if (!strip || !strip.classList.contains('overflow-x-auto') || !strip.clientWidth) return;
+      var layout = link.getAttribute('href') + ':' + strip.clientWidth + ':' + strip.scrollWidth;
+      if (manualNavLayout.get(strip) === layout) return;
+      manualNavLayout.set(strip, layout);
+      var item = link.getBoundingClientRect(), bounds = strip.getBoundingClientRect();
+      if (item.right > bounds.right) strip.scrollLeft += item.right - bounds.right;
+      else if (item.left < bounds.left) strip.scrollLeft -= bounds.left - item.left;
+    });
+  }
   var ROW_SEL = 'div.flex.w-full.items-center.justify-between > div.flex.gap-2:has(> button[data-slot=dialog-trigger] > svg.lucide-file-down)';
   var IGN_SEL = 'div.flex.items-center.gap-2:has(> div.relative > input[data-slot=input] + button[data-slot=popover-trigger])';
   // React owns <html>/<body> (attributes we set there get reconciled away), so the hide rules
@@ -4179,6 +4217,7 @@
     return r;
   };
   window.addEventListener('popstate', onNavigate);
+  window.addEventListener('resize', revealManualTab);
 
   function onNavigate() {
     var saved = null;
@@ -4194,12 +4233,20 @@
     applyRouteGate();
     if (!isInputRoute()) { cloud.inputActive = false; unmountPicker(); }
     schedulePickerMount();
+    setTimeout(revealManualTab, 100);
     if (document.body && pathLocale() === 'en') {
       setTimeout(function () { sweepTree(document.body); }, 50);
     }
   }
 
   function onReady() {
+    // React replaces <html> attributes during hydration. Restore the layout scope
+    // immediately, rather than leaving overflowing controls until the next poll.
+    // Wait for the root to exist when installed as a document-start content script.
+    applyRouteGate();
+    new MutationObserver(applyRouteGate).observe(document.documentElement, {
+      attributes: true, attributeFilter: ['data-msfix-route']
+    });
     injectCss();
     startCheckboxHelp();
     installPresetImportBridge(); // let the site's native import accept our old export files
@@ -4213,8 +4260,8 @@
     }, true);
     // Delay the DOM layer slightly so React hydration finishes first.
     setTimeout(startDomLayer, 250);
-    setTimeout(function () { translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); }, 400);
-    setInterval(function () { backupRegion(); translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); ensureSaveImportIcons(); refreshFloatRects(); ensureCharPicker(); ensureGmsLinks(); refreshCheckboxHelp(); }, 2000);
+    setTimeout(function () { translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); revealManualTab(); }, 400);
+    setInterval(function () { backupRegion(); translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); revealManualTab(); ensureSaveImportIcons(); refreshFloatRects(); ensureCharPicker(); ensureGmsLinks(); refreshCheckboxHelp(); }, 2000);
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') onReady();

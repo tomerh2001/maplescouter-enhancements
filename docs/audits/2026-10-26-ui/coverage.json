@@ -1,0 +1,547 @@
+{
+  "date": "2026-10-26",
+  "kind": "route-shell sweep; targeted checks detailed in audit",
+  "routes": [
+    {
+      "route": "/",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/base",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/battle-ranking",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1347,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/boss-data",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/boss-income",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/challenge",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/challenge_2",
+      "initialKoreanLeafCount": 2,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/challenge_3",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/cube-fire",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/destiny",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/destiny-ranking",
+      "initialKoreanLeafCount": 10,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/donate",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/exp/daily-quest",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/exp/event",
+      "initialKoreanLeafCount": 1,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/exp/item",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/exp/monster",
+      "initialKoreanLeafCount": 1,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/exp/total",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/exp/treasure-hunter",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1300,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/exp/weekly-quest",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/game/bulls-and-cows",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/game/draw",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/game/ladder",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/game/roulette",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/game/stop-watch",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/genesis",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/guide",
+      "initialKoreanLeafCount": 354,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/hall-of-fame",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/hexa",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/hexa-preview",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/hexpago",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/hunt/optimizer",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/huntresult",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/info",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/input",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/item",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/item-ranking",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/lucid",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/multi-result",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/mypage",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/octopus",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/optimizer",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/profile-motion",
+      "initialKoreanLeafCount": 1,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/punchking-season3",
+      "initialKoreanLeafCount": 1,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/quick-link",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/ranking",
+      "initialKoreanLeafCount": 16,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/ranking-analysis",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/result",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/simulator/cube",
+      "initialKoreanLeafCount": 1,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/simulator/cube-additional",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/simulator/fire",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/simulator/starforce",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/simulator/whetstone",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/sitemap",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/spec-order",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/starforce",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/tax",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/timeattack",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/total-ranking",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/union-champion",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/union-character",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/union-ranking",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/class-analysis",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/game/spec-quiz",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/ability",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/simulator/ability",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/simulator/soul",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/manual/input",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/dojo-data",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/coordination",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/privacy",
+      "initialKoreanLeafCount": 47,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/agreement",
+      "initialKoreanLeafCount": 76,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/manual/result",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/manual/hexa",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    },
+    {
+      "route": "/manual/optimizer",
+      "initialKoreanLeafCount": 0,
+      "initialPageWidth": 1280,
+      "viewportWidth": 1280,
+      "error": null
+    }
+  ],
+  "hydrationFixChecks": [
+    {
+      "path": "/battle-ranking",
+      "korean": [],
+      "pageWidth": 1280,
+      "route": "battle-ranking",
+      "width": 1280
+    },
+    {
+      "path": "/exp/treasure-hunter",
+      "korean": [],
+      "pageWidth": 1280,
+      "route": "treasure-hunter",
+      "width": 1280
+    },
+    {
+      "path": "/exp/monster",
+      "korean": [],
+      "pageWidth": 1280,
+      "route": "monster",
+      "width": 1280
+    }
+  ]
+}

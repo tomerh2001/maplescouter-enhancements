@@ -13,6 +13,32 @@ const ctx = vm.createContext({ data: () => ({ dict, rules: read('data/rules.json
 vm.runInContext(source.slice(source.indexOf('  var KO_NUM_UNITS'), source.indexOf('  function translateTitle(')), ctx);
 const reviewed = read('data/overrides/2026-09-17.json');
 
+test('new manual workspace guidance and supporter labels translate completely', () => {
+  for (const [ko,en] of Object.entries(read('data/overrides/2026-10-26.json'))) {
+    assert.equal(patch[ko],en,ko);
+    assert.equal(ctx.translateString(ko),en,ko);
+    assert.doesNotMatch(en,/[가-힣]/);
+    assert.deepEqual(en.match(/\d+/g),ko.match(/\d+/g),ko);
+    assert.ok(ctx.translateString(en) === null || ctx.translateString(en) === en,en);
+  }
+});
+
+test('October account, liberation and border translations retain values and literal confirmations', () => {
+  for (const [ko, en] of Object.entries(read('data/overrides/2026-10-22.json'))) {
+    assert.equal(patch[ko], en, ko);
+    assert.equal(ctx.translateString(ko), en, ko);
+    if (!ko.includes('내일 00시부터')) assert.deepEqual(en.match(/\d+/g), ko.match(/\d+/g), ko);
+    assert.ok(ctx.translateString(en) === null || ctx.translateString(en) === en, en);
+  }
+  assert.equal(ctx.translateString('테두리 변경은 하루 2번 가능합니다 (오늘 1번 남음)'), 'Border changes: 2 per day (1 remaining today)');
+  assert.equal(ctx.translateString('테두리 변경은 하루 2번 가능합니다 (오늘 0번 남음)'), 'Border changes: 2 per day (0 remaining today)');
+  assert.equal(ctx.translateString(' · 2026-10-22 가입'), ' · Joined 2026-10-22');
+  assert.equal(ctx.translateString('탈퇴'), 'Delete Account');
+  assert.equal(ctx.translateString('Type "탈퇴" to confirm'), null);
+  assert.equal(ctx.translateString('Type "탈퇴" to confirm account deletion.'), null);
+  assert.equal(ctx.translateString('오늘 변경 완료 · 내일 00시부터'), 'Changed today · Available again tomorrow at 00:00');
+});
+
 test('reset refunds translate complete dynamic text without changing resource counts', () => {
   const out = 'Before the first X: Energy 1,116 / 1,190 · Fragments 32,285 / 34,054';
   assert.equal(ctx.translateString('X 없는 데까지 — 기운 1,116 / 1,190 · 조각 32,285 / 34,054'), out);
@@ -27,6 +53,7 @@ test('derived Cadena card titles and current site labels are translated', () => 
 test('dynamic EXP, duration, Dojo and draw labels preserve their numbers', () => {
   for (const [ko,en] of [
     ['326.7개','326.7 items'], ['2시간 51분','2h 51m'], ['283Hours 47분','283h 47m'],
+    ['1,100Hours 36분','1,100h 36m'], ['1,100시간 36분','1,100h 36m'], ['30분','30 min'], ['2.5분','2.5 min'],
     ['(현재 레벨의 41.10%)','(41.10% of the current level)'], ['50층 (핑크빈)','Floor 50 (Pink Bean)'],
     ['0.53T(반감)','0.53T (elemental resistance)'], ['5표','5 entries'], ['데이터 기준 : 2025-02-21','Data as of: 2025-02-21']
   ]) {assert.equal(ctx.translateString(ko),en);assert.deepEqual(en.match(/[\d,.]+/g),ko.match(/[\d,.]+/g));}
@@ -40,6 +67,15 @@ test('reward particles are scoped to the reward card and preserve React nodes', 
   particle.nodeValue='을 추가로 얻을 수도 있습니다.';assert.equal(c.translateRewardFragment(particle),true);assert.equal(particle.nodeValue,'');
   particle.nodeValue='에';parent.textContent='An unrelated Korean name';assert.equal(c.translateRewardFragment(particle),false);assert.equal(particle.nodeValue,'에');
   parent.textContent='Possible additional rewards:';c.location.pathname='/en/input';assert.equal(c.translateRewardFragment(particle),false);
+});
+test('farming minutes preserve the live numeric node and leave unrelated text alone', () => {
+  const c=vm.createContext({location:{pathname:'/en/exp/monster'}});
+  vm.runInContext(source.slice(source.indexOf('  function translateDurationFragment('),source.indexOf('  // The reward card')),c);
+  const number={nodeType:3,nodeValue:'30'},unit={nodeValue:'분',previousSibling:number};
+  assert.equal(c.translateDurationFragment(unit),true);assert.equal(unit.nodeValue,' min');assert.equal(number.nodeValue,'30');
+  number.nodeValue='45';assert.equal(c.translateDurationFragment(unit),false);assert.equal(number.nodeValue,'45');
+  unit.nodeValue='분';c.location.pathname='/en/info';assert.equal(c.translateDurationFragment(unit),false);
+  c.location.pathname='/en/exp/monster';number.nodeValue='player';assert.equal(c.translateDurationFragment(unit),false);
 });
 test('ASCII character names are protected even when they match a translated placeholder', () => {
   const c=vm.createContext({location:{pathname:'/en/input'},inOwnUi:()=>false,clarifiedControlLabel:()=>null,isPlayerNameContext:()=>true});

@@ -83,9 +83,29 @@ test('calculating suggestions does not mutate character data or API response', (
 test('manual and API results read their separate sources', () => {
   const manual={userStat:input(),simulatorData:{specEfficiency:eff}}, api={...manual,userApiData:{settings:{now_link:[]}}};
   ctx.siteRefs={manualStore:{getState:()=>({result:manual})},characterStore:{getState:()=>({searchResult:api})}};
-  ctx.location={search:'?manual=true'}; assert.equal(ctx.gmsLinkContext().info,null);
+  ctx.location={pathname:'/en/result',search:'?manual=true'}; assert.equal(ctx.gmsLinkContext().info,null);
   ctx.location.search='?name=Example'; assert.equal(ctx.gmsLinkContext().info,api.userApiData);
   ctx.siteRefs.characterStore=null; assert.equal(ctx.gmsLinkContext(),null);
+});
+
+test('new manual result routes use the calculated manual result without a query flag', () => {
+  const manual={userStat:input(),simulatorData:{specEfficiency:eff}};
+  const api={userStat:input({myClass:'아델'}),userApiData:{settings:{now_link:[]}},simulatorData:{specEfficiency:eff}};
+  ctx.siteRefs={manualStore:{getState:()=>({result:manual})},characterStore:{getState:()=>({searchResult:api})}};
+  for (const locale of ['en','ko','ja','ch']) {
+    for (const suffix of ['', '/']) {
+      ctx.location={pathname:`/${locale}/manual/result${suffix}`,search:''};
+      assert.equal(ctx.gmsLinkContext().us,manual.userStat);
+      assert.equal(ctx.gmsLinkContext().info,null);
+    }
+  }
+  ctx.location={pathname:'/en/result',search:''};
+  assert.equal(ctx.gmsLinkContext().us,api.userStat);
+  ctx.location.pathname='/en/manual/result-other';
+  assert.equal(ctx.gmsLinkContext().us,api.userStat);
+  ctx.location.pathname='/en/manual/result';
+  ctx.siteRefs.manualStore=null;
+  assert.equal(ctx.gmsLinkContext(),null);
 });
 
 const maxEff = {...eff, allStatEff:.002, atkeff1:.0002, mainStateff1:.0001, subStateff1:.00001, ssubStateff1:0, igreff1:.001, igreff1_380:.002};

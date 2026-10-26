@@ -6,12 +6,25 @@ const src = fs.readFileSync('src/maplescouter-en-fix.user.js','utf8');
 const catalog = JSON.parse(fs.readFileSync('data/checkbox-help.json'));
 function env() {
   const ctx = vm.createContext({Map,WeakMap,setTimeout,clearTimeout,siteRefs:{},location:{pathname:'/en/input'},pathLocale:()=> 'en'});
+  vm.runInContext(src.slice(src.indexOf('  function featurePath('),src.indexOf('  var ROW_SEL')),ctx);
   vm.runInContext(src.slice(src.indexOf('  function noteHelpRuntime('),src.indexOf('  function noteExports(')),ctx);
   vm.runInContext(src.slice(src.indexOf('  function cardHelp('),src.indexOf('  var CHECK_HELP_SELECTOR')),ctx);
   vm.runInContext(src.slice(src.indexOf('  var CHECK_HELP_SELECTOR'),src.indexOf('  /* ---------------- 4a. Tooltip keep-alive')),ctx);
   return ctx;
 }
 const ctx=env();
+test('manual workspace routes share help and picker behavior without changing unrelated paths',()=>{
+  const c=env();
+  for(const locale of ['en','ko','ja','ch']) for(const page of ['input','result','hexa','optimizer']) {
+    assert.equal(c.featurePath(`/${locale}/manual/${page}`),`/${locale}/${page}`);
+    c.location.pathname=`/${locale}/manual/${page}`;
+    assert.equal(c.isInputRoute(),page==='input');
+  }
+  for(const path of ['/en/manual/input-extra','/en/manual/input/history','/en/manual/simulator','/manual/input']) {
+    assert.equal(c.featurePath(path),path);c.location.pathname=path;assert.equal(c.isInputRoute(),false);
+  }
+  c.location.pathname='/en/input/';assert.equal(c.isInputRoute(),true);
+});
 const info=(extra={})=>({route:'/input',id:'',role:'checkbox',label:'',context:'',image:'',...extra});
 const resolve=(extra,list=catalog.rules)=>ctx.resolveCheckboxHelp(info(extra),list);
 test('obvious and unknown controls receive no invented explanation',()=>{
@@ -120,12 +133,15 @@ test('controls wrapped in native help are left to the native tooltip',()=>{
 
 test('Destiny label names stage 2 only on its input checkbox, preserving the skill name elsewhere',()=>{
  const c=env();
+ vm.runInContext(src.slice(src.indexOf('  function featurePath('),src.indexOf('  var ROW_SEL')),c);
  vm.runInContext(src.slice(src.indexOf('  function clarifiedControlLabel('),src.indexOf('  function translateTextNode(')),c);
  assert.equal(c.clarifiedControlLabel('First Legacy','destiny2ndSkill','/en/input'),'Destiny 2 Liberated');
  assert.equal(c.clarifiedControlLabel('최초의 유산','destiny2ndSkill','/ko/input'),null);
  assert.equal(c.clarifiedControlLabel('First Legacy','최초의 유산','/en/result'),'Destiny 2 Buff');
  assert.equal(c.clarifiedControlLabel('Ghost Pirate','파이렛플래그','/en/result'),"Pirate's Banner");
  assert.equal(c.clarifiedControlLabel('First Legacy','unrelated','/en/input'),null);
+ assert.equal(c.clarifiedControlLabel('First Legacy Buff','destiny2ndSkill','/en/manual/input'),'Destiny 2 Liberated');
+ assert.equal(c.clarifiedControlLabel('First Legacy Buff','최초의 유산','/en/manual/result'),'Destiny 2 Buff');
  assert.equal(resolve({id:'artifact_increaseTarget'}),null);
  assert.equal(resolve({id:'destiny2ndSkill'}).text,'First Legacy Buff: +10% ATT/MATT');
 });

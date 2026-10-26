@@ -1,0 +1,32 @@
+[
+  {
+    "dropdownLeft": 8,
+    "dropdownRight": 312,
+    "pageWidth": 320,
+    "width": 320
+  },
+  {
+    "dropdownLeft": 8,
+    "dropdownRight": 348,
+    "pageWidth": 390,
+    "width": 390
+  },
+  {
+    "dropdownLeft": 364,
+    "dropdownRight": 704,
+    "pageWidth": 768,
+    "width": 768
+  },
+  {
+    "dropdownLeft": 8,
+    "dropdownRight": 348,
+    "pageWidth": 800,
+    "width": 800
+  },
+  {
+    "dropdownLeft": 276,
+    "dropdownRight": 616,
+    "pageWidth": 1280,
+    "width": 1280
+  }
+]
