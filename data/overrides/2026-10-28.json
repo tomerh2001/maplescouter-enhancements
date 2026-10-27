@@ -1,0 +1,23 @@
+{
+  "4극 3준(입장극)": "4 full bursts / 3 mini-bursts (burst on entry)",
+  "3극 4준(선준극,1어센)": "3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)",
+  "3극 3준(2어센, 2극때 오리진)": "3 full bursts / 3 mini-bursts (2 Ascent casts; Origin on burst 2)",
+  "5극 4준(특수패턴x)": "5 full bursts / 4 mini-bursts (no special patterns)",
+  "4극 4준(3어센)+1준 남음": "4 full bursts / 4 mini-bursts (3 Ascent casts) + 1 mini-burst remaining",
+  "2-4: 2극 3준 1어센, 2낙인 오리진극": "2-4: 2 full bursts / 3 mini-bursts (1 Ascent cast); Origin burst at 2 curse stacks",
+  "2-4: 2극 2준+2극 쿨 돌 때 준극만 쓰고 2낙인 받고 마지막 극딜+2어센": "2-4: 2 full bursts / 2 mini-bursts. Use only mini-bursts during burst 2 cooldown; take 2 curse stacks, then the final burst + 2 Ascent casts.",
+  "2-4 2극 2준+2극 쿨 돌 때 준극만 쓰고 2낙인 받고 마지막 극딜+2어센": "2-4: 2 full bursts / 2 mini-bursts. Use only mini-bursts during burst 2 cooldown; take 2 curse stacks, then the final burst + 2 Ascent casts.",
+  "첫오리진 2극에 사용, 첫 정수깨고 현실 진입 후 130% 극딜 2정수 무한 반복": "First Origin on burst 2. Break the first Essence and enter Reality, then repeat: 130% burst, 2 Essences.",
+  "첫 오리진 2극에 사용, 첫 정수깨고 현실 진입 후 130% 극딜 2정수 무한 반복": "First Origin on burst 2. Break the first Essence and enter Reality, then repeat: 130% burst, 2 Essences.",
+  "1페: 3극 4준 / 2페: 3극 3준(3어센) / 3페: 5극 4준": "Phase 1: 3 full bursts / 4 mini-bursts / Phase 2: 3 full bursts / 3 mini-bursts (3 Ascent casts) / Phase 3: 5 full bursts / 4 mini-bursts",
+  "1페: 4극 3준(입장극) / 2페: 3극 3준 / 3페: 4극 4준(3어센)": "Phase 1: 4 full bursts / 3 mini-bursts (burst on entry) / Phase 2: 3 full bursts / 3 mini-bursts / Phase 3: 4 full bursts / 4 mini-bursts (3 Ascent casts)",
+  "1페: 4극 4준 / 2페: 2극 2준 / 3페: 5극 5준(3어센)": "Phase 1: 4 full bursts / 4 mini-bursts / Phase 2: 2 full bursts / 2 mini-bursts / Phase 3: 5 full bursts / 5 mini-bursts (3 Ascent casts)",
+  "1페: 5극 5준 / 2페: 2극 1준 / 3페: 4극 4준(3어센)+1준 남음": "Phase 1: 5 full bursts / 5 mini-bursts / Phase 2: 2 full bursts / 1 mini-burst / Phase 3: 4 full bursts / 4 mini-bursts (3 Ascent casts) + 1 mini-burst remaining",
+  "1페: 2극 1준 / 2페: 9극 10준(3어센)": "Phase 1: 2 full bursts / 1 mini-burst / Phase 2: 9 full bursts / 10 mini-bursts (3 Ascent casts)",
+  "1페: 3극 3준 / 2페: 2-1: 2극 1준 / 2-2: 2극 2준 / 2-3: 2극 2준 2어센 / 2-4: 2극 3준 1어센, 2낙인 오리진극": "Phase 1: 3 full bursts / 3 mini-bursts / Phase 2: 2-1: 2 full bursts / 1 mini-burst / 2-2: 2 full bursts / 2 mini-bursts / 2-3: 2 full bursts / 2 mini-bursts (2 Ascent casts) / 2-4: 2 full bursts / 3 mini-bursts (1 Ascent cast); Origin burst at 2 curse stacks",
+  "1페: 2극 2준(1어센) / 2페: 2-1: 2극 2준 / 2-2: 3극 2준 / 2-3: 2극 2준 / 2-4: 2극 2준+2극 쿨 돌 때 준극만 쓰고 2낙인 받고 마지막 극딜+2어센": "Phase 1: 2 full bursts / 2 mini-bursts (1 Ascent cast) / Phase 2: 2-1: 2 full bursts / 2 mini-bursts / 2-2: 3 full bursts / 2 mini-bursts / 2-3: 2 full bursts / 2 mini-bursts / 2-4: 2 full bursts / 2 mini-bursts. Use only mini-bursts during burst 2 cooldown; take 2 curse stacks, then the final burst + 2 Ascent casts.",
+  "1페: 2극 2준(1어센) / 2페: 2-1 2극 2준 / 2-2 3극 2준 / 2-3 2극 2준 / 2-4 2극 2준+2극 쿨 돌 때 준극만 쓰고 2낙인 받고 마지막 극딜+2어센": "Phase 1: 2 full bursts / 2 mini-bursts (1 Ascent cast) / Phase 2: 2-1: 2 full bursts / 2 mini-bursts / 2-2: 3 full bursts / 2 mini-bursts / 2-3: 2 full bursts / 2 mini-bursts / 2-4: 2 full bursts / 2 mini-bursts. Use only mini-bursts during burst 2 cooldown; take 2 curse stacks, then the final burst + 2 Ascent casts.",
+  "1페: 2극 1준 / 2페: 2극 3준 / 3페: 3극 3준(3어센) / 4페: 4극 3준": "Phase 1: 2 full bursts / 1 mini-burst / Phase 2: 2 full bursts / 3 mini-bursts / Phase 3: 3 full bursts / 3 mini-bursts (3 Ascent casts) / Phase 4: 4 full bursts / 3 mini-bursts",
+  "1페: 3극 3준(3어센) / 2페: 3극 4준 / 3페: 5극 4준": "Phase 1: 3 full bursts / 3 mini-bursts (3 Ascent casts) / Phase 2: 3 full bursts / 4 mini-bursts / Phase 3: 5 full bursts / 4 mini-bursts",
+  "1페: 3극 4준(선준극,1어센) / 2페: 3극 3준(2어센) / 3페: 5극 4준": "Phase 1: 3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast) / Phase 2: 3 full bursts / 3 mini-bursts (2 Ascent casts) / Phase 3: 5 full bursts / 4 mini-bursts"
+}

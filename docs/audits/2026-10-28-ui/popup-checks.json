@@ -1,0 +1,275 @@
+[
+  {
+    "boss": "/bossIcon/extreme_adversary.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n4 full bursts / 3 mini-bursts (burst on entry)\nPhase 2\n3 full bursts / 3 mini-bursts\nPhase 3\n4 full bursts / 4 mini-bursts (3 Ascent casts)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "B": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)\nPhase 2\n3 full bursts / 3 mini-bursts (2 Ascent casts)\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided.",
+    "layout": {
+      "bottom": 717.5,
+      "client": 284,
+      "height": 299,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/extreme_kalos.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 3 mini-bursts\nPhase 2\n2-1: 2 full bursts / 1 mini-burst\n2-2: 2 full bursts / 2 mini-bursts\n2-3: 2 full bursts / 2 mini-bursts (2 Ascent casts)\n2-4: 2 full bursts / 3 mini-bursts (1 Ascent cast); Origin burst at 2 curse stacks\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 753.5,
+      "client": 284,
+      "height": 335,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/destiny_bardrix.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 4 mini-bursts\nPhase 2\n3 full bursts / 3 mini-bursts (3 Ascent casts)\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 710.5,
+      "client": 284,
+      "height": 292,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/hard_bardrix.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 4 mini-bursts\nPhase 2\n3 full bursts / 3 mini-bursts (3 Ascent casts)\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 710.5,
+      "client": 284,
+      "height": 292,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/hard_maleficStar.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nFirst Origin on burst 2. Break the first Essence and enter Reality, then repeat: 130% burst, 2 Essences.\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 618.5,
+      "client": 284,
+      "height": 200,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/destiny_limbo.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 3 mini-bursts (2 Ascent casts; Origin on burst 2)\nPhase 2\n2-1: 2 full bursts / 1 mini-burst\n2-2: 1 full burst / 3 mini-bursts (1 Ascent cast)\nPhase 3\n5 full bursts / 4 mini-bursts (no special patterns)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 746,
+      "client": 284,
+      "height": 327.5,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/hard_limbo.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 3 mini-bursts (2 Ascent casts; Origin on burst 2)\nPhase 2\n2-1: 2 full bursts / 1 mini-burst\n2-2: 1 full burst / 3 mini-bursts (1 Ascent cast)\nPhase 3\n5 full bursts / 4 mini-bursts (no special patterns)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 746,
+      "client": 284,
+      "height": 327.5,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/destiny_adversary.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n4 full bursts / 3 mini-bursts (burst on entry)\nPhase 2\n3 full bursts / 3 mini-bursts\nPhase 3\n4 full bursts / 4 mini-bursts (3 Ascent casts)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "B": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)\nPhase 2\n3 full bursts / 3 mini-bursts (2 Ascent casts)\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided.",
+    "layout": {
+      "bottom": 717.5,
+      "client": 284,
+      "height": 299,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/extreme_seren.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n2 full bursts / 1 mini-burst\nPhase 2\n9 full bursts / 10 mini-bursts (3 Ascent casts)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 669.5,
+      "client": 284,
+      "height": 251,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/hard_adversary.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n4 full bursts / 3 mini-bursts (burst on entry)\nPhase 2\n3 full bursts / 3 mini-bursts\nPhase 3\n4 full bursts / 4 mini-bursts (3 Ascent casts)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "B": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)\nPhase 2\n3 full bursts / 3 mini-bursts (2 Ascent casts)\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided.",
+    "layout": {
+      "bottom": 717.5,
+      "client": 284,
+      "height": 299,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/hard_kaling.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n4 full bursts / 4 mini-bursts\nPhase 2\n2 full bursts / 2 mini-bursts\nPhase 3\n5 full bursts / 5 mini-bursts (3 Ascent casts)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 710.5,
+      "client": 284,
+      "height": 292,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/normal_bardrix.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 4 mini-bursts\nPhase 2\n3 full bursts / 3 mini-bursts (3 Ascent casts)\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 710.5,
+      "client": 284,
+      "height": 292,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/extreme_blackMage.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n2 full bursts / 1 mini-burst\nPhase 2\n2 full bursts / 3 mini-bursts\nPhase 3\n3 full bursts / 3 mini-bursts (3 Ascent casts)\nPhase 4\n4 full bursts / 3 mini-bursts\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 751.5,
+      "client": 284,
+      "height": 333,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/destiny_kaling.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n4 full bursts / 4 mini-bursts\nPhase 2\n2 full bursts / 2 mini-bursts\nPhase 3\n5 full bursts / 5 mini-bursts (3 Ascent casts)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 710.5,
+      "client": 284,
+      "height": 292,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/normal_limbo.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 3 mini-bursts (2 Ascent casts; Origin on burst 2)\nPhase 2\n2-1: 2 full bursts / 1 mini-burst\n2-2: 1 full burst / 3 mini-bursts (1 Ascent cast)\nPhase 3\n5 full bursts / 4 mini-bursts (no special patterns)\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 746,
+      "client": 284,
+      "height": 327.5,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/destiny_kalos.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n2 full bursts / 2 mini-bursts (1 Ascent cast)\nPhase 2\n2-1: 2 full bursts / 2 mini-bursts\n2-2: 3 full bursts / 2 mini-bursts\n2-3: 2 full bursts / 2 mini-bursts\n2-4: 2 full bursts / 2 mini-bursts. Use only mini-bursts during burst 2 cooldown; take 2 curse stacks, then the final burst + 2 Ascent casts.\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 780,
+      "client": 284,
+      "height": 361.5,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/chaos_kalos.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n2 full bursts / 2 mini-bursts (1 Ascent cast)\nPhase 2\n2-1: 2 full bursts / 2 mini-bursts\n2-2: 3 full bursts / 2 mini-bursts\n2-3: 2 full bursts / 2 mini-bursts\n2-4: 2 full bursts / 2 mini-bursts. Use only mini-bursts during burst 2 cooldown; take 2 curse stacks, then the final burst + 2 Ascent casts.\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 780,
+      "client": 284,
+      "height": 361.5,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/normal_kaling.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n5 full bursts / 5 mini-bursts\nPhase 2\n2 full bursts / 1 mini-burst\nPhase 3\n4 full bursts / 4 mini-bursts (3 Ascent casts) + 1 mini-burst remaining\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 710.5,
+      "client": 284,
+      "height": 292,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/normal_maleficStar.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nFirst Origin on burst 2. Break the first Essence and enter Reality, then repeat: 130% burst, 2 Essences.\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 618.5,
+      "client": 284,
+      "height": 200,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/extreme_lotus.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 3 mini-bursts (3 Ascent casts)\nPhase 2\n3 full bursts / 4 mini-bursts\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided.",
+    "korean": false,
+    "layout": {
+      "bottom": 710.5,
+      "client": 284,
+      "height": 292,
+      "scroll": 284,
+      "top": 418.5,
+      "viewportHeight": 811
+    }
+  },
+  {
+    "boss": "/bossIcon/normal_adversary.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n4 full bursts / 3 mini-bursts (burst on entry)\nPhase 2\n3 full bursts / 3 mini-bursts\nPhase 3\n4 full bursts / 4 mini-bursts (3 Ascent casts)\n\u203b This is a reference estimate. Two class types are provided.",
+    "B": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)\nPhase 2\n3 full bursts / 3 mini-bursts (2 Ascent casts)\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided."
+  },
+  {
+    "boss": "/bossIcon/easy_adversary.png",
+    "A": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n4 full bursts / 3 mini-bursts (burst on entry)\nPhase 2\n3 full bursts / 3 mini-bursts\nPhase 3\n4 full bursts / 4 mini-bursts (3 Ascent casts)\n\u203b This is a reference estimate. Two class types are provided.",
+    "B": "Type A\nType B\nBurst windows per phase (20-min basis)\nPhase 1\n3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)\nPhase 2\n3 full bursts / 3 mini-bursts (2 Ascent casts)\nPhase 3\n5 full bursts / 4 mini-bursts\n\u203b This is a reference estimate. Two class types are provided."
+  }
+]

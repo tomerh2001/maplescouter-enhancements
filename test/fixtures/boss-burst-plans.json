@@ -1,0 +1,625 @@
+{
+  "source": "https://maplescouter.com/_next/static/chunks/6792-649aa86b2928a2e3.js",
+  "checkedAt": "2026-10-28",
+  "plans": [
+    {
+      "boss": "발드릭스_destiny",
+      "type": "A",
+      "raw": "1페: 3극 4준 / 2페: 3극 3준(3어센) / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 4준",
+          "en": "3 full bursts / 4 mini-bursts"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준(3어센)",
+          "en": "3 full bursts / 3 mini-bursts (3 Ascent casts)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "발드릭스_hard",
+      "type": "A",
+      "raw": "1페: 3극 4준 / 2페: 3극 3준(3어센) / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 4준",
+          "en": "3 full bursts / 4 mini-bursts"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준(3어센)",
+          "en": "3 full bursts / 3 mini-bursts (3 Ascent casts)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "발드릭스_normal",
+      "type": "A",
+      "raw": "1페: 3극 4준 / 2페: 3극 3준(3어센) / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 4준",
+          "en": "3 full bursts / 4 mini-bursts"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준(3어센)",
+          "en": "3 full bursts / 3 mini-bursts (3 Ascent casts)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "흉성_hard",
+      "type": "A",
+      "raw": "첫오리진 2극에 사용, 첫 정수깨고 현실 진입 후 130% 극딜 2정수 무한 반복",
+      "rows": [
+        {
+          "phase": null,
+          "ko": "첫오리진 2극에 사용, 첫 정수깨고 현실 진입 후 130% 극딜 2정수 무한 반복",
+          "en": "First Origin on burst 2. Break the first Essence and enter Reality, then repeat: 130% burst, 2 Essences."
+        }
+      ]
+    },
+    {
+      "boss": "흉성_normal",
+      "type": "A",
+      "raw": "첫 오리진 2극에 사용, 첫 정수깨고 현실 진입 후 130% 극딜 2정수 무한 반복",
+      "rows": [
+        {
+          "phase": null,
+          "ko": "첫 오리진 2극에 사용, 첫 정수깨고 현실 진입 후 130% 극딜 2정수 무한 반복",
+          "en": "First Origin on burst 2. Break the first Essence and enter Reality, then repeat: 130% burst, 2 Essences."
+        }
+      ]
+    },
+    {
+      "boss": "림보_destiny",
+      "type": "A",
+      "raw": "1페: 3극 3준(2어센, 2극때 오리진) / 2페: 2-1: 2극 1준 / 2-2: 1극 3준 1어센 / 3페: 5극 4준(특수패턴x)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 3준(2어센, 2극때 오리진)",
+          "en": "3 full bursts / 3 mini-bursts (2 Ascent casts; Origin on burst 2)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2-1: 2극 1준",
+          "en": "2-1: 2 full bursts / 1 mini-burst"
+        },
+        {
+          "phase": null,
+          "ko": "2-2: 1극 3준 1어센",
+          "en": "2-2: 1 full burst / 3 mini-bursts (1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준(특수패턴x)",
+          "en": "5 full bursts / 4 mini-bursts (no special patterns)"
+        }
+      ]
+    },
+    {
+      "boss": "림보_hard",
+      "type": "A",
+      "raw": "1페: 3극 3준(2어센, 2극때 오리진) / 2페: 2-1: 2극 1준 / 2-2: 1극 3준 1어센 / 3페: 5극 4준(특수패턴x)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 3준(2어센, 2극때 오리진)",
+          "en": "3 full bursts / 3 mini-bursts (2 Ascent casts; Origin on burst 2)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2-1: 2극 1준",
+          "en": "2-1: 2 full bursts / 1 mini-burst"
+        },
+        {
+          "phase": null,
+          "ko": "2-2: 1극 3준 1어센",
+          "en": "2-2: 1 full burst / 3 mini-bursts (1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준(특수패턴x)",
+          "en": "5 full bursts / 4 mini-bursts (no special patterns)"
+        }
+      ]
+    },
+    {
+      "boss": "림보_normal",
+      "type": "A",
+      "raw": "1페: 3극 3준(2어센, 2극때 오리진) / 2페: 2-1: 2극 1준 / 2-2: 1극 3준 1어센 / 3페: 5극 4준(특수패턴x)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 3준(2어센, 2극때 오리진)",
+          "en": "3 full bursts / 3 mini-bursts (2 Ascent casts; Origin on burst 2)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2-1: 2극 1준",
+          "en": "2-1: 2 full bursts / 1 mini-burst"
+        },
+        {
+          "phase": null,
+          "ko": "2-2: 1극 3준 1어센",
+          "en": "2-2: 1 full burst / 3 mini-bursts (1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준(특수패턴x)",
+          "en": "5 full bursts / 4 mini-bursts (no special patterns)"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_extreme",
+      "type": "A",
+      "raw": "1페: 4극 3준(입장극) / 2페: 3극 3준 / 3페: 4극 4준(3어센)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "4극 3준(입장극)",
+          "en": "4 full bursts / 3 mini-bursts (burst on entry)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준",
+          "en": "3 full bursts / 3 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "4극 4준(3어센)",
+          "en": "4 full bursts / 4 mini-bursts (3 Ascent casts)"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_destiny",
+      "type": "A",
+      "raw": "1페: 4극 3준(입장극) / 2페: 3극 3준 / 3페: 4극 4준(3어센)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "4극 3준(입장극)",
+          "en": "4 full bursts / 3 mini-bursts (burst on entry)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준",
+          "en": "3 full bursts / 3 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "4극 4준(3어센)",
+          "en": "4 full bursts / 4 mini-bursts (3 Ascent casts)"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_hard",
+      "type": "A",
+      "raw": "1페: 4극 3준(입장극) / 2페: 3극 3준 / 3페: 4극 4준(3어센)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "4극 3준(입장극)",
+          "en": "4 full bursts / 3 mini-bursts (burst on entry)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준",
+          "en": "3 full bursts / 3 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "4극 4준(3어센)",
+          "en": "4 full bursts / 4 mini-bursts (3 Ascent casts)"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_normal",
+      "type": "A",
+      "raw": "1페: 4극 3준(입장극) / 2페: 3극 3준 / 3페: 4극 4준(3어센)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "4극 3준(입장극)",
+          "en": "4 full bursts / 3 mini-bursts (burst on entry)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준",
+          "en": "3 full bursts / 3 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "4극 4준(3어센)",
+          "en": "4 full bursts / 4 mini-bursts (3 Ascent casts)"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_easy",
+      "type": "A",
+      "raw": "1페: 4극 3준(입장극) / 2페: 3극 3준 / 3페: 4극 4준(3어센)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "4극 3준(입장극)",
+          "en": "4 full bursts / 3 mini-bursts (burst on entry)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준",
+          "en": "3 full bursts / 3 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "4극 4준(3어센)",
+          "en": "4 full bursts / 4 mini-bursts (3 Ascent casts)"
+        }
+      ]
+    },
+    {
+      "boss": "카링_hard",
+      "type": "A",
+      "raw": "1페: 4극 4준 / 2페: 2극 2준 / 3페: 5극 5준(3어센)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "4극 4준",
+          "en": "4 full bursts / 4 mini-bursts"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2극 2준",
+          "en": "2 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 5준(3어센)",
+          "en": "5 full bursts / 5 mini-bursts (3 Ascent casts)"
+        }
+      ]
+    },
+    {
+      "boss": "카링_destiny",
+      "type": "A",
+      "raw": "1페: 4극 4준 / 2페: 2극 2준 / 3페: 5극 5준(3어센)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "4극 4준",
+          "en": "4 full bursts / 4 mini-bursts"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2극 2준",
+          "en": "2 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 5준(3어센)",
+          "en": "5 full bursts / 5 mini-bursts (3 Ascent casts)"
+        }
+      ]
+    },
+    {
+      "boss": "카링_normal",
+      "type": "A",
+      "raw": "1페: 5극 5준 / 2페: 2극 1준 / 3페: 4극 4준(3어센)+1준 남음",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "5극 5준",
+          "en": "5 full bursts / 5 mini-bursts"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2극 1준",
+          "en": "2 full bursts / 1 mini-burst"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "4극 4준(3어센)+1준 남음",
+          "en": "4 full bursts / 4 mini-bursts (3 Ascent casts) + 1 mini-burst remaining"
+        }
+      ]
+    },
+    {
+      "boss": "세렌_extreme",
+      "type": "A",
+      "raw": "1페: 2극 1준 / 2페: 9극 10준(3어센)",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "2극 1준",
+          "en": "2 full bursts / 1 mini-burst"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "9극 10준(3어센)",
+          "en": "9 full bursts / 10 mini-bursts (3 Ascent casts)"
+        }
+      ]
+    },
+    {
+      "boss": "칼로스_extreme",
+      "type": "A",
+      "raw": "1페: 3극 3준 / 2페: 2-1: 2극 1준 / 2-2: 2극 2준 / 2-3: 2극 2준 2어센 / 2-4: 2극 3준 1어센, 2낙인 오리진극",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 3준",
+          "en": "3 full bursts / 3 mini-bursts"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2-1: 2극 1준",
+          "en": "2-1: 2 full bursts / 1 mini-burst"
+        },
+        {
+          "phase": null,
+          "ko": "2-2: 2극 2준",
+          "en": "2-2: 2 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": null,
+          "ko": "2-3: 2극 2준 2어센",
+          "en": "2-3: 2 full bursts / 2 mini-bursts (2 Ascent casts)"
+        },
+        {
+          "phase": null,
+          "ko": "2-4: 2극 3준 1어센, 2낙인 오리진극",
+          "en": "2-4: 2 full bursts / 3 mini-bursts (1 Ascent cast); Origin burst at 2 curse stacks"
+        }
+      ]
+    },
+    {
+      "boss": "칼로스_destiny",
+      "type": "A",
+      "raw": "1페: 2극 2준(1어센) / 2페: 2-1: 2극 2준 / 2-2: 3극 2준 / 2-3: 2극 2준 / 2-4: 2극 2준+2극 쿨 돌 때 준극만 쓰고 2낙인 받고 마지막 극딜+2어센",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "2극 2준(1어센)",
+          "en": "2 full bursts / 2 mini-bursts (1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2-1: 2극 2준",
+          "en": "2-1: 2 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": null,
+          "ko": "2-2: 3극 2준",
+          "en": "2-2: 3 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": null,
+          "ko": "2-3: 2극 2준",
+          "en": "2-3: 2 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": null,
+          "ko": "2-4: 2극 2준+2극 쿨 돌 때 준극만 쓰고 2낙인 받고 마지막 극딜+2어센",
+          "en": "2-4: 2 full bursts / 2 mini-bursts. Use only mini-bursts during burst 2 cooldown; take 2 curse stacks, then the final burst + 2 Ascent casts."
+        }
+      ]
+    },
+    {
+      "boss": "칼로스_chaos",
+      "type": "A",
+      "raw": "1페: 2극 2준(1어센) / 2페: 2-1 2극 2준 / 2-2 3극 2준 / 2-3 2극 2준 / 2-4 2극 2준+2극 쿨 돌 때 준극만 쓰고 2낙인 받고 마지막 극딜+2어센",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "2극 2준(1어센)",
+          "en": "2 full bursts / 2 mini-bursts (1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2-1 2극 2준",
+          "en": "2-1: 2 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": null,
+          "ko": "2-2 3극 2준",
+          "en": "2-2: 3 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": null,
+          "ko": "2-3 2극 2준",
+          "en": "2-3: 2 full bursts / 2 mini-bursts"
+        },
+        {
+          "phase": null,
+          "ko": "2-4 2극 2준+2극 쿨 돌 때 준극만 쓰고 2낙인 받고 마지막 극딜+2어센",
+          "en": "2-4: 2 full bursts / 2 mini-bursts. Use only mini-bursts during burst 2 cooldown; take 2 curse stacks, then the final burst + 2 Ascent casts."
+        }
+      ]
+    },
+    {
+      "boss": "검은 마법사_extreme",
+      "type": "A",
+      "raw": "1페: 2극 1준 / 2페: 2극 3준 / 3페: 3극 3준(3어센) / 4페: 4극 3준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "2극 1준",
+          "en": "2 full bursts / 1 mini-burst"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "2극 3준",
+          "en": "2 full bursts / 3 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "3극 3준(3어센)",
+          "en": "3 full bursts / 3 mini-bursts (3 Ascent casts)"
+        },
+        {
+          "phase": "Phase 4",
+          "ko": "4극 3준",
+          "en": "4 full bursts / 3 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "스우_extreme",
+      "type": "A",
+      "raw": "1페: 3극 3준(3어센) / 2페: 3극 4준 / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 3준(3어센)",
+          "en": "3 full bursts / 3 mini-bursts (3 Ascent casts)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 4준",
+          "en": "3 full bursts / 4 mini-bursts"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_extreme",
+      "type": "B",
+      "raw": "1페: 3극 4준(선준극,1어센) / 2페: 3극 3준(2어센) / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 4준(선준극,1어센)",
+          "en": "3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준(2어센)",
+          "en": "3 full bursts / 3 mini-bursts (2 Ascent casts)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_destiny",
+      "type": "B",
+      "raw": "1페: 3극 4준(선준극,1어센) / 2페: 3극 3준(2어센) / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 4준(선준극,1어센)",
+          "en": "3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준(2어센)",
+          "en": "3 full bursts / 3 mini-bursts (2 Ascent casts)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_hard",
+      "type": "B",
+      "raw": "1페: 3극 4준(선준극,1어센) / 2페: 3극 3준(2어센) / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 4준(선준극,1어센)",
+          "en": "3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준(2어센)",
+          "en": "3 full bursts / 3 mini-bursts (2 Ascent casts)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_normal",
+      "type": "B",
+      "raw": "1페: 3극 4준(선준극,1어센) / 2페: 3극 3준(2어센) / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 4준(선준극,1어센)",
+          "en": "3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준(2어센)",
+          "en": "3 full bursts / 3 mini-bursts (2 Ascent casts)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    },
+    {
+      "boss": "대적자_easy",
+      "type": "B",
+      "raw": "1페: 3극 4준(선준극,1어센) / 2페: 3극 3준(2어센) / 3페: 5극 4준",
+      "rows": [
+        {
+          "phase": "Phase 1",
+          "ko": "3극 4준(선준극,1어센)",
+          "en": "3 full bursts / 4 mini-bursts (mini-burst first; 1 Ascent cast)"
+        },
+        {
+          "phase": "Phase 2",
+          "ko": "3극 3준(2어센)",
+          "en": "3 full bursts / 3 mini-bursts (2 Ascent casts)"
+        },
+        {
+          "phase": "Phase 3",
+          "ko": "5극 4준",
+          "en": "5 full bursts / 4 mini-bursts"
+        }
+      ]
+    }
+  ]
+}

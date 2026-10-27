@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.15
+// @version      1.7.16
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -426,9 +426,15 @@
     if (flatStat) return ({ '힘': 'STR', '민첩성': 'DEX', '지력': 'INT', '운': 'LUK' })[flatStat[1]] + ' +' + flatStat[2];
     var arrow = t.match(/^(\d+)\s*→\s*(\d+)\s*레벨$/);
     if (arrow) return 'Lv ' + arrow[1] + ' → ' + arrow[2];
-    // "3극 4준(3어센)" = burst-window counts: N full bursts / M semi-bursts (K Ascent uses)
-    var burst = t.match(/^(\d+)극\s*(\d+)준(?:\((\d+)어센\))?$/);
-    if (burst) return burst[1] + ' full / ' + burst[2] + ' semi burst' + (burst[3] ? ' (' + burst[3] + ' Ascent)' : '');
+    // The boss popup splits complete plans into phase/subphase rows before
+    // rendering. Translate those rows too; detailed timing notes use overrides.
+    var burst = t.match(/^(?:(\d+-\d+)\s*[:：]?\s+)?(\d+)극\s*(\d+)준(?:\s*\((\d+)어센\)|\s+(\d+)어센)?$/);
+    if (burst) {
+      var ascent = burst[4] || burst[5];
+      return (burst[1] ? burst[1] + ': ' : '') + burst[2] + ' full burst' + (burst[2] === '1' ? '' : 's') +
+        ' / ' + burst[3] + ' mini-burst' + (burst[3] === '1' ? '' : 's') +
+        (ascent ? ' (' + ascent + ' Ascent cast' + (ascent === '1' ? '' : 's') + ')' : '');
+    }
     var bm = t.match(/^(.+?)\s*\(보약\)$/);
     if (bm) { var base = d.dict[bm[1].trim()]; if (base) return base + ' (Buffs)'; }
     var um = t.match(/^유저 정보\s*:\s*(.*)$/);
@@ -1413,6 +1419,9 @@
     if (kids.length > 8) return;
     for (var i = 0; i < kids.length; i++) if (!INLINE_TAGS[kids[i].tagName]) return;
     var txt = el.textContent;
+    // A single child already contains the whole phrase. Translate that child
+    // without detaching it: React reuses the boss-plan span when A/B changes.
+    if (kids.length === 1 && kids[0].textContent === txt) return;
     if (!txt || txt.length < 8 || txt.length > 500 || !HANGUL.test(txt)) return;
     var tries = elAttempts.get(el) || 0;
     if (tries >= 2) return; // stop fighting a React re-render
@@ -1467,6 +1476,18 @@
     repairUnreleasedImage(el);
   }
 
+  function markBossPlanPopovers(root) {
+    if (!root.querySelectorAll) return;
+    var selector = '[data-slot="popover-content"]';
+    var popovers = Array.from(root.querySelectorAll(selector));
+    if (root.matches && root.matches(selector)) popovers.push(root);
+    popovers.forEach(function (el) {
+      if (!el.hasAttribute('data-msfix-burst-plan') && /페이즈별 극딜 횟수|Burst windows per phase/.test(el.textContent)) {
+        el.setAttribute('data-msfix-burst-plan', '');
+      }
+    });
+  }
+
   function processTree(root) {
     if (pathLocale() !== 'en') return; // dormant on the Korean/Japanese/Chinese site
     if (inOwnUi(root)) return;
@@ -1474,6 +1495,7 @@
     if (root.nodeType !== 1 && root.nodeType !== 11) return;
     var tag = root.nodeName;
     if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEXTAREA') return;
+    markBossPlanPopovers(root);
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function (n) {
         var p = n.parentNode;

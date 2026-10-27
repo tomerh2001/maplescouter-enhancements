@@ -13,6 +13,77 @@ const ctx = vm.createContext({ data: () => ({ dict, rules: read('data/rules.json
 vm.runInContext(source.slice(source.indexOf('  var KO_NUM_UNITS'), source.indexOf('  function translateTitle(')), ctx);
 const reviewed = read('data/overrides/2026-09-17.json');
 
+test('every current boss plan translates after the popup splits it into phase rows', () => {
+  const fixture = read('test/fixtures/boss-burst-plans.json');
+  assert.equal(fixture.plans.length, 27);
+  const fragments = new Set();
+  for (const plan of fixture.plans) {
+    // The site strips phase headings and splits on / before rendering. An exact
+    // translation of the complete raw plan cannot cover these text nodes.
+    const rows = plan.raw.split('/').map(s => s.trim().replace(/^\d+페\s*[:：]?\s*/, ''));
+    assert.deepEqual(rows, plan.rows.map(r => r.ko), plan.boss);
+    for (const row of plan.rows) {
+      fragments.add(row.ko);
+      assert.equal(ctx.translateString(row.ko), row.en, `${plan.boss} ${plan.type}: ${row.ko}`);
+      assert.deepEqual(row.en.match(/\d+/g), row.ko.match(/\d+/g), row.ko);
+      assert.doesNotMatch(row.en, /[가-힣]/);
+      assert.ok(ctx.translateString(row.en) === null || ctx.translateString(row.en) === row.en);
+    }
+    const full = ctx.translateString(plan.raw);
+    assert.doesNotMatch(full, /[가-힣]/);
+    assert.deepEqual(full.match(/\d+/g), plan.raw.match(/\d+/g), plan.boss);
+  }
+  assert.equal(fragments.size, 35);
+});
+
+test('burst-count rows support changing counts, subphases and inline Ascent casts', () => {
+  for (const [ko, en] of [
+    ['1극 1준', '1 full burst / 1 mini-burst'],
+    ['7극 12준(4어센)', '7 full bursts / 12 mini-bursts (4 Ascent casts)'],
+    ['2-3: 7극 1준 1어센', '2-3: 7 full bursts / 1 mini-burst (1 Ascent cast)'],
+    ['2-3 7극 2준', '2-3: 7 full bursts / 2 mini-bursts'],
+    ['  2-3： 7극 2준  ', '  2-3: 7 full bursts / 2 mini-bursts  '],
+  ]) assert.equal(ctx.translateString(ko), en);
+  for (const name of ['3극친구', '준', '2-3 Character', '3극 4준 알수없는설명']) {
+    assert.equal(ctx.builtinRules(name, {dict}), null, name);
+  }
+});
+
+test('reviewed boss timing notes work in i18next and retain their numbers', () => {
+  for (const [ko, en] of Object.entries(read('data/overrides/2026-10-28.json'))) {
+    assert.equal(patch[ko], en);
+    assert.equal(ctx.translateString(ko), en);
+    assert.deepEqual(en.match(/\d+/g), ko.match(/\d+/g), ko);
+    assert.doesNotMatch(en, /[가-힣]/);
+  }
+});
+
+test('boss-plan translation keeps the React span attached across repeated A/B changes', () => {
+  const c = vm.createContext({
+    HANGUL: /[가-힣]/, inOwnUi: () => false, location: {pathname: '/en/manual/result'},
+    clarifiedControlLabel: () => null, isPlayerNameContext: () => false,
+    translateDurationFragment: () => false, translateRankingSeason: () => false,
+    rankingSeason: () => null, translateSoulMeasure: () => false,
+    translateRewardFragment: () => false, translateString: ctx.translateString, BADGE_TITLES: {},
+  });
+  vm.runInContext(source.slice(source.indexOf('  function normKey('), source.indexOf('  var ATTRS')), c);
+  vm.runInContext(source.slice(source.indexOf('  function translateTextNode('), source.indexOf('  // The farming slider')), c);
+  const node = {nodeValue: ''};
+  const span = {tagName: 'SPAN', children: [], closest: () => null,
+    get textContent() { return node.nodeValue; }, set textContent(v) { node.nodeValue = v; }};
+  node.parentElement = span;
+  const parent = {children: [span], get textContent() { return span.textContent; },
+    set textContent(v) { assert.fail('Detached the live React span: ' + v); }};
+  for (const raw of ['4극 3준(입장극)', '3극 4준(선준극,1어센)', '4극 3준(입장극)', '3극 4준(선준극,1어센)']) {
+    node.nodeValue = raw;
+    c.tryElementTranslate(parent, {dict});
+    c.tryElementTranslate(span, {dict});
+    c.translateTextNode(node);
+    assert.equal(node.nodeValue, ctx.translateString(raw));
+    assert.equal(parent.children[0], span);
+  }
+});
+
 test('new manual workspace guidance and supporter labels translate completely', () => {
   for (const [ko,en] of Object.entries(read('data/overrides/2026-10-26.json'))) {
     assert.equal(patch[ko],en,ko);

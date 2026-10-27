@@ -4,6 +4,10 @@ A Chrome extension, Firefox add-on, and Tampermonkey userscript for [maplescoute
 
 MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence calculator around, but its English mode ships with **thousands of missing translations** and quite a few awkward, Google-Translate-style ones. This script fixes that — and much more.
 
+## Version 1.7.16
+
+Translates the boss phase popups, including entry bursts, Type B openings, Origin timing and Kalos subphases. Switching between Type A and Type B keeps the correct counts visible. Long plans scroll within the available screen space on phones. All 27 current plans were checked in the browser; see the [October 28 popup audit](docs/audits/2026-10-28.md).
+
 ## Version 1.7.15
 
 Supports MapleScouter's new **Manual Mode** pages for Character, Result, HEXA and Bossing Setup Optimization. The character picker, cloud status, contextual help, GMS Link Skill suggestions and **Max level** comparison work on the new URLs. The active page stays visible in the scrollable phone navigation, and layout fixes remain active while the site loads.

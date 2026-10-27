@@ -218,3 +218,9 @@ html[data-msfix-route="treasure-hunter"] main .border-b.p-4 { flex-wrap: wrap; }
 html[data-msfix-route="fire"] main .flex.items-center.justify-between:has(> button),
 html[data-msfix-route="total"] main .flex.items-center.justify-between.gap-2 { flex-wrap: wrap; gap: 8px; }
 html[data-msfix-route="item"] main button.w-60 { min-width: 0; max-width: 100%; flex-shrink: 1; }
+/* Long boss phase notes stay inside the space Radix measured for the popup. */
+html[lang="en"] [data-msfix-burst-plan] {
+  max-height: min(calc(100dvh - 16px), calc(var(--radix-popover-content-available-height, 100dvh) - 8px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
