@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.16
+// @version      1.7.17
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -9,7 +9,7 @@
 // @match        https://www.maplescouter.com/*
 // @run-at       document-start
 // @grant        none
-// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.16
+// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.17
 // @updateURL    https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @downloadURL  https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @supportURL   https://github.com/tomerh2001/maplescouter-enhancements/issues
@@ -173,6 +173,7 @@
       if (!v || (typeof v !== 'object' && typeof v !== 'function')) continue;
       try {
         if (!siteRefs.toast && typeof v.success === 'function' && typeof v.error === 'function' && typeof v.dismiss === 'function') siteRefs.toast = v;
+        noteCalculationRuntime(v);
         if (!siteRefs.defaultUserStat && looksLikeUserStat(v)) siteRefs.defaultUserStat = v;
         if (typeof v.getState === 'function' && typeof v.subscribe === 'function') {
           var st = v.getState();
@@ -2474,6 +2475,200 @@
   function currentDraft() { var s = cloudStores(); if (!s) return null; try { return s.ms.getState().draftStat; } catch (e) { return null; } }
   function slotKeys(map) { return Object.keys(map).sort(function (a, b) { return (+a) - (+b); }); }
 
+  /* -- manual calculations: keep native requests, expose failures and bounded retries -- */
+  // Both readonly preview metrics come from inputGeneral. The site silently catches its
+  // failures, leaving the initial zeroes on screen. Its auth gate and response-body read
+  // can also outlive the HTTP timeout. Bound the caller's wait without bypassing that gate,
+  // changing formulas, or aborting a shared verification used by another native request.
+  var MANUAL_CALC_TIMEOUT_MS = 65000;
+  var manualCalc = { preview: null, result: null, epoch: 0, apis: new WeakSet(), masks: new Map(), panel: null };
+  if (DEBUG_REFS) siteRefs.calculation = manualCalc;
+
+  function isManualCalculationRoute() { return isInputRoute() && /^\/(en|ko)\//.test(location.pathname); }
+  function manualCalcDraft() {
+    try { return siteRefs.manualStore && siteRefs.manualStore.getState().draftStat; } catch (_) { return null; }
+  }
+  function manualCalculationKey(kind, draft) {
+    // Match the native preview effect's dependencies; changing HEXA or a buff does not
+    // rerun that effect and must not cancel a preview that is still useful.
+    return hashData(kind === 'preview' && draft ? { stat: draft.stat, special: draft.special, isGMS: draft.isGMS, isTMS: draft.isTMS } : draft);
+  }
+  function manualCalcCurrent(rec) {
+    if (!isManualCalculationRoute() || rec.epoch !== manualCalc.epoch || rec.path !== location.pathname) return false;
+    var draft = manualCalcDraft();
+    return !draft || manualCalculationKey(rec.kind, draft) === rec.key;
+  }
+  function manualCalcError(message) { var err = new Error(message); err.name = 'ManualCalculationError'; return err; }
+  function validManualCalculation(kind, value) {
+    if (!value || typeof value !== 'object') return false;
+    if (kind === 'result') return !!value.calculatedData && typeof value.calculatedData === 'object';
+    return ['general', 'finalDamage', 'atkTotal'].every(function (key) { return typeof value[key] === 'number' && Number.isFinite(value[key]); });
+  }
+  function manualCalcFailure(error) {
+    var status = error && error.status;
+    if (status === 401 || status === 403) return 'MapleScouter blocked the calculation. Complete any verification prompt, then retry.';
+    if (status === 429 || status === 430) return 'MapleScouter is limiting requests. Wait a moment, then retry.';
+    if (status === 400 || status === 422) return 'MapleScouter rejected these inputs. Review the character values, then retry.';
+    if (error && error.name === 'ManualCalculationTimeout') return 'MapleScouter did not finish within 65 seconds. Complete any verification prompt, then retry.';
+    return 'MapleScouter could not calculate these inputs. Check the connection and any verification prompt, then retry.';
+  }
+  function runManualCalculation(kind, invoke, input) {
+    var previous = manualCalc[kind];
+    if (previous && previous.cancel) previous.cancel();
+    var rec = { kind: kind, key: manualCalculationKey(kind, input), path: location.pathname, epoch: manualCalc.epoch, state: 'pending', message: '', cancel: null };
+    manualCalc[kind] = rec;
+    refreshManualCalculationStatus();
+    return new Promise(function (resolve, reject) {
+      var settled = false, timer;
+      function finish(value, error, canceled) {
+        if (settled) return;
+        settled = true; clearTimeout(timer); rec.cancel = null;
+        var current = manualCalc[kind] === rec && manualCalcCurrent(rec);
+        if (canceled || !current) {
+          // The native preview already catches failures. A null Result is its existing
+          // no-result branch, so old requests cannot overwrite a newly selected character.
+          if (kind === 'preview') reject(manualCalcError('Calculation superseded'));
+          else resolve(null);
+          return;
+        }
+        if (!error && !validManualCalculation(kind, value)) error = manualCalcError('Incomplete calculation response');
+        rec.state = error ? 'error' : 'ready';
+        rec.message = error ? manualCalcFailure(error) : '';
+        refreshManualCalculationStatus();
+        if (error && kind === 'preview') reject(error);
+        else resolve(error ? null : value);
+      }
+      rec.cancel = function () { finish(null, null, true); };
+      timer = setTimeout(function () {
+        var error = manualCalcError('Calculation timed out'); error.name = 'ManualCalculationTimeout';
+        finish(null, error, false);
+      }, MANUAL_CALC_TIMEOUT_MS);
+      try {
+        // Attach both handlers even after a timeout: a late rejection must be consumed.
+        Promise.resolve(invoke()).then(function (value) { finish(value, null, false); }, function (error) { finish(null, error, false); });
+      } catch (error) { finish(null, error, false); }
+    });
+  }
+  function noteCalculationRuntime(api) {
+    if (!api || (typeof api !== 'function' && typeof api !== 'object') || !manualCalc || manualCalc.apis.has(api)) return;
+    if (typeof api.fn !== 'function' || typeof api.getCalcDmg !== 'function' || typeof api.getCalcDmgSimulator !== 'function') return;
+    var fnDescriptor = Object.getOwnPropertyDescriptor(api, 'fn'), resultDescriptor = Object.getOwnPropertyDescriptor(api, 'getCalcDmg');
+    if (!fnDescriptor || !resultDescriptor || !fnDescriptor.writable || !resultDescriptor.writable || !('value' in fnDescriptor) || !('value' in resultDescriptor)) return;
+    var nativeFn = fnDescriptor.value, nativeResult = resultDescriptor.value;
+    api.fn = function (name, args) {
+      var self = this, params = arguments;
+      if (name !== 'inputGeneral' || !isManualCalculationRoute() || !args || !args[0]) return nativeFn.apply(self, params);
+      return runManualCalculation('preview', function () { return nativeFn.apply(self, params); }, args[0]);
+    };
+    api.getCalcDmg = function (input, opts) {
+      var self = this, params = arguments;
+      if (!isManualCalculationRoute() || !input || !opts || opts.manual !== true) return nativeResult.apply(self, params);
+      return runManualCalculation('result', function () { return nativeResult.apply(self, params); }, input);
+    };
+    manualCalc.apis.add(api);
+  }
+  function invalidateManualCalculations(draft) {
+    ['preview', 'result'].forEach(function (kind) {
+      var rec = manualCalc[kind];
+      var key = draft && manualCalculationKey(kind, draft);
+      if (!rec || (key && rec.key === key && manualCalcCurrent(rec))) return;
+      if (rec.cancel) rec.cancel();
+      manualCalc[kind] = null;
+    });
+    refreshManualCalculationStatus();
+  }
+  function resetManualCalculations() {
+    manualCalc.epoch++;
+    invalidateManualCalculations(null);
+  }
+  function retryManualCalculation(rec) {
+    if (!rec || manualCalc[rec.kind] !== rec || rec.state !== 'error' || !manualCalcCurrent(rec)) return false;
+    if (rec.kind === 'preview') {
+      var store = siteRefs.manualStore && siteRefs.manualStore.getState(), draft = store && store.draftStat;
+      if (!draft || !draft.stat || typeof store.setDraftStat !== 'function') return false;
+      // Native inputGeneral depends on draft.stat identity. Values and the selected slot
+      // stay intact; its normal effect performs the retry and updates React's metrics.
+      store.setDraftStat(Object.assign({}, draft, { stat: Object.assign({}, draft.stat) }));
+      return true;
+    }
+    var button = Array.from(document.querySelectorAll('button')).find(function (node) {
+      return !node.closest('[data-msfix-ui]') && ['Result', '결과'].indexOf(node.textContent.trim()) !== -1;
+    });
+    if (!button || button.disabled) return false;
+    button.click();
+    return true;
+  }
+  function manualCalculationFields() {
+    if (!document.body || !isManualCalculationRoute()) return [];
+    var labels = ['기본 스공', '최종 데미지', 'Base Combat Power', 'Final Damage'];
+    ['기본 스공', '최종 데미지'].forEach(function (key) {
+      var d = data(), translated = (siteRefs.enBundle || {})[key] || d.i18nPatch[key] || d.dict[key];
+      if (translated) labels.push(translated);
+    });
+    return Array.from(document.querySelectorAll('input[readonly]')).filter(function (input) {
+      var row = input.parentElement && input.parentElement.parentElement;
+      return row && row.querySelectorAll('input').length === 1 && Array.from(row.querySelectorAll('span')).some(function (span) { return labels.indexOf(span.textContent.trim()) !== -1; });
+    });
+  }
+  function refreshManualCalculationStatus() {
+    // UI changes must never prevent the request wrapper from settling its promise.
+    try { renderManualCalculationStatus(); } catch (_) {}
+  }
+  function renderManualCalculationStatus() {
+    if (!document.body) return;
+    var active = isManualCalculationRoute(), preview = manualCalc.preview;
+    if (preview && !manualCalcCurrent(preview)) preview = null;
+    var fields = active ? manualCalculationFields() : [], masked = preview && preview.state !== 'ready' ? fields : [];
+    manualCalc.masks.forEach(function (entry, input) {
+      if (masked.indexOf(input) !== -1 && input.isConnected) return;
+      entry.node.remove(); entry.wrapper.removeAttribute('data-msfix-calc-metric');
+      manualCalc.masks.delete(input);
+    });
+    masked.forEach(function (input) {
+      var entry = manualCalc.masks.get(input);
+      if (!entry) {
+        var wrapper = input.parentElement, node = document.createElement('span');
+        node.className = 'msfix-calc-metric-value'; node.setAttribute('data-msfix-ui', '');
+        wrapper.setAttribute('data-msfix-calc-metric', ''); wrapper.appendChild(node);
+        entry = { wrapper: wrapper, node: node }; manualCalc.masks.set(input, entry);
+      }
+      var label = preview.state === 'pending' ? 'Loading…' : 'Unavailable';
+      if (entry.node.textContent !== label) entry.node.textContent = label;
+    });
+    var records = ['preview', 'result'].map(function (kind) { return manualCalc[kind]; }).filter(function (rec) { return active && rec && rec.state !== 'ready' && manualCalcCurrent(rec); });
+    if (!records.length) {
+      if (manualCalc.panel) manualCalc.panel.remove();
+      manualCalc.panel = null; return;
+    }
+    if (!document.getElementById('msfix-calculation-style')) {
+      var style = document.createElement('style'); style.id = 'msfix-calculation-style';
+      style.textContent = '[data-msfix-calc-metric]{position:relative}[data-msfix-calc-metric]>input[readonly]{visibility:hidden!important}.msfix-calc-metric-value{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding:.5rem;font-size:.875rem;color:var(--text-gray-med);pointer-events:none}#msfix-calculation-status{display:flex;flex-direction:column;gap:.5rem;padding:.75rem;border:1px solid var(--outline-gray-med,#777);border-radius:.5rem;font-size:.875rem}#msfix-calculation-status>div{display:flex;align-items:center;justify-content:space-between;gap:.75rem}#msfix-calculation-status button{flex-shrink:0;border:1px solid var(--outline-gray-med,#777);border-radius:.375rem;padding:.25rem .5rem;cursor:pointer}';
+      (document.head || document.documentElement).appendChild(style);
+    }
+    var anchor = fields[0] && fields[0].parentElement.parentElement.parentElement;
+    var fallback = document.querySelector('main') || document.body;
+    if (!manualCalc.panel || !manualCalc.panel.isConnected) {
+      manualCalc.panel = document.createElement('div'); manualCalc.panel.id = 'msfix-calculation-status';
+      manualCalc.panel.setAttribute('data-msfix-ui', ''); manualCalc.panel.setAttribute('role', 'status'); manualCalc.panel.setAttribute('aria-live', 'polite');
+      if (anchor && anchor.parentElement) anchor.before(manualCalc.panel);
+      else fallback.prepend(manualCalc.panel);
+    }
+    var fingerprint = records.map(function (rec) { return rec.kind + ':' + rec.key + ':' + rec.state + ':' + rec.message; }).join('|');
+    if (manualCalc.panel.getAttribute('data-state') === fingerprint) return;
+    manualCalc.panel.setAttribute('data-state', fingerprint); manualCalc.panel.replaceChildren();
+    records.forEach(function (rec) {
+      var row = document.createElement('div'), text = document.createElement('span');
+      text.textContent = (rec.kind === 'preview' ? 'Stat preview: ' : 'Result: ') + (rec.state === 'pending' ? 'Calculating. Complete any MapleScouter verification prompt.' : rec.message);
+      row.appendChild(text);
+      if (rec.state === 'error') {
+        var button = document.createElement('button'); button.type = 'button';
+        button.textContent = rec.kind === 'preview' ? 'Retry preview' : 'Retry Result';
+        button.addEventListener('click', function () { retryManualCalculation(rec); }); row.appendChild(button);
+      }
+      manualCalc.panel.appendChild(row);
+    });
+  }
+
   /* -- bindings: slotKey -> { ign, label, savedAt, cloudUpdatedAt, remoteUpdatedAt, syncedHash, syncedAt } */
   var cloud = {
     bindings: {}, selected: null,       // selected = { key, ign, label, savedAt }
@@ -3148,6 +3343,7 @@
   function onDraftChange(s, prev) {
     if (s && prev && s.result !== prev.result) noteResult(s.result);
     if (!s || !prev || s.draftStat === prev.draftStat) return;
+    invalidateManualCalculations(s.draftStat);
     var structural = s.draftVersion !== prev.draftVersion;
     if (structural) { setTimeout(ensureCharPicker, 0); setTimeout(ensureCharPicker, 250); setTimeout(ensureCharPicker, 900); }
     if (s.draftStat === cloud.lastLoaded) { updateIcon(); return; }   // our own load echoing back
@@ -4242,6 +4438,7 @@
   window.addEventListener('resize', revealManualTab);
 
   function onNavigate() {
+    if (lastNavigationPath !== location.pathname) resetManualCalculations();
     var saved = null;
     try { saved = localStorage.getItem(LS_LOCALE); } catch (e) {}
     var wanted = navigationLocale(lastNavigationPath, location.pathname, saved);
@@ -4283,7 +4480,7 @@
     // Delay the DOM layer slightly so React hydration finishes first.
     setTimeout(startDomLayer, 250);
     setTimeout(function () { translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); revealManualTab(); }, 400);
-    setInterval(function () { backupRegion(); translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); revealManualTab(); ensureSaveImportIcons(); refreshFloatRects(); ensureCharPicker(); ensureGmsLinks(); refreshCheckboxHelp(); }, 2000);
+    setInterval(function () { backupRegion(); translateTitle(); fixLogo(); killAdPopups(); hideKoreanChangelog(); hideFavoritesBar(); compactCheckboxRows(); revealManualTab(); ensureSaveImportIcons(); refreshFloatRects(); ensureCharPicker(); ensureGmsLinks(); refreshCheckboxHelp(); refreshManualCalculationStatus(); }, 2000);
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') onReady();

@@ -4,44 +4,6 @@ A Chrome extension, Firefox add-on, and Tampermonkey userscript for [maplescoute
 
 MapleScouter (환산주스탯 계산기) is the best MapleStory stat-equivalence calculator around, but its English mode ships with **thousands of missing translations** and quite a few awkward, Google-Translate-style ones. This script fixes that — and much more.
 
-## Version 1.7.16
-
-Translates the boss phase popups, including entry bursts, Type B openings, Origin timing and Kalos subphases. Switching between Type A and Type B keeps the correct counts visible. Long plans scroll within the available screen space on phones. All 27 current plans were checked in the browser; see the [October 28 popup audit](docs/audits/2026-10-28.md).
-
-## Version 1.7.15
-
-Supports MapleScouter's new **Manual Mode** pages for Character, Result, HEXA and Bossing Setup Optimization. The character picker, cloud status, contextual help, GMS Link Skill suggestions and **Max level** comparison work on the new URLs. The active page stays visible in the scrollable phone navigation, and layout fixes remain active while the site loads.
-
-Adds translations for the new navigation, account and profile controls, donation information, potential effects and duration labels. See the [October 26 compatibility audit](docs/audits/2026-10-26.md) for testing and known limits.
-
-## Version 1.7.14
-
-The character dropdown stays inside the screen on phones, keeping character names and actions visible. It retains its desktop alignment and adjusts when the window is resized. The input page also keeps its single-column layout on small tablets to avoid clipping the buffs panel. See the [October 15 weekly audit](docs/audits/2026-10-15.md).
-
-## Version 1.7.13
-
-Unreleased HEXA slots now have a clear placeholder instead of broken images or question marks, including the separate result-popup images. Fixes missing Cadena skill names, HEXA reset-refund totals, EXP and Dojo labels, and other interface translations. Ranking filters wrap, and the Dojo table scrolls on narrow screens.
-
-The audit covered all 54 class selectors and 70 public routes. See the [October 15 skill and UI audit](docs/audits/2026-10-15-skill-and-ui.md) for the verified fixes and coverage limits.
-
-## Version 1.7.12
-
-The Link Skill comparison controls are centered as a group, with equal spacing and aligned labels.
-
-## Version 1.7.10
-
-Guiding Stars (Sia Astelle / Erel Light) now appears in the Link Skill rankings with its shared Lv. 6 cap. **Max level** is the leftmost control; the redundant heading and bottom note are removed. The skill tooltip lists both effects and identifies the unscored buff-duration bonus.
-
-## Version 1.7.9
-
-**Max level** in Links/Potentials compares each link's full bonus at its GMS maximum level, including combined Explorer and Cygnus levels. **Lv 2→3** still compares only the upgrade gain. Selecting either turns the other off.
-
-## Version 1.7.8
-
-Short native tooltips explain non-obvious stats, buffs and result scores. Guild and Legion Champion descriptions follow the entered levels. Character options keep their original layout, and wide tabs scroll within their cards. The result summary keeps the site’s original layout.
-
-This release also fixes phone layout overflow, the Phantom and Corsair class names, and missing simulator text. See the [October 14 UI and class audit](docs/audits/2026-10-14-input-help.md) for coverage and limitations.
-
 ## Install
 
 **Chrome, Edge, or Arc:** install from the [Chrome Web Store](https://chromewebstore.google.com/detail/alopdmlliacajfcgnphmojmneanikbdg). Store installs update automatically.
@@ -76,7 +38,7 @@ Credentials are stored in GitHub Actions secrets, never in the extension package
 
 A weekly audit checks MapleScouter for new text, changed pages, and layout or compatibility problems. It runs on Thursdays at 10:00 (Asia/Jerusalem). Updates are tested, released on GitHub, and submitted to both Chrome and Firefox. The stores publish approved updates automatically. If nothing needs changing, no new version is uploaded.
 
-See the [maintenance runbook](docs/WEEKLY-MAINTENANCE.md) and [audit reports](docs/audits/). The [October 15 weekly audit](docs/audits/2026-10-15.md) records the latest live-site comparison, phone and tablet layout fixes, interaction checks and store status.
+See the [maintenance runbook](docs/WEEKLY-MAINTENANCE.md) and [audit reports](docs/audits/).
 
 ## Features
 
@@ -89,7 +51,7 @@ See the [maintenance runbook](docs/WEEKLY-MAINTENANCE.md) and [audit reports](do
 - **Player and character names are never touched** — IGNs, rankings, and user posts stay exactly as they are.
 - Korean-only API content that can't be translated (the Latest Updates changelog) is hidden in English mode instead of showing raw Korean.
 
-### Characters and cloud sync (Character page), 1.7.x
+### Characters and cloud sync (Character page)
 The site's **Load Preset / Save Preset** buttons and the IGN search on `/input` are replaced by a **Characters** picker and a **sync icon**.
 - **One list, chips for where a character lives.** Every saved preset is a row: name, class, level, **HEXA** (the site's HEXA-converted stat, filled in once you press Result), when it was saved and when its cloud copy changed, with `local` / `cloud` chips. The selected character is highlighted.
 - **Every character shows its current look.** The list, the closed picker and the add dialog show the character's in-game look, taken from the public GMS rankings. The add dialog also shows the class and level the rankings report (or "Not found in the GMS rankings"; you can still add it). Looks are looked up once when you open the list, once when you type an IGN in the add dialog, and once after a rename or Set IGN. They are cached in your browser for a week, never fetched in the background.
@@ -112,9 +74,10 @@ The site's **Load Preset / Save Preset** buttons and the IGN search on `/input` 
 
 ### GMS Link Skill suggestions
 
-Version 1.7.7 adds Hayato, Kanna, Lynn and Mo Xuan to the Result page's Link Skill efficiency rankings, including Lv. 2 to 3 comparisons. Kanna uses its active effect and Mo Xuan uses full stacks. It removes Lethe's KMS-only link from GMS suggestions, corrects Qi Cultivation's name, and now ranks Sia/Erel's shared Guiding Stars by its critical-damage contribution. See [effects, sources and calculation limits](docs/GMS-LINK-SKILLS.md).
+The Result page's Link Skill efficiency rankings cover Hayato, Kanna, Lynn and Mo Xuan, including Lv. 2 to 3 comparisons. Kanna uses its active effect and Mo Xuan uses full stacks. GMS suggestions exclude Lethe's KMS-only link, use Qi Cultivation's correct name, and rank Sia/Erel's shared Guiding Stars by its critical-damage contribution. See [effects, sources and calculation limits](docs/GMS-LINK-SKILLS.md).
 
 ### Quality of life
+- **Calculation recovery.** On the English and Korean Character pages, failed stat previews show an unavailable state with a retry button. Result requests that stall stop waiting after 65 seconds and offer a retry. Calculations still use MapleScouter's own service and verification; saved inputs are preserved.
 - **Remembers your language.** The site redirects every fresh visit to Korean; the script sends you back to your language automatically.
 - **Remembers your server selection** (GMS/KMS/JMS/TMS/MSEA) and restores it if the site wipes it.
 - **No ads.** Ad slots, sponsor banners, popup ads, and the NOTICE billboard bar are removed — along with the empty gaps they reserve.
