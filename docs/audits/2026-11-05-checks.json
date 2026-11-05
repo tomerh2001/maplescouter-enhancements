@@ -1,0 +1,65 @@
+{
+  "checked_at": "2026-11-05T22:32:26.953532+00:00",
+  "scheduled_audit": "2026-11-05",
+  "source_commit": "f8005da",
+  "version": "1.7.17",
+  "coverage": "incomplete",
+  "tests": {
+    "passed": 200,
+    "failed": 0
+  },
+  "syntax": "passed",
+  "live_crawl": {
+    "url": "https://maplescouter.com/en",
+    "status": 403
+  },
+  "browser": {
+    "url": "https://maplescouter.com/en/manual/input",
+    "state": "Cloudflare security verification; application unavailable",
+    "normal_reload_attempted": true
+  },
+  "public_checks": [
+    {
+      "name": "firefox",
+      "url": "https://addons.mozilla.org/api/v5/addons/addon/maplescouter-enhancements/",
+      "status": 200,
+      "version": "1.7.17",
+      "last_updated": "2026-10-31T07:21:31Z"
+    },
+    {
+      "name": "chrome",
+      "url": "https://chromewebstore.google.com/detail/alopdmlliacajfcgnphmojmneanikbdg",
+      "status": 200,
+      "version_sections": [
+        "Version  1.7.17    Updated  October 31, 2026     Flag concern     Offered by  tomerh2001    Size  1.1MiB   "
+      ],
+      "updated_sections": [
+        "Updated  October 31, 2026     Flag concern     Offered by  tomerh2001    Size  1.1MiB    Languages   Englis"
+      ]
+    },
+    {
+      "name": "cloud-head",
+      "url": "https://scouter.tomerh2001.com/v1/characters/HTomer",
+      "status": 200,
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "ETag, Retry-After, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset"
+      }
+    },
+    {
+      "name": "cloud-options",
+      "url": "https://scouter.tomerh2001.com/v1/characters/HTomer",
+      "status": 204,
+      "headers": {
+        "Access-Control-Allow-Headers": "Content-Type, If-Match, If-None-Match, X-Confirm",
+        "Access-Control-Allow-Methods": "GET, HEAD, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "ETag, Retry-After, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset",
+        "Access-Control-Max-Age": "86400"
+      }
+    }
+  ],
+  "baseline_updated": false,
+  "packages_uploaded": false,
+  "production_writes": false
+}

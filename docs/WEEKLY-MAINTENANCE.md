@@ -3,9 +3,13 @@
 The weekly Codex task runs on Thursday at 10:00 Asia/Jerusalem. Its scope includes site changes, translations, layout, compatibility, tests, GitHub releases, and submissions to both existing marketplace listings. Store approval remains Google's and Mozilla's decision. Both submissions request publication as soon as review allows it.
 
 Repository: `tomerh2001/maplescouter-enhancements`.
-Scheduled Mac checkout: `/Users/tomerh2001/Desktop/Projects/maplescouter-en-fix`.
-The directory name is local and does not change when GitHub renames the repository.
-Server checkout: `/mnt/Pool/System/Home/tomerh2001/projects/tomerh2001/maplescouter-enhancements`.
+The former Mac checkout, `/Users/tomerh2001/Desktop/Projects/maplescouter-en-fix`,
+was absent during the November 5 audit. Do not recreate that removed directory.
+Server checkout: `/mnt/Pool/System/Home/tomerh2001/projects/tomerh2001/maplescouter-enhancements`
+on `mainserver.home`, accessible through the existing SSH connection.
+Inspect its status before work. If it is stale or has unfinished changes, preserve
+them and use a separate clean checkout of current `origin/main` for the audit.
+The Mac's supported browser remains available for visual and interaction checks.
 
 ## Interrupted runs and repository renames
 
