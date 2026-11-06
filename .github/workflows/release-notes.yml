@@ -1,0 +1,37 @@
+name: Release notes checks
+
+on:
+  pull_request:
+    paths:
+      - 'CHANGELOG.md'
+      - 'src/maplescouter-en-fix.user.js'
+      - 'scripts/release-notes.mjs'
+      - 'scripts/prepare-store-release.py'
+      - 'test/release-notes.test.mjs'
+      - '.github/workflows/**'
+  push:
+    branches: [main]
+    paths:
+      - 'CHANGELOG.md'
+      - 'src/maplescouter-en-fix.user.js'
+      - 'scripts/release-notes.mjs'
+      - 'scripts/prepare-store-release.py'
+      - 'test/release-notes.test.mjs'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+      - name: Test release notes and existing regressions
+        run: node --test test/*.test.*
+      - name: Check current version and show its changes
+        run: node scripts/release-notes.mjs

@@ -22,6 +22,18 @@ def contents(path):
         return {name: hashlib.sha256(archive.read(name)).hexdigest() for name in names}
 
 
+def prepare_notes(tag, version, out):
+    # New releases use the tag's immutable notes. Older tags predate CHANGELOG.md;
+    # their reviewed historical entries live in the current checkout instead.
+    has_changelog = bool(run('git', 'ls-tree', '--name-only', tag, '--', 'CHANGELOG.md'))
+    changelog = run('git', 'show', f'{tag}:CHANGELOG.md') if has_changelog else Path('CHANGELOG.md').read_text(encoding='utf-8')
+    with tempfile.TemporaryDirectory(prefix='msfix-notes-') as notes_dir:
+        notes_path = Path(notes_dir) / 'CHANGELOG.md'
+        notes_path.write_text(changelog, encoding='utf-8')
+        run('node', str(Path(__file__).with_name('release-notes.mjs')), version, str(out / 'release-notes.txt'), str(notes_path))
+    return has_changelog
+
+
 def main():
     version = os.environ['RELEASE_VERSION']
     if not re.fullmatch(r'\d+(?:\.\d+){1,3}', version):
@@ -31,14 +43,18 @@ def main():
     out = Path('store-release').resolve()
     out.mkdir(exist_ok=False)
     run('git', 'fetch', 'origin', f'refs/tags/{tag}:refs/tags/{tag}')
-    release = json.loads(run('gh', 'release', 'view', tag, '--repo', repo, '--json', 'isDraft,isPrerelease,body'))
+    release = json.loads(run('gh', 'release', 'view', tag, '--repo', repo, '--json', 'isDraft,isPrerelease'))
     if release['isDraft'] or release['isPrerelease']:
         raise ValueError('Only public stable GitHub releases can be submitted')
+    has_changelog = prepare_notes(tag, version, out)
     packages = ['maplescouter-en-fix-extension.zip', 'maplescouter-en-fix-firefox.zip']
     for name in packages:
         run('gh', 'release', 'download', tag, '--repo', repo, '--pattern', name, '--dir', str(out))
     source = out / 'maplescouter-en-fix-source.zip'
-    run('git', 'archive', '--format=zip', '-o', str(source), tag, '--', 'src', 'data', 'build.js', 'build-extension.js', 'scripts/translation-overrides.cjs', 'extension/manifest.json', 'extension/icons', 'README.md', 'BUILD.md', 'PRIVACY.md', 'LICENSE')
+    source_paths = ['src', 'data', 'build.js', 'build-extension.js', 'scripts/translation-overrides.cjs', 'extension/manifest.json', 'extension/icons', 'README.md', 'BUILD.md', 'PRIVACY.md', 'LICENSE']
+    if has_changelog:
+        source_paths.append('CHANGELOG.md')
+    run('git', 'archive', '--format=zip', '-o', str(source), tag, '--', *source_paths)
     with tempfile.TemporaryDirectory(prefix='msfix-build-') as work:
         with zipfile.ZipFile(source) as archive:
             archive.extractall(work)
@@ -58,7 +74,6 @@ def main():
                     raise ValueError('Unexpected Firefox identity')
             elif gecko:
                 raise ValueError('Firefox manifest found in Chrome package')
-    (out / 'release-notes.txt').write_text(release['body'] or f'MapleScouter Enhancements {version}', encoding='utf-8')
     hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in out.glob('*.zip')}
     (out / 'checksums.json').write_text(json.dumps(hashes, indent=2) + '\n')
     print(f'Verified Chrome, Firefox, and source packages for {tag}')

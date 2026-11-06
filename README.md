@@ -22,7 +22,9 @@ Tampermonkey checks for userscript updates automatically; you can also request a
 
 ## Releases and store publishing
 
-GitHub Actions handles both stores. Bump `@version` in the userscript, rebuild, and push the release changes to `main`. The Release workflow creates the GitHub release, then calls [Publish marketplaces](https://github.com/tomerh2001/maplescouter-enhancements/actions/workflows/publish-stores.yml).
+GitHub Actions handles both stores. Bump `@version` in the userscript, add that version's changes to [CHANGELOG.md](CHANGELOG.md), rebuild, and push the release changes to `main`. The Release workflow creates the GitHub release, then calls [Publish marketplaces](https://github.com/tomerh2001/maplescouter-enhancements/actions/workflows/publish-stores.yml).
+
+Each version needs a dated changelog entry with concrete changes. CI rejects missing, empty or unfinished entries. The same notes appear in the GitHub release, the Actions job summary and Firefox's submission. Changes to release notes and workflows are also checked separately, without publishing another extension version. [Read the full version history](CHANGELOG.md).
 
 The publishing workflow checks the released ZIPs against a fresh build of the release tag, then submits Chrome and Firefox independently. Firefox receives the source archive, build instructions, reviewer notes, and release notes as part of the submission.
 

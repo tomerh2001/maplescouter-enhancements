@@ -49,10 +49,10 @@ from the package manifest. Chrome listing links require its publisher dashboard.
 ## Validate and release
 
 - Run `node --test test/*.test.*`, `node --check src/maplescouter-en-fix.user.js`, and `git diff --check`.
-- Bump the userscript version only if a user-facing change is needed. Run `node build.js` and `node build-extension.js`. Both generated manifests must have that version.
+- Bump the userscript version only if a user-facing change is needed. Add a completed `## [VERSION] - YYYY-MM-DD` entry to `CHANGELOG.md`, with concise bullets describing the actual changes; move relevant Unreleased notes into it. Run `node scripts/release-notes.mjs` to validate the current version. Run `node build.js` and `node build-extension.js`. Both generated manifests must have that version.
 - Run Firefox validation with `npx web-ext lint --source-dir dist-extension-firefox --self-hosted=false`. Fix new errors; review and record warnings.
 - If a build gains a dependency, include it in the Mozilla source archive in `scripts/prepare-store-release.py`. The source ZIP must reproduce both marketplace packages without private files.
-- Write the dated audit report, update README details if needed, and save the reviewed live hashes/routes in `docs/audits/live-baseline.json`. Preserve previous dated reports. Keep release history in dated audits and GitHub Releases; do not add version sections or a changelog to the README.
+- Write the dated audit report, update README details if needed, and save the reviewed live hashes/routes in `docs/audits/live-baseline.json`. Preserve previous dated reports. Keep the tracked version history in `CHANGELOG.md`; use dated audits for validation and coverage limits. The release workflow uses the matching changelog entry for GitHub release notes and its Actions summary, and marketplace preparation uses it for Firefox notes and its summary. Do not duplicate version sections in the README.
 - Commit only this task's changes and push main. The Release workflow builds the GitHub release and submits both stores through Publish marketplaces. Inspect each job and its submission receipt. A GitHub release alone is not a store submission.
 - If an older Chrome review blocks the new release, use the existing Publish marketplaces workflow with the new version, `store=chrome`, and `replace_pending=true`. It verifies the pending version is older before canceling it. Do not cancel equal or newer submissions.
 - Do not print credentials or copy them into source. Publishing secrets already live in GitHub Actions.

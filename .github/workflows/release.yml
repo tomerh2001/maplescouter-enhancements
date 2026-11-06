@@ -29,6 +29,11 @@ jobs:
           echo "version=$V" >> "$GITHUB_OUTPUT"
           echo "Version: $V"
 
+      - name: Validate changelog and summarize changes
+        env:
+          RELEASE_VERSION: ${{ steps.ver.outputs.version }}
+        run: node scripts/release-notes.mjs "$RELEASE_VERSION" "$RUNNER_TEMP/release-notes.md"
+
       - name: Check if release already exists
         id: exists
         env:
@@ -58,7 +63,7 @@ jobs:
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --title "v$V" \
-            --generate-notes
+            --notes-file "$RUNNER_TEMP/release-notes.md"
 
   marketplaces:
     needs: release

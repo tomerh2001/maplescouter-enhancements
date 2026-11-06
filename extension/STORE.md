@@ -4,6 +4,8 @@
 
 The Release workflow calls `.github/workflows/publish-stores.yml` directly after creating a release. This direct call is intentional: a GitHub release created with `GITHUB_TOKEN` does not trigger another release-event workflow.
 
+Before releasing, add the version to the tracked `CHANGELOG.md` as `## [VERSION] - YYYY-MM-DD` with completed change bullets. `node scripts/release-notes.mjs` validates the current userscript version. GitHub release bodies and Actions summaries use these notes. Marketplace preparation reads the same entry from the release tag for Firefox; releases older than the changelog use their reviewed historical entry from the current checkout. Missing or unfinished notes stop publication. Release-note/workflow changes have a separate CI check and do not require an extension version bump.
+
 For an existing release, run **Publish marketplaces** from the Actions tab on `main`, with the numeric version and the desired store. It downloads the release assets, compares their files to a fresh build of the release tag, and prepares a source ZIP from that same tag for Mozilla. It never packages uncommitted files or credentials.
 
 Chrome and Firefox run in separate jobs. Chrome uses the v2 API with `publishType: DEFAULT_PUBLISH`, `skipReview: false`, and a 100% rollout. Firefox uses the AMO v5 API with `channel: listed`, includes the source archive on version creation, and adds release and reviewer notes. Both use the existing listings. Store approval remains the store's decision; accepted versions publish without a second manual step.
