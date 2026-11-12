@@ -166,5 +166,25 @@
   "preReleaseStoreVersions": {
     "chrome": "1.7.17",
     "firefox": "1.7.17"
+  },
+  "release": {
+    "version": "1.7.18",
+    "commit": "a183d2b4ce4f7e95c9249252d40464f30a7443bf",
+    "workflow": "https://github.com/tomerh2001/maplescouter-enhancements/actions/runs/43184638770",
+    "conclusion": "success",
+    "chrome": {
+      "store": "chrome",
+      "version": "1.7.18",
+      "state": "PENDING_REVIEW",
+      "publishType": "DEFAULT_PUBLISH"
+    },
+    "firefox": {
+      "store": "firefox",
+      "version": "1.7.18",
+      "state": "PENDING_REVIEW",
+      "versionId": 6698237,
+      "channel": "listed",
+      "sourceAttached": true
+    }
   }
 }
