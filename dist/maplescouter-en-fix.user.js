@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.17
+// @version      1.7.18
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -9,7 +9,7 @@
 // @match        https://www.maplescouter.com/*
 // @run-at       document-start
 // @grant        none
-// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.17
+// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.18
 // @updateURL    https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @downloadURL  https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @supportURL   https://github.com/tomerh2001/maplescouter-enhancements/issues
@@ -376,6 +376,17 @@
 
   // Built-in dynamic rules — run after dict/JSON rules miss.
   function builtinRules(t, d) {
+    var culvertPrefix = '같은 헥환대 전체보다 몇 % 높고 낮은지(직업별 중앙값) · 30명 미만 직업은 뒤에 흐리게 · 누르면 위 그래프에 넣고 빼요(';
+    if (t.indexOf(culvertPrefix) === 0 && /^\d+\/\d+\)$/.test(t.slice(culvertPrefix.length)))
+      return d.dict[culvertPrefix] + t.slice(culvertPrefix.length);
+    var seasonHeading = t.match(/^시즌 (\d+) (랭킹|명예의 전당|Ranking|Hall of Honor)$/);
+    if (seasonHeading) return 'Season ' + seasonHeading[1] + ' ' + ({'랭킹':'Ranking', '명예의 전당':'Hall of Honor'}[seasonHeading[2]] || seasonHeading[2]);
+    var rankingTime = t.match(/^(오전|오후) (\d{1,2}:\d{2}:\d{2}) (기준|Based on)$/);
+    if (rankingTime) return 'As of ' + rankingTime[2] + (rankingTime[1] === '오전' ? ' AM' : ' PM');
+    var messageLimit = t.match(/^내용은 (\d+)자까지 쓸 수 있습니다\.$/);
+    if (messageLimit) return 'Maximum message length: ' + messageLimit[1] + ' characters.';
+    var nextTier = t.match(/^다음 티어까지 ([\d,]+)점$/);
+    if (nextTier) return 'Points to next tier: ' + nextTier[1];
     var quantity = t.match(/^([\d,.]+)\s*개$/);
     if (quantity) return quantity[1] + ' items';
     var duration = t.match(/^([\d,]+)\s*(?:시간|Hours?)\s*(\d+)\s*분$/);
@@ -1292,6 +1303,7 @@
     var clarified = clarifiedControlLabel(v, label && label.htmlFor, location.pathname);
     if (clarified) { if (v !== clarified) node.nodeValue = clarified; return; }
     if (isPlayerNameContext(node)) return;
+    if (translateStatisticsFragment(node)) return;
     if (translateDurationFragment(node)) return;
     if (translateRankingSeason(node)) return;
     var season = rankingSeason(v, location.pathname);
@@ -1304,6 +1316,20 @@
     if (BADGE_TITLES[shown] && node.parentElement && !node.parentElement.title) {
       node.parentElement.title = BADGE_TITLES[shown];
     }
+  }
+
+  // New statistics pages bypass i18next for these short labels. Keep units and
+  // the Arena tier local to their pages; do not rewrite player names or MVP tiers.
+  function translateStatisticsFragment(node) {
+    var p = node.parentElement;
+    if (!p || !p.closest('main')) return false;
+    var season = node.nodeValue.match(/^시즌 (\d+)$/);
+    if (season && /^\/en\/game\/union-duel\/?$/.test(location.pathname)) { node.nodeValue = 'Season ' + season[1]; return true; }
+    var labels = /^\/en\/culvert\/?$/.test(location.pathname) ? {'명':' chars', '렌':'Ren'} :
+      /^\/en\/game\/union-duel\/?$/.test(location.pathname) ? {'점':'pt', '다이아':'Diamond', 'MVP Diamond':'Diamond'} : null;
+    if (!labels || !Object.prototype.hasOwnProperty.call(labels, node.nodeValue)) return false;
+    node.nodeValue = labels[node.nodeValue];
+    return true;
   }
 
   // The farming slider emits its live number and unit as separate React nodes.

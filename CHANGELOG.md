@@ -6,9 +6,16 @@ Every release must have a completed entry here before its version is published. 
 
 ## [Unreleased]
 
-- Track version history in this file and require matching release notes before publication.
-- Show version-specific changes in GitHub Actions summaries and use them for GitHub Releases and Firefox submission notes.
-- Check changelog changes on pull requests and main without creating a new extension release.
+## [1.7.18] - 2026-11-12
+
+- Translated the new Sharenian Culvert statistics and Legion Arena pages, including changing selection counts, season headings, scores and timestamps.
+- Added translations for growth recaps, scheduler setup changes, profile animations, billboard requests and Soul Amplification estimates.
+- Kept Culvert chart values visible and gave English class names room on desktop and phone layouts.
+- Added tracked version history and required matching release notes before publication.
+- Added version-specific changes to GitHub Actions summaries, GitHub Releases and Firefox submission notes.
+- Added changelog checks on pull requests and main without creating a new extension release.
+
+[Full diff](https://github.com/tomerh2001/maplescouter-enhancements/compare/v1.7.17...v1.7.18)
 
 ## [1.7.17] - 2026-10-31
 

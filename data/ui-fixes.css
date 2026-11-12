@@ -224,3 +224,26 @@ html[lang="en"] [data-msfix-burst-plan] {
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+
+/* Culvert axes reserve 56px; comma-separated English tick labels must fit that gutter. */
+html[lang="en"][data-msfix-route="culvert"] .recharts-cartesian-axis-tick-value,
+html[lang="en"][data-msfix-route="culvert"] .recharts-cartesian-axis-tick-value tspan { font-size: 11px; }
+/* Let translated class names use the row, instead of a fixed 38px Korean badge. */
+html[lang="en"][data-msfix-route="culvert"] main button[aria-pressed] {
+  grid-template-columns: 18px minmax(0, 1fr) 80px 34px 12px;
+}
+html[lang="en"][data-msfix-route="culvert"] main button[aria-pressed] > span:nth-child(2) { white-space: normal; overflow: visible; }
+@media (max-width: 639px) {
+  html[lang="en"][data-msfix-route="culvert"] main section > .flex > .flex-1 { flex-basis: 100%; }
+  html[lang="en"][data-msfix-route="culvert"] main button[aria-pressed] { grid-template-columns: 14px minmax(0, 1fr) 48px 32px; }
+}
+html[lang="en"][data-msfix-route="culvert"] main .columns-2:has(> button[aria-pressed]) { column-count: 3; }
+@media (max-width: 1023px) {
+  html[lang="en"][data-msfix-route="culvert"] main .columns-2:has(> button[aria-pressed]) { column-count: 2; }
+}
+@media (max-width: 639px) {
+  html[lang="en"][data-msfix-route="culvert"] main .columns-2:has(> button[aria-pressed]) { column-count: 1; }
+}
+
+/* Recharts positions the final X label against the plot edge. Preserve its last digit. */
+html[lang="en"][data-msfix-route="culvert"] .recharts-surface { overflow: visible; }

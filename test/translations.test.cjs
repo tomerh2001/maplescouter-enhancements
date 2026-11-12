@@ -62,7 +62,7 @@ test('boss-plan translation keeps the React span attached across repeated A/B ch
   const c = vm.createContext({
     HANGUL: /[가-힣]/, inOwnUi: () => false, location: {pathname: '/en/manual/result'},
     clarifiedControlLabel: () => null, isPlayerNameContext: () => false,
-    translateDurationFragment: () => false, translateRankingSeason: () => false,
+    translateStatisticsFragment: () => false, translateDurationFragment: () => false, translateRankingSeason: () => false,
     rankingSeason: () => null, translateSoulMeasure: () => false,
     translateRewardFragment: () => false, translateString: ctx.translateString, BADGE_TITLES: {},
   });
@@ -439,4 +439,53 @@ test('Soul reroll and stage phrases retain all React-owned nodes during numeric 
   }
   const card = { get children() { throw new Error('Must not replace React children on Soul success'); } };
   assert.doesNotThrow(() => h.tryElementTranslate(card, {}));
+});
+
+test('November interface translations retain numbers and stay stable on a second pass', () => {
+  for (const [ko, en] of Object.entries(read('data/overrides/2026-11-12.json'))) {
+    assert.equal(patch[ko], en, ko);
+    assert.equal(ctx.translateString(ko), en, ko);
+    assert.doesNotMatch(en, /[가-힣]/, ko);
+    assert.deepEqual((en.match(/\d+/g) || []).sort(), (ko.match(/\d+/g) || []).sort(), ko);
+    assert.ok(ctx.translateString(en) === null || ctx.translateString(en) === en, en);
+  }
+});
+
+test('new statistics and Arena text translates after values are composed', () => {
+  const prefix = Object.keys(read('data/overrides/2026-11-12.json')).find(k => k.startsWith('같은 헥환대'));
+  for (const count of [0, 4, 48]) {
+    assert.equal(ctx.translateString(prefix + count + '/48)'), patch[prefix] + count + '/48)');
+  }
+  for (const [ko, en] of [
+    ['시즌 1 랭킹', 'Season 1 Ranking'], ['시즌 2 Hall of Honor', 'Season 2 Hall of Honor'],
+    ['오전 10:22:13 Based on', 'As of 10:22:13 AM'], ['오후 12:30:01 기준', 'As of 12:30:01 PM'],
+    ['내용은 200자까지 쓸 수 있습니다.', 'Maximum message length: 200 characters.'],
+    ['다음 티어까지 1,234점', 'Points to next tier: 1,234'],
+    ['162승 1패', '162 W 1 L'], ['10승 2무 3패', '10 W 2 D 3 L']
+  ]) assert.equal(ctx.translateString(ko), en, ko);
+  assert.equal(ctx.builtinRules('시즌 1 캐릭터이름', {dict}), null);
+});
+
+test('statistics fragments stay scoped and keep their React text nodes', () => {
+  const c = vm.createContext({location: {pathname: '/en/culvert'}});
+  vm.runInContext(source.slice(source.indexOf('  function translateStatisticsFragment('), source.indexOf('  // The farming slider')), c);
+  const parent = {closest: s => s === 'main' ? {} : null};
+  const count = {nodeValue: '134'}, unit = {nodeValue: '명', parentElement: parent};
+  assert.equal(c.translateStatisticsFragment(unit), true);
+  assert.equal(unit.nodeValue, ' chars');
+  assert.equal(count.nodeValue, '134');
+  const ren = {nodeValue: '렌', parentElement: parent};
+  assert.equal(c.translateStatisticsFragment(ren), true);
+  assert.equal(ren.nodeValue, 'Ren');
+  c.location.pathname = '/en/game/union-duel';
+  const heading = {nodeValue: '시즌 3', parentElement: parent};
+  assert.equal(c.translateStatisticsFragment(heading), true);
+  assert.equal(heading.nodeValue, 'Season 3');
+  const diamond = {nodeValue: 'MVP Diamond', parentElement: parent};
+  assert.equal(c.translateStatisticsFragment(diamond), true);
+  assert.equal(diamond.nodeValue, 'Diamond');
+  c.location.pathname = '/en/info';
+  diamond.nodeValue = 'MVP Diamond'; unit.nodeValue = '명';
+  assert.equal(c.translateStatisticsFragment(diamond), false);
+  assert.equal(c.translateStatisticsFragment(unit), false);
 });

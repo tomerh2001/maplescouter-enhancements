@@ -1,0 +1,449 @@
+{
+  "browser": "Chrome, local preview of the current public site capture",
+  "classInputChecks": [
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Night Lord"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Night Walker"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Dark Knight"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Demon Slayer"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Demon Avenger"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Dual Blade"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Lara"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Lethe"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Ren"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Luminous"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Mercedes"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Mechanic"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Mihile"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Buccaneer"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Battle Mage"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Bowmaster"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Blaster"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Bishop"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Shadower"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Dawn Warrior"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Thunder Breaker"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Marksman"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Adele"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Aran"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Ark"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Fire/Poison"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Ice/Lightning"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Evan"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Angelic Buster"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Wild Hunter"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Wind Archer"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Shade"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Illium"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Xenon"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Zero"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Cadena"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Kaiser"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Kain"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Khali"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Cannoneer"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Corsair"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Kinesis"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Paladin"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Pathfinder"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Phantom"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Blaze Wizard"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Hoyoung"
+    },
+    {
+      "broken": [],
+      "hexaImages": 15,
+      "overflow": false,
+      "selected": "Hero"
+    },
+    {
+      "broken": [],
+      "hexaImages": 14,
+      "overflow": false,
+      "selected": "Hayato"
+    },
+    {
+      "broken": [],
+      "hexaImages": 14,
+      "overflow": false,
+      "selected": "Mo Xuan"
+    },
+    {
+      "broken": [],
+      "hexaImages": 14,
+      "overflow": false,
+      "selected": "Lynn"
+    },
+    {
+      "broken": [],
+      "hexaImages": 14,
+      "overflow": false,
+      "selected": "Kanna"
+    },
+    {
+      "broken": [],
+      "hexaImages": 12,
+      "overflow": false,
+      "selected": "Sia Astelle"
+    },
+    {
+      "broken": [],
+      "hexaImages": 12,
+      "overflow": false,
+      "selected": "Erel Light"
+    }
+  ],
+  "routeShellChecks": [
+    {
+      "path": "/en/sitemap",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/manual/result",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/manual/hexa",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/manual/optimizer",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/boss-data",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/dojo-data",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/profile-motion",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/simulator/soul",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/battle-ranking",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/class-analysis",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/union-ranking",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/exp/treasure-hunter",
+      "region": "GMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/boss-data",
+      "region": "KMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/simulator/soul",
+      "region": "KMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/battle-ranking",
+      "region": "KMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/class-analysis",
+      "region": "KMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/union-ranking",
+      "region": "KMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/culvert",
+      "region": "KMS",
+      "viewport": 390,
+      "pageWidth": 390
+    },
+    {
+      "path": "/en/game/union-duel",
+      "region": "KMS",
+      "viewport": 390,
+      "pageWidth": 390
+    }
+  ],
+  "limits": [
+    "Route checks are settled shells, not proof of successful remote calculations or signed-in features.",
+    "Class checks inspect displayed images immediately after keyboard selection; separate asset fetches cover all catalog and derived result URLs."
+  ]
+}

@@ -24,5 +24,6 @@
   "제 ": "Fragment translated only in its complete numeric, stat, or equipment-level expression; covered by runtime tests.",
   "천": "Korean-only numeric suffix in the ranking delta formatter. Its English branch uses toLocaleString('en-US'); do not globally replace a single syllable.",
   "확인 칸에 \"탈퇴\"를 입력해 주세요.": "Translated instruction retains the exact Korean confirmation token required by the account deletion handler. Tested against repeat translation.",
-  "확인을 위해 \"탈퇴\"를 입력하세요": "Translated placeholder retains the exact Korean confirmation token required by the account deletion handler. Tested against repeat translation."
+  "확인을 위해 \"탈퇴\"를 입력하세요": "Translated placeholder retains the exact Korean confirmation token required by the account deletion handler. Tested against repeat translation.",
+  "_성장리캡_": "Internal growth-recap download filename marker, not displayed interface text; preserve generated filenames and player names."
 }
