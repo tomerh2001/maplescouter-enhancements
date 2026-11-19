@@ -67,5 +67,28 @@
       "/hexaskill/Erel_9.png"
     ],
     "unexpected": []
+  },
+  "release": {
+    "commit": "2b5d8877879b9de4cf3b17a1027661503b1ed035",
+    "url": "https://github.com/tomerh2001/maplescouter-enhancements/releases/tag/v1.7.19",
+    "workflowRun": 44548532606,
+    "notesMatchChangelog": true,
+    "jobs": "all successful",
+    "receipts": [
+      {
+        "store": "chrome",
+        "version": "1.7.19",
+        "state": "PENDING_REVIEW",
+        "publishType": "DEFAULT_PUBLISH"
+      },
+      {
+        "store": "firefox",
+        "version": "1.7.19",
+        "state": "PENDING_REVIEW",
+        "versionId": 6733262,
+        "channel": "listed",
+        "sourceAttached": true
+      }
+    ]
   }
 }
