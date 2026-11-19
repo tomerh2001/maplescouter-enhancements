@@ -6,6 +6,17 @@ Every release must have a completed entry here before its version is published. 
 
 ## [Unreleased]
 
+## [1.7.19] - 2026-11-19
+
+- Translated the new Training Grounds-adjusted DPS tooltip, including season, verified record counts and cooldown-reduction curves.
+- Translated equipment Item Drop Rate and Meso Obtained summaries, their source explanation and the earring-scroll preset.
+- Fixed untranslated MP-cost options in the Potential simulator. Stat values and roll probabilities are unchanged.
+- Let Potential lines wrap beside the lock button instead of hiding their values on narrow cards.
+- Translated the Prime Cube lock message as its cost changes, including Korean large-number amounts.
+- Kept changing DPS values attached to the site's existing controls so translations survive updates.
+
+[Full diff](https://github.com/tomerh2001/maplescouter-enhancements/compare/v1.7.18...v1.7.19)
+
 ## [1.7.18] - 2026-11-12
 
 - Translated the new Sharenian Culvert statistics and Legion Arena pages, including changing selection counts, season headings, scores and timestamps.

@@ -62,7 +62,7 @@ test('boss-plan translation keeps the React span attached across repeated A/B ch
   const c = vm.createContext({
     HANGUL: /[가-힣]/, inOwnUi: () => false, location: {pathname: '/en/manual/result'},
     clarifiedControlLabel: () => null, isPlayerNameContext: () => false,
-    translateStatisticsFragment: () => false, translateDurationFragment: () => false, translateRankingSeason: () => false,
+    translateDpsFragment: () => false, translateEquipmentSummaryFragment: () => false, translateStatisticsFragment: () => false, translateDurationFragment: () => false, translateRankingSeason: () => false,
     rankingSeason: () => null, translateSoulMeasure: () => false,
     translateRewardFragment: () => false, translateString: ctx.translateString, BADGE_TITLES: {},
   });
@@ -488,4 +488,59 @@ test('statistics fragments stay scoped and keep their React text nodes', () => {
   diamond.nodeValue = 'MVP Diamond'; unit.nodeValue = '명';
   assert.equal(c.translateStatisticsFragment(diamond), false);
   assert.equal(c.translateStatisticsFragment(unit), false);
+});
+
+
+test('November 19 interface translations and parsed cube labels preserve values', () => {
+  for (const [ko,en] of Object.entries(read('data/overrides/2026-11-19.json'))) {
+    assert.equal(patch[ko],en); assert.equal(ctx.translateString(ko),en);
+    assert.doesNotMatch(en,/[가-힣]/);
+    assert.ok(ctx.translateString(en) === null || ctx.translateString(en) === en);
+  }
+  const labels=read('test/fixtures/cube-probability-labels-2026-11-19.json');
+  assert.equal(labels.length,73);
+  for(const {label,chance} of labels){
+    const en=ctx.translateString(label)||label;
+    assert.doesNotMatch(en,/[가-힣]/,label);
+    assert.deepEqual(en.match(/[\d.]+/g),label.match(/[\d.]+/g),label);
+    assert.match(chance,/^[\d.]+%$/);
+  }
+});
+
+test('DPS curves retain cooldown thresholds and record counts', () => {
+  for(const [ko,en] of [
+    ['쿨감 7초 미만','Cooldown reduction below 7s'],
+    ['쿨감 7초↑ 전용 (7초 기록 1,234건)','Cooldown reduction 7s+ (7s records: 1,234)'],
+    ['쿨감 7초↑ 전용 (통합 배율)','Cooldown reduction 7s+ (combined multiplier)'],
+  ]) { assert.equal(ctx.translateString(ko),en); assert.deepEqual(en.match(/[\d,]+/g),ko.match(/[\d,]+/g)); }
+  assert.equal(ctx.builtinRules('쿨감친구',{dict}),null);
+});
+
+test('DPS season rows and equipment abbreviations preserve React nodes and scope', () => {
+  const c=vm.createContext({location:{pathname:'/en/manual/result'}});
+  vm.runInContext(source.slice(source.indexOf('  var dpsSeasons'),source.indexOf('  // New statistics pages')),c);
+  let writes=0;
+  const parts=['5','기 · 신뢰 기록 ','1,234','건'].map(value=>({nodeType:3,get nodeValue(){return value},set nodeValue(v){writes++;value=v}}));
+  const parent={tagName:'DD',closest:()=>true,childNodes:parts};parts.forEach(n=>n.parentElement=parent);
+  for(const [season,count] of [['5','1,234'],['6','2,345']]){
+    parts[0].nodeValue=season;parts[2].nodeValue=count;
+    assert.equal(c.translateDpsFragment(parts[2]),true);
+    assert.equal(parts.map(n=>n.nodeValue).join(''),'Season '+season+' · Verified records: '+count);
+    assert.equal(parent.childNodes,parts);
+    const settledWrites=writes;c.translateDpsFragment(parts[0]);
+    assert.equal(writes,settledWrites,'settled text must not cause another observer mutation');
+  }
+  c.location.pathname='/en/input'; assert.equal(c.translateDpsFragment(parts[0]),false);
+  const badge={nodeValue:'드',parentElement:{textContent:'[드 200%]'}};
+  assert.equal(c.translateEquipmentSummaryFragment(badge),false);
+  c.location.pathname='/en/info';assert.equal(c.translateEquipmentSummaryFragment(badge),true);assert.equal(badge.nodeValue,'Drop');
+  badge.nodeValue='메';badge.parentElement.textContent='메';assert.equal(c.translateEquipmentSummaryFragment(badge),false);
+});
+
+
+test('locked Prime Cube message translates changing prices without changing their value', () => {
+  for (const [price,mesos] of [['7억 5000만','750,000,000'],['1억','100,000,000'],['12억 3456만 7890','1,234,567,890'],['1,000','1,000']]) {
+    assert.equal(ctx.translateString('프라임 큐브 사용 중 — 첫 번째 옵션이 고정되며 1회 '+price+' 메소가 적용됩니다'),
+      'Prime Cube: first line locked. Cost per use: '+mesos+' mesos.');
+  }
 });

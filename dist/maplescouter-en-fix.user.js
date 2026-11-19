@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MapleScouter Enhancements
 // @namespace    https://github.com/tomerh2001/maplescouter-en-fix
-// @version      1.7.18
+// @version      1.7.19
 // @description  Full GMS English for maplescouter.com, a character picker with auto-save, cloud sync by IGN and history on the Character page, and it remembers your language and server and removes ads.
 // @author       tomerh2001
 // @license      MIT
@@ -9,7 +9,7 @@
 // @match        https://www.maplescouter.com/*
 // @run-at       document-start
 // @grant        none
-// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.18
+// @require      https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/msfix-data.js?v=1.7.19
 // @updateURL    https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @downloadURL  https://raw.githubusercontent.com/tomerh2001/maplescouter-enhancements/main/dist/maplescouter-en-fix.user.js
 // @supportURL   https://github.com/tomerh2001/maplescouter-enhancements/issues
@@ -376,6 +376,17 @@
 
   // Built-in dynamic rules — run after dict/JSON rules miss.
   function builtinRules(t, d) {
+    var primeCost = t.match(/^프라임 큐브 사용 중 — 첫 번째 옵션이 고정되며 1회 ([\d,.\s경조억천만]+) 메소가 적용됩니다$/);
+    if (primeCost) {
+      var mesos = koreanNumberToEnglish(primeCost[1]);
+      if (mesos == null && /^[\d,]+$/.test(primeCost[1])) mesos = primeCost[1];
+      if (mesos != null) return 'Prime Cube: first line locked. Cost per use: ' + mesos + ' mesos.';
+    }
+    var dpsCurve = t.match(/^쿨감 (\d+)초 미만$/);
+    if (dpsCurve) return 'Cooldown reduction below ' + dpsCurve[1] + 's';
+    dpsCurve = t.match(/^쿨감 (\d+)초↑ 전용 \((?:(\d+)초 기록 ([\d,]+)건|통합 배율)\)$/);
+    if (dpsCurve) return 'Cooldown reduction ' + dpsCurve[1] + 's+ (' +
+      (dpsCurve[2] ? dpsCurve[2] + 's records: ' + dpsCurve[3] : 'combined multiplier') + ')';
     var culvertPrefix = '같은 헥환대 전체보다 몇 % 높고 낮은지(직업별 중앙값) · 30명 미만 직업은 뒤에 흐리게 · 누르면 위 그래프에 넣고 빼요(';
     if (t.indexOf(culvertPrefix) === 0 && /^\d+\/\d+\)$/.test(t.slice(culvertPrefix.length)))
       return d.dict[culvertPrefix] + t.slice(culvertPrefix.length);
@@ -1303,6 +1314,8 @@
     var clarified = clarifiedControlLabel(v, label && label.htmlFor, location.pathname);
     if (clarified) { if (v !== clarified) node.nodeValue = clarified; return; }
     if (isPlayerNameContext(node)) return;
+    if (translateDpsFragment(node)) return;
+    if (translateEquipmentSummaryFragment(node)) return;
     if (translateStatisticsFragment(node)) return;
     if (translateDurationFragment(node)) return;
     if (translateRankingSeason(node)) return;
@@ -1316,6 +1329,34 @@
     if (BADGE_TITLES[shown] && node.parentElement && !node.parentElement.title) {
       node.parentElement.title = BADGE_TITLES[shown];
     }
+  }
+
+  // The DPS reference row is four React-owned text nodes: season, separator,
+  // record count and unit. Retain their identities when either number changes.
+  var dpsSeasons = new WeakSet();
+  function translateDpsFragment(node) {
+    if (!/^\/en\/(?:manual\/)?(?:result|info)\/?$/.test(location.pathname)) return false;
+    var p = node.parentElement;
+    if (!p || p.tagName !== 'DD' || !p.closest('dl')) return false;
+    var parts = p.childNodes;
+    if (parts.length !== 4 || !Array.prototype.every.call(parts, function (n) { return n.nodeType === 3; })) return false;
+    if (parts[1].nodeValue !== '기 · 신뢰 기록 ' && !dpsSeasons.has(parts[0])) return false;
+    var season = parts[0].nodeValue.match(/^(?:Season )?(\d+)$/);
+    if (!season || !/^[\d,]+$/.test(parts[2].nodeValue)) return false;
+    dpsSeasons.add(parts[0]);
+    if (parts[0].nodeValue !== 'Season ' + season[1]) parts[0].nodeValue = 'Season ' + season[1];
+    if (parts[1].nodeValue !== ' · Verified records: ') parts[1].nodeValue = ' · Verified records: ';
+    if (parts[3].nodeValue !== '') parts[3].nodeValue = '';
+    return true;
+  }
+
+  // These one-syllable abbreviations belong only to equipment drop/meso badges.
+  function translateEquipmentSummaryFragment(node) {
+    if (!/^\/en\/(?:info|item-ranking)\/?$/.test(location.pathname)) return false;
+    var label = {'드':'Drop', '메':'Meso'}[node.nodeValue], p = node.parentElement;
+    if (!label || !p || !/^\[(?:드|메) [\d.]+%\]$/.test(p.textContent)) return false;
+    node.nodeValue = label;
+    return true;
   }
 
   // New statistics pages bypass i18next for these short labels. Keep units and

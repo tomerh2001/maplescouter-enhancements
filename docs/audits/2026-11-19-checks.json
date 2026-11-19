@@ -1,0 +1,71 @@
+{
+  "checked_at": "2026-11-19T14:28:55.329188+00:00",
+  "checks": [
+    {
+      "name": "firefox",
+      "status": 200,
+      "version": "1.7.18",
+      "updated": "2026-11-12T08:42:12Z"
+    },
+    {
+      "name": "chrome",
+      "status": 200,
+      "version": [
+        "Version  1.7.18    Updated  November 12, 2026     Flag concern     Offered by  tomerh2001    Size  1.12MiB "
+      ]
+    },
+    {
+      "name": "cloud-head",
+      "status": 200,
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "ETag, Retry-After, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset"
+      }
+    },
+    {
+      "name": "cloud-options",
+      "status": 204,
+      "headers": {
+        "Access-Control-Allow-Headers": "Content-Type, If-Match, If-None-Match, X-Confirm",
+        "Access-Control-Allow-Methods": "GET, HEAD, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "ETag, Retry-After, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset",
+        "Access-Control-Max-Age": "86400"
+      }
+    }
+  ],
+  "version": "1.7.19",
+  "tests": {
+    "passed": 212,
+    "failed": 0
+  },
+  "firefoxLint": {
+    "errors": 0,
+    "notices": 0,
+    "warnings": 11
+  },
+  "scan": {
+    "routes": 76,
+    "activeChunks": 192,
+    "changedChunks": 59,
+    "remainingExplainedFragments": 22,
+    "parseFailures": [],
+    "crawlFailures": []
+  },
+  "classAssets": {
+    "classes": 54,
+    "urls": 649,
+    "successfulImages": 641,
+    "expectedUnreleased404s": [
+      "/hexaskill/Hayato_12.png",
+      "/hexaskill/Lynn_12.png",
+      "/hexaskill/Moxuan_12.png",
+      "/hexaskill/Kanna_12.png",
+      "/hexaskill/Sia_12.png",
+      "/hexaskill/Erel_12.png",
+      "/hexaskill/Erel_8.png",
+      "/hexaskill/Erel_9.png"
+    ],
+    "unexpected": []
+  }
+}

@@ -45,6 +45,7 @@ See the [maintenance runbook](docs/WEEKLY-MAINTENANCE.md) and [audit reports](do
 ## Features
 
 ### Translations
+- **DPS and equipment summaries:** Training Grounds-adjusted DPS explanations, live season/record counts, and equipment drop/meso summaries display in English.
 - **New statistics and game pages:** Sharenian Culvert and Legion Arena labels, changing scores and season headings are translated. Culvert chart labels and class rows fit desktop and phone layouts.
 - **Thousands of translations added.** UI text that shipped Korean-only in English mode — menus, simulators, boss tables, tooltips, toasts — translated with proper Global MapleStory terminology (researched against official GMS names, not machine-translated).
 - **~55,000 official item/monster/map names**, built by joining KMS and GMS game data by ID, so equipment and drops from the Nexon API display *official* GMS names (몽환의 벨트 → Dreamy Belt, 어센틱심볼 → Sacred Symbol).

@@ -247,3 +247,19 @@ html[lang="en"][data-msfix-route="culvert"] main .columns-2:has(> button[aria-pr
 
 /* Recharts positions the final X label against the plot edge. Preserve its last digit. */
 html[lang="en"][data-msfix-route="culvert"] .recharts-surface { overflow: visible; }
+
+/* Potential cards reserve a lock button beside the first line. Let English
+   options wrap and grow the list, without changing the lock or hover targets. */
+html[lang="en"]:is([data-msfix-route="cube"], [data-msfix-route="cube-additional"]) main ul:has(> li > span.truncate[data-slot="tooltip-trigger"]) {
+  height: auto;
+  min-height: 60px;
+}
+html[lang="en"]:is([data-msfix-route="cube"], [data-msfix-route="cube-additional"]) main li:has(> span.truncate[data-slot="tooltip-trigger"]) {
+  height: auto;
+  min-height: 1rem;
+}
+html[lang="en"]:is([data-msfix-route="cube"], [data-msfix-route="cube-additional"]) main li > span.truncate[data-slot="tooltip-trigger"] {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}

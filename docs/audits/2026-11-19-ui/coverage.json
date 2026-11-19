@@ -1,0 +1,110 @@
+{
+  "pages": [
+    {
+      "headings": [],
+      "korean": [],
+      "path": "/en/manual/hexa",
+      "scroll": 390,
+      "text": "Favorite\nEdit\nManual Mode\nCharacter\nEfficiency∙Boss Clear Spec\nHEXA Core Order\nBossing Setup Optimization\nNo character result yet\nEnter your spec on the Input page and press the Result button to see detailed results here.\nGo to Input page",
+      "width": 390
+    },
+    {
+      "headings": [],
+      "korean": [],
+      "path": "/en/manual/optimizer",
+      "scroll": 390,
+      "text": "Favorite\nEdit\nManual Mode\nCharacter\nEfficiency∙Boss Clear Spec\nHEXA Core Order\nBossing Setup Optimization\nNo character result yet\nEnter your spec on the Input page and press the Result button to see detailed results here.\nGo to Input page",
+      "width": 390
+    },
+    {
+      "headings": [
+        "Character Info",
+        "Top Quick Bar"
+      ],
+      "korean": [],
+      "path": "/en/info",
+      "scroll": 390,
+      "text": "Favorite\nEdit\nCharacter Info\n\nSearch an IGN to view character information.\n\nSearch\n1\nSearch an IGN to load a character.\n2\nLook up past dates or switch equipment presets.\n3\nAccess these features from the quick bar above the character card.\nTop Quick Bar\nSave / Copy Image\nSave the character card as an image or copy it to the clipboard.\nHistory\nView this character's history by date.\nBadge List\nView the character's badges.\nItem Score Labels\nReference table for item score labels.\nCompare Characters\nCompare stats with another character side by side.\nEnhancement Simulators · Legion Champion · Legion · Boss Income · Outfit Analysis\nOpen the page with this character loaded.\n\nAlso available from Favorites above or the top search bar.",
+      "width": 390
+    },
+    {
+      "headings": [
+        "Item Ranking"
+      ],
+      "korean": [],
+      "path": "/en/item-ranking",
+      "scroll": 390,
+      "text": "Favorite\nEdit\nItem Ranking\nItem Score Ranking\nTop-Tier Emblem\nTop-Tier Weapon\nTop-Tier Secondary\nTop-Tier Reg Pot\nTop-Tier Bonus Pot\nTop-Tier Flame\n6s+ CDR Hat\nBrilliant Boss Accessory\n24★+ Items\nHipster Items\nClass Group\nAll\nWorld\nAll\nClass\nAll\nItem Slot\nAll\nMore Filters\nAll\n#\tWorld\tOwner\tItem Info\tItem Score\tDescription\n/\n100\n50",
+      "width": 390
+    },
+    {
+      "headings": [
+        "지하 수로 통계"
+      ],
+      "korean": [
+        "지하 수로 통계",
+        "불러오는 중…"
+      ],
+      "path": "/en/culvert",
+      "scroll": 390,
+      "text": "Favorite\nEdit\n지하 수로 통계\n불러오는 중…",
+      "width": 390
+    },
+    {
+      "headings": [
+        "Legion Arena"
+      ],
+      "korean": [],
+      "path": "/en/game/union-duel",
+      "scroll": 390,
+      "text": "Favorite\nEdit\nArcade I\nGuess the Stat\nLegion Arena\nArcade II\nRoulette\nDraw\nLadder\nArcade III\n10 Seconds Game\nNumber Baseball\nLegion Arena\n🏆 Regular-season tier rewards, including Legion Arena profile borders, are under consideration.\n📊 Match history\nRanked match\nFriendly match\nRanking\nLoading…",
+      "width": 390
+    }
+  ],
+  "classes": {
+    "selected": 54,
+    "unexpectedCatalogAssetFailures": 0,
+    "kaiserLinkRecheck": "rendered successfully after refreshing the isolated asset cache"
+  },
+  "picker": {
+    "at320": {
+      "left": 8,
+      "right": 312
+    },
+    "resizedOpenAt768": {
+      "left": 364,
+      "right": 704
+    }
+  },
+  "dps": {
+    "sourceComponent": 48234,
+    "syntheticValues": true,
+    "desktop": true,
+    "phoneWidths": [
+      390,
+      320
+    ],
+    "textNodesPreservedAfterUpdate": true
+  },
+  "localPreset": {
+    "created": true,
+    "autosave": true,
+    "reloadedLevel": 287,
+    "keyboardSelection": true,
+    "exportedNativeJson": true,
+    "import": "blocked by browser file-access setting; no permission changes"
+  },
+  "tooltipFixture": {
+    "menuCleanup": "passed",
+    "hoverRetention": "incomplete; developer input unavailable after navigation"
+  },
+  "calculations": {
+    "production": "HTTP 401 then 65-second timeout",
+    "isolated": "HTTP 403, explicit blocked state"
+  },
+  "limitations": [
+    "Page-shell checks do not cover signed-in states or successful calculations.",
+    "Culvert translated to Sharenian Culvert Statistics / Loading after the initial snapshot.",
+    "No production character writes."
+  ]
+}

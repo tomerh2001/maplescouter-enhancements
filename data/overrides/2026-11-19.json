@@ -1,0 +1,14 @@
+{
+  "연무장 보정 DPS": "Training Grounds-adjusted DPS",
+  "(보스 380 & 콜렉터 20분효율 기준)": "(Boss 380 & Collector 20-minute efficiency)",
+  "곡선": "Curve",
+  "산정일": "Calculated on",
+  "연무장 랭킹 그래프의 직업별 Q3를 내 헥사환산으로 맞춘 값이에요. 쿨감 7초 이상 캐릭터는 7초 기록 기준 곡선을 따로 써요.": "Class DPS at the 75th percentile, scaled to HEXA Equiv. Stat. A separate curve applies at 7s+ cooldown reduction.",
+  "귀고리작": "Earring scrolls",
+  "메소 획득량": "Meso Obtained",
+  "아이템 드롭률": "Item Drop Rate",
+  "장착 장비 잠재·에디셔널 합계(유니온·어빌·버프 등 제외)": "Equipment Potential and Bonus Potential only; excludes Legion, Inner Ability and buffs.",
+  "모든 스킬의 MP 소모": "All Skill MP Cost",
+  "모든 스킬의 MP 소모 -17%": "All Skill MP Cost -17%",
+  "모든 스킬의 MP 소모 -35%": "All Skill MP Cost -35%"
+}
